@@ -63,7 +63,7 @@ export default function CoveragePage() {
         title="Where we move cargo — local depth, regional reach"
         description="Ghana is our home base. We routinely coordinate into ECOWAS landlocked states and book international main carriage on major trade lanes."
         crumbs={[{ label: "Home", href: "/" }, { label: "Coverage" }]}
-        backgroundImage="/hero-slide-2.png"
+        backgroundImage="/hero-slide-2.webp"
       />
 
       {/* ── Region Coverage ── */}

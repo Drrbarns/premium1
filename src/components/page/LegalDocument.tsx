@@ -16,7 +16,7 @@ export function LegalDocument({
         eyebrow="Legal Information"
         title={title}
         description={`Last updated: ${updated}`}
-        backgroundImage="/hero-slide-2.png"
+        backgroundImage="/hero-slide-2.webp"
       />
       <Section background="muted" className="relative pb-24 md:pb-32 -mt-10 sm:-mt-16 z-10 bg-transparent">
         <Container size="narrow">

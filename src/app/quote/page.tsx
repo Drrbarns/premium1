@@ -107,7 +107,7 @@ export default function QuotePage() {
         title="Request a structured quotation"
         description="Four short steps (~3 minutes). The more complete your inputs, the faster we respond — with fewer clarification rounds."
         crumbs={[{ label: "Home", href: "/" }, { label: "Quote" }]}
-        backgroundImage="/hero-logistics.png"
+        backgroundImage="/hero-logistics.webp"
       />
 
       <section className="relative py-20 md:py-28 bg-[var(--surface-warm)]">

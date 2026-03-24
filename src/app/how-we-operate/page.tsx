@@ -130,7 +130,7 @@ export default function HowWeOperatePage() {
         title="How we operate — clear steps, accountable people"
         description="No black boxes. You always know where your file sits, who owns it, and what happens next — from first quote to signed POD."
         crumbs={[{ label: "Home", href: "/" }, { label: "How We Operate" }]}
-        backgroundImage="/hero-slide-2.png"
+        backgroundImage="/hero-slide-2.webp"
       />
 
       {/* ── Process Journey ── */}

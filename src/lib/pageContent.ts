@@ -242,7 +242,7 @@ export const MOCK_INSIGHTS: InsightPost[] = [
     published_at: "2025-03-01",
     featured: true,
     authorKey: "freight",
-    featuredImage: "/insights-featured.png",
+    featuredImage: "/insights-featured.webp",
   },
   {
     id: "2",
@@ -254,7 +254,7 @@ export const MOCK_INSIGHTS: InsightPost[] = [
     published_at: "2025-02-22",
     featured: false,
     authorKey: "broker",
-    featuredImage: "/insights-featured.png",
+    featuredImage: "/insights-featured.webp",
   },
   {
     id: "3",
@@ -266,7 +266,7 @@ export const MOCK_INSIGHTS: InsightPost[] = [
     published_at: "2025-02-14",
     featured: false,
     authorKey: "freight",
-    featuredImage: "/insights-featured.png",
+    featuredImage: "/insights-featured.webp",
   },
   {
     id: "4",
@@ -278,7 +278,7 @@ export const MOCK_INSIGHTS: InsightPost[] = [
     published_at: "2025-02-08",
     featured: false,
     authorKey: "default",
-    featuredImage: "/insights-featured.png",
+    featuredImage: "/insights-featured.webp",
   },
   {
     id: "5",
@@ -290,7 +290,7 @@ export const MOCK_INSIGHTS: InsightPost[] = [
     published_at: "2025-01-28",
     featured: false,
     authorKey: "broker",
-    featuredImage: "/insights-featured.png",
+    featuredImage: "/insights-featured.webp",
   },
   {
     id: "6",
@@ -302,7 +302,7 @@ export const MOCK_INSIGHTS: InsightPost[] = [
     published_at: "2025-01-15",
     featured: false,
     authorKey: "default",
-    featuredImage: "/insights-featured.png",
+    featuredImage: "/insights-featured.webp",
   },
   {
     id: "7",
@@ -314,7 +314,7 @@ export const MOCK_INSIGHTS: InsightPost[] = [
     published_at: "2025-03-10",
     featured: false,
     authorKey: "broker",
-    featuredImage: "/insights-featured.png",
+    featuredImage: "/insights-featured.webp",
   },
   {
     id: "8",
@@ -326,7 +326,7 @@ export const MOCK_INSIGHTS: InsightPost[] = [
     published_at: "2025-03-05",
     featured: false,
     authorKey: "freight",
-    featuredImage: "/insights-featured.png",
+    featuredImage: "/insights-featured.webp",
   },
 ];
 

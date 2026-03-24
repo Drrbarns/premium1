@@ -31,7 +31,7 @@ export function CTABanner() {
       {/* Background Image */}
       <div className="absolute inset-0 -top-16 -bottom-16" style={{ transform: `translateY(${offset}px)` }} aria-hidden>
         <Image
-          src="/hero-logistics.png"
+          src="/hero-logistics.webp"
           alt="Logistics background"
           fill
           className="object-cover pointer-events-none"

@@ -60,7 +60,7 @@ export default function AboutPage() {
         title="Built for serious shippers in Ghana and beyond"
         description="We combine hands-on port and corridor experience with the discipline corporate teams expect: clear quotes, accountable execution, and documentation you can audit."
         crumbs={[{ label: "Home", href: "/" }, { label: "About" }]}
-        backgroundImage="/hero-slide-1.png"
+        backgroundImage="/hero-slide-1.webp"
       />
 
       {/* ── Story & Mission ── */}
@@ -94,7 +94,7 @@ export default function AboutPage() {
             
             <AnimateOnScroll animation="slide-left" className="relative">
               <div className="relative aspect-[4/5] sm:aspect-square rounded-3xl overflow-hidden shadow-2xl">
-                <Image src="/about-story.png" alt="Port and logistics operations" fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" priority />
+                <Image src="/about-story.webp" alt="Port and logistics operations" fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" priority />
                 <div className="absolute inset-0 bg-gradient-to-t from-[var(--navy)] via-[var(--navy)]/40 to-transparent" />
                 
                 <div className="absolute bottom-0 left-0 right-0 p-8 md:p-12 text-white">
@@ -220,7 +220,7 @@ export default function AboutPage() {
                 <div className="group relative h-full">
                   <div className="relative rounded-3xl overflow-hidden bg-[var(--navy)] aspect-[3/4] flex flex-col justify-end p-8 md:p-10">
                     <Image
-                      src="/team-person-bg.png"
+                      src="/team-person-bg.webp"
                       alt="Leadership portrait background"
                       fill
                       className="object-cover object-[62%_center] group-hover:scale-105 transition-transform duration-700"

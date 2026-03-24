@@ -26,7 +26,7 @@ export default function CareersPage() {
         title="Build logistics careers that mean something"
         description="We hire people who like fixing problems at borders, berths, and warehouses — not slide decks. If that is you, we want to talk."
         crumbs={[{ label: "Home", href: "/" }, { label: "Careers" }]}
-        backgroundImage="/hero-slide-2.png"
+        backgroundImage="/hero-slide-2.webp"
       />
 
       {/* ── Culture & Perks ── */}
@@ -52,7 +52,7 @@ export default function CareersPage() {
             
             <AnimateOnScroll animation="slide-left">
               <div className="relative aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl border border-slate-200">
-                <Image src="/careers-culture.png" alt="Premium 1 Logistics team and workplace" fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" priority />
+                <Image src="/careers-culture.webp" alt="Premium 1 Logistics team and workplace" fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" priority />
                 <div className="absolute inset-0 bg-gradient-to-t from-[var(--navy)]/40 to-transparent pointer-events-none" />
               </div>
             </AnimateOnScroll>

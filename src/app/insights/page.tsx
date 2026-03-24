@@ -22,7 +22,7 @@ export default function InsightsPage() {
         title="Practical logistics intelligence"
         description="Short, operator-written pieces on clearing cargo in Ghana, choosing modes, and running reliable corridors — not generic marketing fluff."
         crumbs={[{ label: "Home", href: "/" }, { label: "Insights" }]}
-        backgroundImage="/hero-slide-1.png"
+        backgroundImage="/hero-slide-1.webp"
       />
 
       {/* ── Featured Article ── */}
@@ -62,7 +62,7 @@ export default function InsightsPage() {
                 
                 <div className="lg:col-span-5 flex flex-col items-center lg:items-end gap-8 relative z-20">
                   <div className="relative w-full aspect-[4/3] max-w-md rounded-2xl overflow-hidden shadow-2xl border-4 border-white/5 group-hover:border-white/10 transition-colors duration-500">
-                    <Image src="/insights-featured.png" alt="" fill className="object-cover group-hover:scale-105 transition-transform duration-700" sizes="(max-width: 1024px) 100vw, 50vw" />
+                    <Image src="/insights-featured.webp" alt="" fill className="object-cover group-hover:scale-105 transition-transform duration-700" sizes="(max-width: 1024px) 100vw, 50vw" />
                     <div className="absolute inset-0 bg-[var(--navy)]/10 group-hover:bg-transparent transition-colors duration-500" />
                   </div>
                   <Link

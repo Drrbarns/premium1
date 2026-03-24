@@ -24,7 +24,7 @@ export default function TestimonialsPage() {
         title="Trusted by teams who cannot afford delays"
         description="Manufacturers, traders, and project owners rely on us when documentation, corridors, and timelines all have to line up."
         crumbs={[{ label: "Home", href: "/" }, { label: "Client Success" }]}
-        backgroundImage="/hero-slide-1.png"
+        backgroundImage="/hero-slide-1.webp"
       />
 
       {/* ── Featured Testimonial (Dark) ── */}

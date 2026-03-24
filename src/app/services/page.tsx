@@ -26,7 +26,7 @@ export default function ServicesPage() {
         title="Every mode, every milestone—one accountable team"
         description="From the first booking to proof of delivery, we stitch together forwarding, clearance, storage, and haulage so you are not juggling disconnected vendors."
         crumbs={[{ label: "Home", href: "/" }, { label: "Services" }]}
-        backgroundImage="/services-hero.png"
+        backgroundImage="/services-hero.webp"
       />
 
       <Section background="cream" className="!pt-12 !pb-16 md:!pb-20">

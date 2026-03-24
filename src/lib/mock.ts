@@ -9,7 +9,7 @@ export const MOCK_SERVICES = [
       "End-to-end freight solutions by air, sea, and road across Ghana, West Africa, and international corridors.",
     icon: "Package",
     sort_order: 1,
-    image: "/services-hero.png",
+    image: "/services-hero.webp",
   },
   {
     id: "2",
@@ -19,7 +19,7 @@ export const MOCK_SERVICES = [
       "Streamlined import and export documentation and coordination for seamless cross-border trade.",
     icon: "Ship",
     sort_order: 2,
-    image: "/services-hero.png",
+    image: "/services-hero.webp",
   },
   {
     id: "3",
@@ -28,7 +28,7 @@ export const MOCK_SERVICES = [
     description: "Expert customs brokerage ensuring compliant, timely clearance at Ghana and regional ports.",
     icon: "FileCheck",
     sort_order: 3,
-    image: "/services-hero.png",
+    image: "/services-hero.webp",
   },
   {
     id: "4",
@@ -37,7 +37,7 @@ export const MOCK_SERVICES = [
     description: "Secure storage and efficient distribution across our network of facilities.",
     icon: "Warehouse",
     sort_order: 4,
-    image: "/services-hero.png",
+    image: "/services-hero.webp",
   },
   {
     id: "5",
@@ -46,7 +46,7 @@ export const MOCK_SERVICES = [
     description: "Reliable inland haulage and last-mile delivery across Ghana and the West Africa corridor.",
     icon: "Truck",
     sort_order: 5,
-    image: "/services-hero.png",
+    image: "/services-hero.webp",
   },
   {
     id: "6",
@@ -55,7 +55,7 @@ export const MOCK_SERVICES = [
     description: "Complete door-to-door logistics from origin to final destination.",
     icon: "Home",
     sort_order: 6,
-    image: "/services-hero.png",
+    image: "/services-hero.webp",
   },
   {
     id: "7",
@@ -64,7 +64,7 @@ export const MOCK_SERVICES = [
     description: "Integrated supply chain consulting and support for complex logistics requirements.",
     icon: "Network",
     sort_order: 7,
-    image: "/services-hero.png",
+    image: "/services-hero.webp",
   },
 ];
 
@@ -85,7 +85,7 @@ export const MOCK_TESTIMONIALS: Array<{
       "Premium 1 Logistics delivered our mining equipment from Tema to Burkina Faso ahead of schedule. Professional, transparent, and reliable.",
     rating: 5,
     role: "Operations Director",
-    avatar: "/testimonial-avatar.png",
+    avatar: "/testimonial-avatar.webp",
   },
   {
     id: "2",
@@ -95,7 +95,7 @@ export const MOCK_TESTIMONIALS: Array<{
       "Their customs clearance team saved us days of delays. Clear communication and documentation every step of the way.",
     rating: 5,
     role: "Head of Procurement",
-    avatar: "/testimonial-avatar.png",
+    avatar: "/testimonial-avatar.webp",
   },
   {
     id: "3",
@@ -104,7 +104,7 @@ export const MOCK_TESTIMONIALS: Array<{
     quote: "We use Premium 1 for all our West Africa shipments. Consistent quality and competitive rates.",
     rating: 5,
     role: "Supply Chain Lead",
-    avatar: "/testimonial-avatar.png",
+    avatar: "/testimonial-avatar.webp",
   },
 ];
 

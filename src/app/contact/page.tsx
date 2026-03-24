@@ -57,7 +57,7 @@ export default function ContactPage() {
         title="Speak with a logistics specialist"
         description={`Whether you have a live shipment, a tender, or a corridor you are exploring — we aim to respond within ${siteConfig.responseSlaHours} hours on business days and assign a named contact.`}
         crumbs={[{ label: "Home", href: "/" }, { label: "Contact" }]}
-        backgroundImage="/hero-slide-1.png"
+        backgroundImage="/hero-slide-1.webp"
       />
 
       {/* ── Quick Contact Methods ── */}
@@ -132,7 +132,7 @@ export default function ContactPage() {
                 {/* Office Image Card */}
                 <div className="relative aspect-[16/10] w-full rounded-3xl overflow-hidden shadow-lg border border-slate-200/80 group">
                   <Image 
-                    src="/contact-office.png" 
+                    src="/contact-office.webp" 
                     alt="Premium 1 Logistics office" 
                     fill 
                     className="object-cover group-hover:scale-105 transition-transform duration-700" 

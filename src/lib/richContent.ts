@@ -44,7 +44,7 @@ export const EXTENDED_TESTIMONIALS: Array<{
     client_name: "Ama Serwaa",
     company: "Coastal Retail Group",
     role: "Logistics Manager",
-    avatar: "/testimonial-avatar.png",
+    avatar: "/testimonial-avatar.webp",
     quote:
       "Their milestone emails land before we ask. We stopped running parallel spreadsheets for Tema inbound.",
     rating: 5,
@@ -54,7 +54,7 @@ export const EXTENDED_TESTIMONIALS: Array<{
     client_name: "James Koomson",
     company: "Tema Mining Supply",
     role: "Procurement Director",
-    avatar: "/testimonial-avatar.png",
+    avatar: "/testimonial-avatar.webp",
     quote:
       "First project where our Burkina convoy arrived without a single customs stop we did not expect. That is rare.",
     rating: 5,
@@ -64,7 +64,7 @@ export const EXTENDED_TESTIMONIALS: Array<{
     client_name: "Fatima Diallo",
     company: "Sahel Agro Partners",
     role: "COO",
-    avatar: "/testimonial-avatar.png",
+    avatar: "/testimonial-avatar.webp",
     quote:
       "Premium 1 runs our Abidjan–Accra lane as if it were their own P&L. Transparent pass-through on every local charge.",
     rating: 5,
@@ -74,7 +74,7 @@ export const EXTENDED_TESTIMONIALS: Array<{
     client_name: "Eric Boateng",
     company: "Volta Textiles Ltd",
     role: "MD",
-    avatar: "/testimonial-avatar.png",
+    avatar: "/testimonial-avatar.webp",
     quote:
       "From LC documents to final warehouse delivery, one thread. Our bank’s doc checker even commented on the consistency.",
     rating: 5,
@@ -84,7 +84,7 @@ export const EXTENDED_TESTIMONIALS: Array<{
     client_name: "Nana Yaa Fremah",
     company: "West Africa FMCG Co.",
     role: "Head of Supply Chain",
-    avatar: "/testimonial-avatar.png",
+    avatar: "/testimonial-avatar.webp",
     quote:
       "We benchmarked three forwarders. Premium 1 was not the cheapest line item—they were the cheapest total landed cost.",
     rating: 5,

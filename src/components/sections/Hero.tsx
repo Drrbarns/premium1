@@ -7,7 +7,7 @@ export function Hero() {
   return (
     <section className="relative min-h-[70vh] md:min-h-[85vh] flex items-center justify-center overflow-hidden">
       <Image
-        src="/hero-logistics.png"
+        src="/hero-logistics.webp"
         alt="Premium 1 Logistics operations - Warehouses, vehicles, and cargo handling in Ghana and West Africa"
         fill
         priority
