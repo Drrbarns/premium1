@@ -67,7 +67,7 @@ export default function RootLayout({
       <head>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       </head>
-      <body className={`${dmSans.variable} ${syne.variable} font-sans antialiased`}>
+      <body className={`${dmSans.variable} ${syne.variable} font-sans antialiased overflow-x-hidden`}>
         <Header />
         <main className="min-h-screen">{children}</main>
         <Footer />

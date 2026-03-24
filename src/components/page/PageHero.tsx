@@ -24,7 +24,7 @@ export function PageHero({ eyebrow, title, description, crumbs, variant = "dark"
   return (
     <div
       className={cn(
-        "relative overflow-hidden pt-24 pb-20 md:pt-32 md:pb-28",
+        "relative overflow-hidden pt-20 pb-14 md:pt-32 md:pb-28",
         !backgroundImage && isDark && "bg-[var(--navy)] mesh-hero",
         !backgroundImage && !isDark && "bg-white mesh-hero-light",
         isDark ? "text-white" : "text-[var(--ink)]",
@@ -50,7 +50,7 @@ export function PageHero({ eyebrow, title, description, crumbs, variant = "dark"
       {isDark && <div className={cn("absolute inset-0 hero-grid pointer-events-none", backgroundImage && "opacity-20")} aria-hidden />}
       <Container className="relative z-10">
         {crumbs && crumbs.length > 0 && (
-          <nav className="flex flex-wrap items-center gap-2 text-sm mb-8" aria-label="Breadcrumb">
+          <nav className="flex flex-wrap items-center gap-2 text-xs sm:text-sm mb-6 md:mb-8" aria-label="Breadcrumb">
             {crumbs.map((c, i) => (
               <span key={i} className="flex items-center gap-2">
                 {i > 0 && (
@@ -86,12 +86,12 @@ export function PageHero({ eyebrow, title, description, crumbs, variant = "dark"
             {eyebrow}
           </p>
         )}
-        <h1 className="font-display font-bold text-4xl sm:text-5xl md:text-6xl lg:text-[3.5rem] leading-[1.08] tracking-tight max-w-4xl">
+        <h1 className="font-display font-bold text-3xl sm:text-5xl md:text-6xl lg:text-[3.5rem] leading-[1.08] tracking-tight max-w-4xl">
           {title}
         </h1>
         <p
           className={cn(
-            "mt-6 text-lg md:text-xl max-w-2xl leading-relaxed",
+            "mt-4 md:mt-6 text-base md:text-xl max-w-2xl leading-relaxed",
             isDark ? "text-white/75" : "text-slate-600"
           )}
         >

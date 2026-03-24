@@ -137,7 +137,7 @@ export default function QuotePage() {
                             key={s.id}
                             type="button"
                             onClick={() => setStep(i)}
-                            className={`flex items-center gap-3 rounded-2xl px-4 py-3 text-left transition-all min-w-[140px] flex-1 sm:flex-none ${
+                            className={`flex items-center gap-3 rounded-2xl px-3.5 sm:px-4 py-3 text-left transition-all min-w-0 basis-[calc(50%-0.25rem)] sm:basis-auto sm:min-w-[140px] ${
                               active
                                 ? "bg-[var(--navy)] text-white shadow-lg shadow-[var(--navy)]/20"
                                 : done
@@ -152,11 +152,11 @@ export default function QuotePage() {
                             >
                               {done && !active ? <CheckCircle2 size={20} /> : <Icon size={20} />}
                             </span>
-                            <span>
+                            <span className="min-w-0">
                               <span className={`block text-xs font-bold uppercase tracking-wider mb-0.5 ${active ? 'text-white/60' : 'opacity-60'}`}>
                                 Step {i + 1}
                               </span>
-                              <span className="block font-display font-bold">{s.title}</span>
+                              <span className="block font-display font-bold truncate">{s.title}</span>
                             </span>
                           </button>
                         );
@@ -255,7 +255,7 @@ export default function QuotePage() {
                       <div className="space-y-6 animate-fade-up">
                         <div>
                           <label className="block text-sm font-semibold text-[var(--ink)] mb-3">Shipping method</label>
-                          <div className="grid grid-cols-3 gap-4">
+                          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                             {(["sea", "air", "road"] as const).map((m) => (
                               <label
                                 key={m}

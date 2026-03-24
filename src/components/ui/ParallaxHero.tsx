@@ -34,7 +34,7 @@ export function ParallaxHero() {
   const next = () => setSlide((s) => (s + 1) % HERO_SLIDES.length);
 
   return (
-    <section className="relative min-h-[76vh] md:min-h-[90vh] flex items-center justify-center overflow-hidden">
+    <section className="relative min-h-[74vh] md:min-h-[90vh] flex items-center justify-center overflow-hidden">
       <div
         ref={imageRef}
         className="absolute inset-0 -top-24 -bottom-24"
@@ -62,9 +62,9 @@ export function ParallaxHero() {
       <div className="absolute inset-0 bg-gradient-to-b from-[var(--navy)]/75 via-[var(--navy)]/55 to-[var(--navy)]/70" />
 
       {/* Content: two separate regions so text never sits behind buttons */}
-      <div className="relative z-10 w-full max-w-4xl mx-auto px-4 flex flex-col items-center flex-1 justify-center pt-16 pb-8">
+      <div className="relative z-10 w-full max-w-4xl mx-auto px-4 flex flex-col items-center flex-1 justify-center pt-20 md:pt-16 pb-10 md:pb-8">
         {/* Slide content only – centered in this block */}
-        <div className="relative w-full text-center flex-shrink-0 min-h-[200px] sm:min-h-[240px] flex flex-col items-center justify-center">
+        <div className="relative w-full text-center flex-shrink-0 min-h-[220px] sm:min-h-[240px] flex flex-col items-center justify-center">
           {HERO_SLIDES.map((item, i) => (
             <div
               key={i}
@@ -75,11 +75,11 @@ export function ParallaxHero() {
               }`}
               aria-hidden={i !== slide}
             >
-              <h1 className="font-display font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-white tracking-tight leading-[1.15] max-w-3xl mx-auto drop-shadow-lg">
+              <h1 className="font-display font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-white tracking-tight leading-[1.15] max-w-3xl mx-auto drop-shadow-lg px-2">
                 {item.headline}
               </h1>
               {item.subtext && (
-                <p className="mt-4 sm:mt-5 text-sm sm:text-base md:text-lg text-slate-200 max-w-2xl mx-auto leading-relaxed drop-shadow-[0_1px_2px_rgba(0,0,0,0.5)]">
+                <p className="mt-4 sm:mt-5 text-sm sm:text-base md:text-lg text-slate-200 max-w-2xl mx-auto leading-relaxed drop-shadow-[0_1px_2px_rgba(0,0,0,0.5)] px-3 sm:px-0">
                   {item.subtext}
                 </p>
               )}
@@ -104,7 +104,7 @@ export function ParallaxHero() {
       <button
         type="button"
         onClick={prev}
-        className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-white/20 hover:bg-white/30 text-white flex items-center justify-center transition-colors"
+        className="hidden sm:flex absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-white/20 hover:bg-white/30 text-white items-center justify-center transition-colors"
         aria-label="Previous slide"
       >
         <ChevronLeft size={24} />
@@ -112,14 +112,14 @@ export function ParallaxHero() {
       <button
         type="button"
         onClick={next}
-        className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-white/20 hover:bg-white/30 text-white flex items-center justify-center transition-colors"
+        className="hidden sm:flex absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-white/20 hover:bg-white/30 text-white items-center justify-center transition-colors"
         aria-label="Next slide"
       >
         <ChevronRight size={24} />
       </button>
 
       {/* Dots */}
-      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex gap-2">
+      <div className="absolute bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 z-20 flex gap-2">
         {HERO_SLIDES.map((_, i) => (
           <button
             key={i}

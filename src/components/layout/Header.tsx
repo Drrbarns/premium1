@@ -32,11 +32,11 @@ export function Header() {
       className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
         scrolled 
-          ? "bg-[var(--navy)]/95 backdrop-blur-md border-b border-white/10 shadow-lg py-3" 
-          : "bg-[var(--navy)]/40 backdrop-blur-sm border-b border-transparent py-5 md:py-6"
+          ? "bg-[var(--navy)]/95 backdrop-blur-md border-b border-white/10 shadow-lg py-2.5 md:py-3" 
+          : "bg-[var(--navy)]/40 backdrop-blur-sm border-b border-transparent py-3 md:py-6"
       )}
     >
-      <div className="w-full max-w-7xl mx-auto px-4 md:px-6 xl:px-8">
+      <div className="w-full max-w-7xl mx-auto px-3 sm:px-4 md:px-6 xl:px-8">
         <div className="flex items-center justify-between">
           <Link
             href="/"
@@ -47,7 +47,7 @@ export function Header() {
               alt="Premium 1 Logistics LTD"
               width={623}
               height={569}
-              className="h-12 w-auto md:h-14 drop-shadow-[0_2px_10px_rgba(0,0,0,0.35)] transition-transform group-hover:scale-[1.02]"
+              className="h-9 w-auto sm:h-10 md:h-14 drop-shadow-[0_2px_10px_rgba(0,0,0,0.35)] transition-transform group-hover:scale-[1.02]"
               priority
             />
           </Link>
@@ -77,7 +77,7 @@ export function Header() {
           </div>
 
           <button
-            className="lg:hidden p-2 rounded-full text-white hover:bg-white/10 transition-colors"
+            className="lg:hidden p-2.5 rounded-full text-white hover:bg-white/10 transition-colors"
             onClick={() => setOpen(!open)}
             aria-label="Menu"
           >
@@ -86,13 +86,13 @@ export function Header() {
         </div>
 
         {open && (
-          <div className="absolute top-full left-0 right-0 bg-[var(--navy)]/95 backdrop-blur-xl border-b border-white/10 p-6 shadow-2xl lg:hidden animate-fade-down">
+          <div className="absolute top-full left-3 right-3 mt-2 bg-[var(--navy)]/95 backdrop-blur-xl border border-white/10 rounded-2xl p-4 sm:p-5 shadow-2xl lg:hidden animate-fade-down">
             <nav className="flex flex-col gap-2">
               {navLinks.map((l) => (
                 <Link
                   key={l.href}
                   href={l.href}
-                  className="py-3 px-4 rounded-xl text-white/90 hover:bg-white/10 font-medium transition-colors"
+                  className="py-2.5 px-3.5 rounded-xl text-white/90 hover:bg-white/10 font-medium transition-colors"
                   onClick={() => setOpen(false)}
                 >
                   {l.label}
@@ -100,7 +100,7 @@ export function Header() {
               ))}
               <Link
                 href="/contact"
-                className="py-3 px-4 rounded-xl text-white/90 hover:bg-white/10 font-medium transition-colors"
+                className="py-2.5 px-3.5 rounded-xl text-white/90 hover:bg-white/10 font-medium transition-colors"
                 onClick={() => setOpen(false)}
               >
                 Contact

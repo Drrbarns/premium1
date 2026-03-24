@@ -42,25 +42,25 @@ export function Footer() {
         style={{ backgroundSize: "64px 64px" }}
         aria-hidden
       />
-      <div className="absolute top-0 right-0 w-[600px] h-[600px] rounded-full bg-[var(--accent)]/5 blur-[150px] pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] rounded-full bg-white/5 blur-[120px] pointer-events-none" />
+      <div className="absolute top-0 right-0 w-[420px] h-[420px] md:w-[600px] md:h-[600px] rounded-full bg-[var(--accent)]/5 blur-[120px] md:blur-[150px] pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-[340px] h-[340px] md:w-[500px] md:h-[500px] rounded-full bg-white/5 blur-[100px] md:blur-[120px] pointer-events-none" />
 
       <Container className="relative z-10">
         {/* Main Footer Content */}
-        <div className="pt-16 pb-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8">
+        <div className="pt-14 md:pt-16 pb-10 md:pb-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 md:gap-12 lg:gap-8">
           
           {/* Brand Column */}
-          <div className="lg:col-span-4 pr-4">
+          <div className="lg:col-span-4 pr-0 lg:pr-4">
             <Link href="/" className="inline-flex items-center mb-6">
               <Image
                 src="/premium1-logo.png"
                 alt="Premium 1 Logistics LTD"
                 width={623}
                 height={569}
-                className="h-16 w-auto md:h-20"
+                className="h-14 w-auto md:h-20"
               />
             </Link>
-            <p className="text-slate-400 leading-relaxed mb-8 max-w-sm">
+            <p className="text-slate-400 leading-relaxed mb-8 max-w-md">
               {SITE_SETTINGS.tagline} End-to-end freight, clearance, and distribution tailored for serious shippers.
             </p>
             
@@ -80,13 +80,13 @@ export function Footer() {
               </li>
               <li className="flex items-start gap-3 text-slate-300">
                 <MapPin size={18} className="text-[var(--accent)] flex-shrink-0 mt-1" />
-                <span className="max-w-[200px]">{SITE_SETTINGS.address}</span>
+                <span className="max-w-[260px]">{SITE_SETTINGS.address}</span>
               </li>
             </ul>
           </div>
 
           {/* Links Columns */}
-          <div className="lg:col-span-8 grid grid-cols-2 md:grid-cols-3 gap-8">
+          <div className="lg:col-span-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
             <div>
               <h4 className="font-display font-bold text-white text-sm uppercase tracking-wider mb-6">Company</h4>
               <ul className="space-y-4">
@@ -129,7 +129,7 @@ export function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="py-8 border-t border-white/10 flex flex-col lg:flex-row justify-between items-center gap-6">
+        <div className="py-7 md:py-8 border-t border-white/10 flex flex-col lg:flex-row justify-between items-center gap-5 md:gap-6">
           <div className="flex flex-wrap gap-x-8 gap-y-3 justify-center lg:justify-start text-sm">
             {legal.map((l) => (
               <Link key={l.href} href={l.href} className="text-slate-500 hover:text-white transition-colors">
@@ -152,7 +152,7 @@ export function Footer() {
         </div>
         
         {/* Copyright */}
-        <div className="pb-8 text-center lg:text-left text-xs text-slate-600 flex flex-col md:flex-row justify-between items-center gap-2">
+        <div className="pb-7 md:pb-8 text-center lg:text-left text-xs text-slate-600 flex flex-col md:flex-row justify-between items-center gap-2">
           <span>© {new Date().getFullYear()} {SITE_SETTINGS.company_name}. All rights reserved.</span>
           <span>Designed for Ghana, West Africa & International Trade.</span>
         </div>
