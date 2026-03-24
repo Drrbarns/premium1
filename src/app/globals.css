@@ -1,0 +1,153 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #111827;
+  --ink: #111827;
+  --ink-muted: #374151;
+  --surface: #ffffff;
+  --surface-elevated: #ffffff;
+  --surface-warm: #f8fafc;
+  --accent: #2ec4b6;
+  --accent-hover: #26a79b;
+  --accent-soft: rgba(46, 196, 182, 0.14);
+  --navy: #0b1f3a;
+  --navy-light: #123056;
+  --font-sans: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-syne), ui-sans-serif, system-ui, sans-serif;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-syne), ui-sans-serif, system-ui, sans-serif;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+/* Subtle grain overlay (optional on sections) */
+.grain::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.04;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Inner page hero mesh */
+.mesh-hero {
+  background-color: var(--navy);
+  background-image:
+    radial-gradient(ellipse 100% 80% at 0% 0%, rgba(46, 196, 182, 0.22) 0%, transparent 55%),
+    radial-gradient(ellipse 70% 60% at 100% 100%, rgba(11, 31, 58, 0.22) 0%, transparent 50%),
+    linear-gradient(180deg, var(--navy-light) 0%, var(--navy) 100%);
+}
+
+.mesh-hero-light {
+  background-color: var(--surface-warm);
+  background-image:
+    radial-gradient(ellipse 80% 60% at 100% 0%, rgba(46, 196, 182, 0.1) 0%, transparent 50%),
+    radial-gradient(ellipse 60% 50% at 0% 100%, rgba(11, 31, 58, 0.06) 0%, transparent 45%);
+}
+
+/* Grid pattern for heroes */
+.hero-grid {
+  background-size: 48px 48px;
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-up {
+  animation: fade-in-up 0.7s ease-out forwards;
+}
+
+.btn-hover-lift {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.btn-hover-lift:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px -8px rgba(12, 18, 34, 0.25);
+}
+.btn-hover-lift:active {
+  transform: translateY(0);
+}
+
+.card-hover {
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s ease, border-color 0.35s ease;
+}
+.card-hover:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 20px 40px -16px rgba(12, 18, 34, 0.12);
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 2px;
+  background: var(--accent);
+  transition: width 0.28s ease;
+}
+.nav-link:hover::after {
+  width: 100%;
+}
+
+/* Form inputs (quote) */
+.input-premium {
+  @apply w-full rounded-xl border border-slate-200/90 bg-white px-4 py-3.5 text-slate-900 shadow-sm transition-all duration-200;
+  @apply placeholder:text-slate-400 focus:border-[var(--accent)] focus:outline-none focus:ring-2 focus:ring-[var(--accent)]/20;
+}
+
+/* Prose for long content */
+.prose-page {
+  @apply text-slate-600 leading-relaxed text-[17px];
+}
+.prose-page p {
+  @apply mb-4;
+}
+.prose-page strong {
+  @apply text-slate-900 font-semibold;
+}
+
+/* FAQ details */
+.faq-details summary {
+  list-style: none;
+}
+.faq-details summary::-webkit-details-marker {
+  display: none;
+}
+
+@keyframes pop-in {
+  from {
+    opacity: 0;
+    transform: scale(0.97) translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
