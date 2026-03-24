@@ -40,8 +40,8 @@ export function CTABanner() {
         />
       </div>
       
-      {/* 40% Overlay */}
-      <div className="absolute inset-0 bg-[#0B1F3A]/60 pointer-events-none" aria-hidden />
+      {/* 18% Overlay */}
+      <div className="absolute inset-0 bg-[#0B1F3A]/18 pointer-events-none" aria-hidden />
       
       {/* Subtle grid pattern for texture */}
       <div className="absolute inset-0 hero-grid opacity-20 pointer-events-none" aria-hidden />

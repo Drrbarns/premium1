@@ -16,8 +16,7 @@ export function ProcessPreview() {
       className="relative py-24 md:py-32 overflow-hidden bg-fixed bg-center bg-cover text-white"
       style={{ backgroundImage: "url('/process-bg.webp')" }}
     >
-      <div className="absolute inset-0 bg-[var(--navy)]/80 mix-blend-multiply" aria-hidden />
-      <div className="absolute inset-0 bg-slate-900/40" aria-hidden />
+      <div className="absolute inset-0 bg-[#0B1F3A]/18" aria-hidden />
       <div className="absolute inset-0 hero-grid opacity-10" aria-hidden />
       
       <Container className="relative z-10">

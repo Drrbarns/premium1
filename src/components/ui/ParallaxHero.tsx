@@ -59,7 +59,7 @@ export function ParallaxHero() {
           </div>
         ))}
       </div>
-      <div className="absolute inset-0 bg-gradient-to-b from-[var(--navy)]/75 via-[var(--navy)]/55 to-[var(--navy)]/70" />
+      <div className="absolute inset-0 bg-gradient-to-b from-[var(--navy)]/18 via-[var(--navy)]/18 to-[var(--navy)]/18" />
 
       {/* Content: two separate regions so text never sits behind buttons */}
       <div className="relative z-10 w-full max-w-4xl mx-auto px-4 flex flex-col items-center flex-1 justify-center pt-20 md:pt-16 pb-10 md:pb-8">

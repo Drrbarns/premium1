@@ -39,8 +39,8 @@ export function HomeVerticals() {
       className="py-20 md:py-28 text-white relative overflow-hidden bg-fixed bg-center bg-cover"
       style={{ backgroundImage: "url('/verticals-bg-dark.webp')" }}
     >
-      {/* 35% Overlay */}
-      <div className="absolute inset-0 bg-[#0B1F3A]/35" aria-hidden />
+      {/* 18% Overlay */}
+      <div className="absolute inset-0 bg-[#0B1F3A]/18" aria-hidden />
       <div className="absolute inset-0 hero-grid opacity-10" aria-hidden />
       <Container className="relative z-10">
         <div className="max-w-2xl mb-14">
