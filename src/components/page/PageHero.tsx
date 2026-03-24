@@ -42,8 +42,8 @@ export function PageHero({ eyebrow, title, description, crumbs, variant = "dark"
             sizes="100vw"
             quality={80}
           />
-          {/* Dark overlay for readability */}
-              <div className="absolute inset-0 bg-[#0B1F3A]/75 pointer-events-none" aria-hidden />
+          {/* 30% overlay for inner page hero images */}
+          <div className="absolute inset-0 bg-[#0B1F3A]/30 pointer-events-none" aria-hidden />
         </>
       )}
 

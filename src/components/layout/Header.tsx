@@ -45,9 +45,9 @@ export function Header() {
             <Image
               src="/premium1-logo.png"
               alt="Premium 1 Logistics LTD"
-              width={220}
-              height={90}
-              className="h-10 w-auto md:h-12 transition-transform group-hover:scale-[1.02]"
+              width={623}
+              height={569}
+              className="h-12 w-auto md:h-14 drop-shadow-[0_2px_10px_rgba(0,0,0,0.35)] transition-transform group-hover:scale-[1.02]"
               priority
             />
           </Link>

@@ -200,64 +200,95 @@ export default function AboutPage() {
         </Container>
       </section>
 
-      {/* ── Team & Milestones ── */}
+      {/* ── Leadership ── */}
       <section className="relative py-24 md:py-32 bg-white overflow-hidden">
-        <Container>
-          <div className="grid lg:grid-cols-12 gap-16">
-            
-            {/* Leadership Team */}
-            <div className="lg:col-span-8">
-              <AnimateOnScroll animation="fade-up" className="mb-12">
-                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[var(--accent)] mb-3">People</p>
-                <h2 className="font-display font-bold text-3xl md:text-4xl text-[var(--ink)]">Leadership team</h2>
-                <p className="mt-4 text-slate-500 text-lg max-w-xl">
-                  Operators first. Our leadership still touches live files — so standards stay grounded in port and border reality.
-                </p>
-              </AnimateOnScroll>
-              
-              <div className="grid sm:grid-cols-2 gap-6">
-                {TEAM_LEADERS.map((m, i) => (
-                  <AnimateOnScroll key={m.name} animation="fade-up" delay={i * 100}>
-                    <div className="group rounded-3xl border border-slate-200 overflow-hidden bg-[var(--surface-warm)] hover:shadow-xl hover:shadow-slate-900/5 transition-all duration-300">
-                      <div className="aspect-[5/3] bg-[var(--navy)] relative overflow-hidden flex items-center justify-center">
-                        <div className="absolute inset-0 bg-gradient-to-tr from-[var(--navy)] to-slate-800 opacity-80 group-hover:opacity-100 transition-opacity" />
-                        <span className="relative z-10 font-display font-bold text-6xl text-white/20 group-hover:scale-110 transition-transform duration-500">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-[var(--accent)]/5 rounded-full blur-[150px] pointer-events-none" aria-hidden />
+        <Container className="relative z-10">
+          <AnimateOnScroll animation="fade-up" className="text-center max-w-2xl mx-auto mb-20">
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[var(--accent)] mb-3">People</p>
+            <h2 className="font-display font-bold text-3xl md:text-4xl lg:text-5xl text-[var(--ink)] tracking-tight">
+              The operators behind <span className="text-[var(--accent)]">your file</span>
+            </h2>
+            <p className="mt-5 text-slate-500 text-lg leading-relaxed">
+              Our leadership still touches live shipments — so standards stay grounded in port and border reality.
+            </p>
+          </AnimateOnScroll>
+
+          <div className="grid md:grid-cols-3 gap-8 mb-24">
+            {TEAM_LEADERS.map((m, i) => (
+              <AnimateOnScroll key={m.name} animation="fade-up" delay={i * 120}>
+                <div className="group relative h-full">
+                  <div className="relative rounded-3xl overflow-hidden bg-[var(--navy)] aspect-[3/4] flex flex-col justify-end p-8 md:p-10">
+                    <Image
+                      src="/team-person-bg.png"
+                      alt="Leadership portrait background"
+                      fill
+                      className="object-cover object-[62%_center] group-hover:scale-105 transition-transform duration-700"
+                      sizes="(max-width: 768px) 100vw, 33vw"
+                    />
+                    <div className="absolute inset-0 bg-[var(--navy)]/72" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[var(--navy)] via-[var(--navy)]/70 to-transparent" />
+                    <div className="absolute inset-0 hero-grid opacity-[0.06]" aria-hidden />
+                    <div className="absolute top-0 right-0 w-40 h-40 bg-[var(--accent)]/12 rounded-full blur-[50px] group-hover:w-56 group-hover:h-56 transition-all duration-700 pointer-events-none" />
+
+                    {/* Large initials watermark */}
+                    <div className="absolute top-6 left-8 font-display font-black text-[7rem] md:text-[8rem] leading-none text-white/[0.03] group-hover:text-[var(--accent)]/[0.06] transition-colors duration-700 select-none pointer-events-none">
+                      {m.name.split(" ").map((x) => x[0]).join("")}
+                    </div>
+
+                    <div className="relative z-10">
+                      <div className="w-14 h-14 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/10 flex items-center justify-center mb-6 group-hover:bg-[var(--accent)] group-hover:border-[var(--accent)] transition-all duration-500">
+                        <span className="font-display font-bold text-xl text-white">
                           {m.name.split(" ").map((x) => x[0]).join("")}
                         </span>
                       </div>
-                      <div className="p-8">
-                        <h3 className="font-display font-bold text-2xl text-[var(--ink)]">{m.name}</h3>
-                        <p className="text-sm text-[var(--accent)] font-bold uppercase tracking-wider mt-1 mb-4">{m.role}</p>
-                        <p className="text-slate-600 text-sm leading-relaxed mb-6">{m.bio}</p>
-                        <p className="text-xs font-semibold text-slate-400 border-t border-slate-200/80 pt-4 uppercase tracking-wide">
-                          {m.cred}
-                        </p>
+                      <h3 className="font-display font-bold text-2xl text-white mb-1">{m.name}</h3>
+                      <p className="text-[var(--accent)] text-sm font-bold uppercase tracking-wider mb-5">{m.role}</p>
+                      <p className="text-white/70 text-sm leading-relaxed mb-6">{m.bio}</p>
+                      <div className="flex items-center gap-2 pt-5 border-t border-white/10">
+                        <Anchor size={14} className="text-[var(--accent)] shrink-0" />
+                        <p className="text-xs font-medium text-white/50 uppercase tracking-wide">{m.cred}</p>
                       </div>
                     </div>
-                  </AnimateOnScroll>
-                ))}
-              </div>
-            </div>
+                  </div>
+                </div>
+              </AnimateOnScroll>
+            ))}
+          </div>
 
-            {/* Timeline */}
-            <div className="lg:col-span-4 lg:pl-8 lg:border-l border-slate-100">
-              <AnimateOnScroll animation="fade-up">
-                <h3 className="font-display font-bold text-2xl text-[var(--ink)] mb-10">Company timeline</h3>
-                <div className="space-y-10 relative before:absolute before:inset-0 before:ml-[11px] before:-translate-x-px before:h-full before:w-0.5 before:bg-gradient-to-b before:from-[var(--accent)] before:to-slate-200">
+          {/* Timeline — Horizontal */}
+          <AnimateOnScroll animation="fade-up">
+            <div className="rounded-3xl bg-[var(--surface-warm)] border border-slate-200/60 p-10 md:p-14 overflow-hidden">
+              <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6 mb-12">
+                <div>
+                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[var(--accent)] mb-3">Our journey</p>
+                  <h3 className="font-display font-bold text-2xl md:text-3xl text-[var(--ink)]">Company milestones</h3>
+                </div>
+                <div className="flex items-center gap-2 text-sm text-slate-400">
+                  <span className="w-8 h-px bg-[var(--accent)]" />
+                  <span className="font-medium">2010 — Present</span>
+                </div>
+              </div>
+
+              <div className="relative">
+                {/* Horizontal connecting line */}
+                <div className="hidden md:block absolute top-[22px] left-0 right-0 h-0.5 bg-gradient-to-r from-[var(--accent)] via-[var(--accent)]/60 to-slate-200" />
+
+                <div className="grid md:grid-cols-4 gap-8 md:gap-6">
                   {milestones.map((m, i) => (
-                    <div key={m.year} className="relative flex gap-6 items-start group">
-                      <div className="w-6 h-6 rounded-full border-4 border-white bg-[var(--accent)] shadow-sm shrink-0 mt-1 relative z-10 group-hover:scale-125 transition-transform" />
-                      <div>
-                        <span className="font-display font-bold text-2xl text-[var(--ink)] block mb-2">{m.year}</span>
-                        <p className="text-sm text-slate-500 leading-relaxed">{m.text}</p>
+                    <div key={m.year} className="relative group">
+                      {/* Dot */}
+                      <div className="hidden md:flex w-11 h-11 rounded-full bg-white border-[3px] border-[var(--accent)] items-center justify-center mb-6 relative z-10 group-hover:bg-[var(--accent)] transition-colors duration-500 shadow-md">
+                        <span className="text-xs font-bold text-[var(--accent)] group-hover:text-white transition-colors">{String(i + 1).padStart(2, "0")}</span>
                       </div>
+                      <span className="font-display font-bold text-3xl text-[var(--ink)] block mb-2 group-hover:text-[var(--accent)] transition-colors">{m.year}</span>
+                      <p className="text-sm text-slate-500 leading-relaxed">{m.text}</p>
                     </div>
                   ))}
                 </div>
-              </AnimateOnScroll>
+              </div>
             </div>
-            
-          </div>
+          </AnimateOnScroll>
         </Container>
       </section>
 
@@ -266,27 +297,54 @@ export default function AboutPage() {
         <Container>
           <div className="grid lg:grid-cols-2 gap-16 items-start">
             <AnimateOnScroll animation="slide-right">
-              <div className="flex items-center gap-4 mb-6">
-                <div className="w-14 h-14 rounded-2xl bg-white text-[var(--accent)] flex items-center justify-center shadow-sm">
-                  <BadgeCheck size={28} strokeWidth={1.5} />
-                </div>
-                <h2 className="font-display font-bold text-3xl md:text-4xl text-[var(--ink)]">Licences & memberships</h2>
-              </div>
-              <p className="text-slate-500 text-lg leading-relaxed mb-10">
-                We maintain active registrations with Ghana Customs and international freight bodies. Reference numbers are available on request for tenders and partner verification.
-              </p>
-              <div className="space-y-4">
-                {siteConfig.licenses.map((l) => (
-                  <div key={l.name} className="rounded-2xl border border-slate-200/60 bg-white p-6 flex justify-between items-center group hover:border-[var(--accent)]/30 transition-colors">
-                    <div>
-                      <p className="font-display font-bold text-lg text-[var(--ink)]">{l.name}</p>
-                      <p className="text-sm text-slate-400 mt-1">{l.issuer}</p>
-                    </div>
-                    <span className="text-xs font-bold uppercase tracking-wider text-[var(--accent)] bg-[var(--accent-soft)] px-3 py-1.5 rounded-full hidden sm:block">
-                      Active
-                    </span>
+              <div className="rounded-3xl border border-slate-200/70 bg-white p-8 md:p-10 shadow-xl shadow-slate-900/5 relative overflow-hidden">
+                <div className="absolute top-0 inset-x-0 h-1.5 bg-gradient-to-r from-[var(--accent)] to-[var(--accent-hover)]" />
+                <div className="flex items-center gap-4 mb-6">
+                  <div className="w-14 h-14 rounded-2xl bg-[var(--accent-soft)] text-[var(--accent)] flex items-center justify-center shadow-sm">
+                    <BadgeCheck size={28} strokeWidth={1.5} />
                   </div>
-                ))}
+                  <h2 className="font-display font-bold text-3xl md:text-4xl text-[var(--ink)]">Licences & memberships</h2>
+                </div>
+                <p className="text-slate-500 text-lg leading-relaxed mb-8">
+                  We maintain active registrations with Ghana Customs and international freight bodies. Reference numbers are available on request for tenders and partner verification.
+                </p>
+
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-8">
+                  <div className="rounded-2xl border border-slate-200/70 bg-[var(--surface-warm)] px-4 py-3">
+                    <p className="text-xs uppercase tracking-wider text-slate-400 font-semibold mb-1">Status</p>
+                    <p className="text-sm font-bold text-[var(--ink)]">Active</p>
+                  </div>
+                  <div className="rounded-2xl border border-slate-200/70 bg-[var(--surface-warm)] px-4 py-3">
+                    <p className="text-xs uppercase tracking-wider text-slate-400 font-semibold mb-1">Registrations</p>
+                    <p className="text-sm font-bold text-[var(--ink)]">{siteConfig.licenses.length} listed</p>
+                  </div>
+                  <div className="rounded-2xl border border-slate-200/70 bg-[var(--surface-warm)] px-4 py-3">
+                    <p className="text-xs uppercase tracking-wider text-slate-400 font-semibold mb-1">Review cycle</p>
+                    <p className="text-sm font-bold text-[var(--ink)]">Annual</p>
+                  </div>
+                </div>
+
+                <div className="space-y-3.5">
+                  {siteConfig.licenses.map((l, i) => (
+                    <div
+                      key={l.name}
+                      className="rounded-2xl border border-slate-200/70 bg-[var(--surface-warm)] p-5 flex items-start justify-between gap-4 group hover:border-[var(--accent)]/35 hover:bg-white transition-all duration-300"
+                    >
+                      <div className="flex items-start gap-4">
+                        <div className="w-9 h-9 rounded-xl bg-white border border-slate-200 text-slate-500 text-xs font-bold flex items-center justify-center group-hover:border-[var(--accent)]/30 group-hover:text-[var(--accent)] transition-colors">
+                          {String(i + 1).padStart(2, "0")}
+                        </div>
+                        <div>
+                          <p className="font-display font-bold text-lg text-[var(--ink)]">{l.name}</p>
+                          <p className="text-sm text-slate-400 mt-1">{l.issuer}</p>
+                        </div>
+                      </div>
+                      <span className="text-[11px] font-bold uppercase tracking-[0.14em] text-[var(--accent)] bg-[var(--accent-soft)] px-3 py-1.5 rounded-full shrink-0 mt-0.5">
+                        Active
+                      </span>
+                    </div>
+                  ))}
+                </div>
               </div>
             </AnimateOnScroll>
             

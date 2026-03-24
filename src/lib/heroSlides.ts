@@ -10,8 +10,8 @@ export const HERO_SLIDES: HeroSlide[] = [
     headline: "Corporate Freight & Logistics Solutions Across Ghana, West Africa & Beyond",
     subtext:
       "Reliable, transparent, and fast. We deliver end-to-end logistics with full documentation readiness for international trade.",
-    image: "/hero-slide-1.png",
-    imageAlt: "Container ship and port operations — global maritime freight",
+    image: "/insights-featured.png",
+    imageAlt: "Logistics professionals coordinating live shipment operations",
   },
   {
     headline: "Freight Forwarding, Customs Clearance & Door-to-Door Delivery",

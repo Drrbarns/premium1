@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { DM_Sans, Syne } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/layout/Header";
-import { SiteCTA } from "@/components/layout/SiteCTA";
 import { Footer } from "@/components/layout/Footer";
 import { StickyQuoteCTA } from "@/components/sections/StickyQuoteCTA";
 import { CookieConsent } from "@/components/layout/CookieConsent";
@@ -71,7 +70,6 @@ export default function RootLayout({
       <body className={`${dmSans.variable} ${syne.variable} font-sans antialiased`}>
         <Header />
         <main className="min-h-screen">{children}</main>
-        <SiteCTA />
         <Footer />
         <FloatingWhatsApp />
         <StickyQuoteCTA />

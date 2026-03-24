@@ -1,21 +1,44 @@
+ "use client";
+
 import Image from "next/image";
+import { useEffect, useRef, useState } from "react";
 import { Container } from "@/components/design-system/Container";
 import { CTAButton } from "@/components/design-system/CTAButton";
 import { AnimateOnScroll } from "@/components/ui/AnimateOnScroll";
 import { SITE_SETTINGS } from "@/lib/mock";
 
 export function CTABanner() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const [offset, setOffset] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!sectionRef.current) return;
+      const rect = sectionRef.current.getBoundingClientRect();
+      const viewportHeight = window.innerHeight;
+      const progress = (viewportHeight - rect.top) / (viewportHeight + rect.height);
+      const centered = (progress - 0.5) * 2;
+      setOffset(centered * 28);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
-    <section className="relative py-24 md:py-28 text-white overflow-hidden bg-[var(--navy)]">
+    <section ref={sectionRef} className="relative py-24 md:py-28 text-white overflow-hidden bg-[var(--navy)]">
       {/* Background Image */}
-      <Image
-        src="/hero-logistics.png"
-        alt="Logistics background"
-        fill
-        className="object-cover pointer-events-none"
-        sizes="100vw"
-        quality={75}
-      />
+      <div className="absolute inset-0 -top-16 -bottom-16" style={{ transform: `translateY(${offset}px)` }} aria-hidden>
+        <Image
+          src="/hero-logistics.png"
+          alt="Logistics background"
+          fill
+          className="object-cover pointer-events-none"
+          sizes="100vw"
+          quality={75}
+        />
+      </div>
       
       {/* 40% Overlay */}
       <div className="absolute inset-0 bg-[#0B1F3A]/60 pointer-events-none" aria-hidden />

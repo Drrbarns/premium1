@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Container } from "@/components/design-system/Container";
 import { SITE_SETTINGS } from "@/lib/mock";
-import { Facebook, Instagram, Linkedin, Mail, MapPin, Phone, ArrowRight } from "lucide-react";
+import { Facebook, Instagram, Linkedin, Mail, MapPin, Phone } from "lucide-react";
 
 const companyLinks = [
   { href: "/about", label: "About Us" },
@@ -55,9 +55,9 @@ export function Footer() {
               <Image
                 src="/premium1-logo.png"
                 alt="Premium 1 Logistics LTD"
-                width={260}
-                height={110}
-                className="h-14 w-auto"
+                width={623}
+                height={569}
+                className="h-16 w-auto md:h-20"
               />
             </Link>
             <p className="text-slate-400 leading-relaxed mb-8 max-w-sm">

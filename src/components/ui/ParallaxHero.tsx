@@ -5,7 +5,6 @@ import { useRef, useEffect, useState } from "react";
 import { CTAButton } from "@/components/design-system/CTAButton";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { HERO_SLIDES } from "@/lib/heroSlides";
-import { SITE_SETTINGS } from "@/lib/mock";
 
 const AUTO_ADVANCE_MS = 5000;
 
@@ -35,7 +34,7 @@ export function ParallaxHero() {
   const next = () => setSlide((s) => (s + 1) % HERO_SLIDES.length);
 
   return (
-    <section className="relative min-h-[70vh] md:min-h-[85vh] flex items-center justify-center overflow-hidden">
+    <section className="relative min-h-[76vh] md:min-h-[90vh] flex items-center justify-center overflow-hidden">
       <div
         ref={imageRef}
         className="absolute inset-0 -top-24 -bottom-24"
