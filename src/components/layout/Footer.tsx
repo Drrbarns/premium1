@@ -73,10 +73,15 @@ export function Footer() {
                 </a>
               </li>
               <li className="flex items-center gap-3 text-slate-300">
-                <Mail size={18} className="text-[var(--accent)]" />
-                <a href={`mailto:${SITE_SETTINGS.email}`} className="hover:text-white transition-colors">
-                  {SITE_SETTINGS.email}
-                </a>
+                <Mail size={18} className="text-[var(--accent)] flex-shrink-0" />
+                <span className="flex flex-col gap-1">
+                  <a href={`mailto:${SITE_SETTINGS.email}`} className="hover:text-white transition-colors">
+                    {SITE_SETTINGS.email}
+                  </a>
+                  <a href={`mailto:${SITE_SETTINGS.operationsEmail}`} className="hover:text-white transition-colors">
+                    {SITE_SETTINGS.operationsEmail}
+                  </a>
+                </span>
               </li>
               <li className="flex items-start gap-3 text-slate-300">
                 <MapPin size={18} className="text-[var(--accent)] flex-shrink-0 mt-1" />

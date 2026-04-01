@@ -7,7 +7,7 @@ export type HeroSlide = {
 
 export const HERO_SLIDES: HeroSlide[] = [
   {
-    headline: "Corporate Freight & Logistics Solutions Across Ghana, West Africa & Beyond",
+    headline: "Freight Forwarding, Customs Clearance, Doors to Door & Ship Agency",
     subtext:
       "Reliable, transparent, and fast. We deliver end-to-end logistics with full documentation readiness for international trade.",
     image: "/insights-featured.webp",

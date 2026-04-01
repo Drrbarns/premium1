@@ -5,6 +5,8 @@ export const siteConfig = {
   url: process.env.APP_BASE_URL || "https://premium1logistics.com",
   phone: process.env.NEXT_PUBLIC_SITE_PHONE || "+233 30 123 4567",
   email: process.env.NEXT_PUBLIC_SITE_EMAIL || "info@premium1logistics.com",
+  operationsEmail:
+    process.env.NEXT_PUBLIC_OPERATIONS_EMAIL || "operations@premium1logistics.com",
   careersEmail: process.env.NEXT_PUBLIC_CAREERS_EMAIL || "careers@premium1logistics.com",
   whatsappE164: process.env.NEXT_PUBLIC_WHATSAPP_E164 || "233301234567",
   addressLine: process.env.NEXT_PUBLIC_ADDRESS || "Airport Residential Area, Accra, Ghana",

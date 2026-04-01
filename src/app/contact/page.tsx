@@ -32,11 +32,19 @@ const cards = [
   },
   {
     icon: Mail,
-    label: "Email",
+    label: "General email",
     value: SITE_SETTINGS.email,
     desc: "General enquiries, partnerships, and document submissions.",
     href: `mailto:${SITE_SETTINGS.email}`,
     action: "Send email",
+  },
+  {
+    icon: Mail,
+    label: "Operations",
+    value: SITE_SETTINGS.operationsEmail,
+    desc: "Active shipments, port and clearance coordination, and day-to-day file matters.",
+    href: `mailto:${SITE_SETTINGS.operationsEmail}`,
+    action: "Email operations",
   },
   {
     icon: MapPin,
@@ -63,7 +71,7 @@ export default function ContactPage() {
       {/* ── Quick Contact Methods ── */}
       <section className="relative py-16 md:py-24 bg-[var(--surface-warm)] overflow-hidden">
         <Container>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
             {cards.map((card, i) => (
               <AnimateOnScroll key={card.label} animation="fade-up" delay={i * 80}>
                 <a

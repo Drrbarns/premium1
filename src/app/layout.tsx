@@ -51,6 +51,18 @@ const jsonLd = {
   url: siteConfig.url,
   telephone: siteConfig.phone,
   email: siteConfig.email,
+  contactPoint: [
+    {
+      "@type": "ContactPoint",
+      contactType: "customer service",
+      email: siteConfig.email,
+    },
+    {
+      "@type": "ContactPoint",
+      contactType: "customer service",
+      email: siteConfig.operationsEmail,
+    },
+  ],
   sameAs: siteConfig.sameAs,
   address: { "@type": "PostalAddress", streetAddress: siteConfig.addressLine, addressLocality: "Accra", addressCountry: "GH" },
   areaServed: ["GH", "West Africa", "ECOWAS"],

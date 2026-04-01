@@ -144,6 +144,7 @@ export const SITE_SETTINGS = {
   tagline: "Corporate freight and logistics across Ghana, West Africa, and international corridors.",
   phone: siteConfig.phone,
   email: siteConfig.email,
+  operationsEmail: siteConfig.operationsEmail,
   whatsapp: siteConfig.whatsappE164,
   address: siteConfig.addressLine,
   hours: "Mon–Fri 8:00–18:00 GMT · Emergency desk 24/7 for active shipments",
