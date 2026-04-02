@@ -2,6 +2,8 @@
 
 export type ServiceDeepContent = {
   longLead: string;
+  /** Optional named sub-lines (e.g. ship agency pillars) rendered as a grid on the detail page */
+  offerings?: { title: string; description: string }[];
   highlights: string[];
   whoItServes: string;
   workflow: { title: string; description: string }[];
@@ -42,7 +44,7 @@ export const SERVICE_DEEP: Record<string, ServiceDeepContent> = {
         a: "Yes, subject to commodity class and documentation. Share MSDS or regulatory certs early so we can confirm carrier acceptance and packing requirements.",
       },
     ],
-    relatedSlugs: ["customs-clearance", "door-to-door-delivery", "import-export-handling"],
+    relatedSlugs: ["customs-clearance", "door-to-door-delivery", "import-export-handling", "ship-agency"],
   },
   "import-export-handling": {
     longLead:
@@ -67,7 +69,7 @@ export const SERVICE_DEEP: Record<string, ServiceDeepContent> = {
         a: "We work alongside your bank to ensure shipping documents match L/C fields and deadlines.",
       },
     ],
-    relatedSlugs: ["customs-clearance", "freight-forwarding", "supply-chain-support-solutions"],
+    relatedSlugs: ["customs-clearance", "freight-forwarding", "supply-chain-support-solutions", "ship-agency"],
   },
   "customs-clearance": {
     longLead:
@@ -92,7 +94,77 @@ export const SERVICE_DEEP: Record<string, ServiceDeepContent> = {
         a: "Typically: commercial invoice, packing list, B/L or AWB, IDF, and any product-specific permits. We’ll send a checklist for your exact HS line.",
       },
     ],
-    relatedSlugs: ["import-export-handling", "warehousing-distribution", "inland-transportation-hauls"],
+    relatedSlugs: ["import-export-handling", "warehousing-distribution", "inland-transportation-hauls", "ship-agency"],
+  },
+  "ship-agency": {
+    longLead:
+      "Port calls succeed when someone local owns the DA, the authorities, and the dozen moving parts alongside. We represent owners, operators, and charterers with disciplined communication, transparent disbursements, and crews who know Tema, Takoradi, and Ghana’s wider maritime interface—including passenger support through Accra when your programme requires it.",
+    offerings: [
+      {
+        title: "Full ship agency",
+        description:
+          "End-to-end port call handling: inward and outward clearance, coordination with terminal and pilotage, cash-to-master, DA preparation and follow-up, and structured reporting to your operations centre.",
+      },
+      {
+        title: "Husbandry agency",
+        description:
+          "Spares and stores, bunkers, freshwater, waste, sludge, repairs, launches, and crew logistics—timed to your berth window so the vessel sails without avoidable delay.",
+      },
+      {
+        title: "Protective agency",
+        description:
+          "When you need an independent set of eyes: we monitor the charterer’s agent, verify statements of facts and time sheets, attend on board with the Master, and flag discrepancies before they become disputes.",
+      },
+      {
+        title: "Meet & greet / concierge",
+        description:
+          "Coordinated arrivals, departures, and transits for superintendents, owners’ reps, and specialist visitors—ground transport, meet-and-greet, and tight handoffs with your shore team.",
+      },
+      {
+        title: "Information packs",
+        description:
+          "Voyage-specific briefings: local regulations, documentation expectations, typical port costs, and contact trees so your office and the bridge share the same picture before arrival.",
+      },
+      {
+        title: "Port & terminal liaison",
+        description:
+          "Day-to-day interface with port authority, terminals, immigration, health, and lines—we translate local practice into clear milestones you can track from abroad.",
+      },
+    ],
+    highlights: [
+      "Tankers, bulk carriers, ro/ro, cruise, naval, project, and general cargo—scoped teams matched to call type",
+      "Tramp and liner trades: alignment with cargo charterers, receivers, and protective interests where roles split",
+      "Disbursement accounts with line-item discipline and documented approvals",
+      "Single operations thread for owners, charterers, and appointed technical managers",
+    ],
+    whoItServes:
+      "Ship owners, operators, charterers, managers, and commodity traders with vessels calling Ghana or routing principals and superintendents through Accra.",
+    workflow: [
+      { title: "Pre-arrival", description: "ETA, draft, cargo, and agency appointment confirmed; DA framework and docs list issued." },
+      { title: "Alongside", description: "Clearance, berth ops, surveys, and husbandry executed against an agreed call plan." },
+      { title: "During call", description: "Live updates, cash-to-master, and stakeholder coordination until cargo and crew tasks are closed." },
+      { title: "Sailing & close", description: "Final SOF alignment, sailing clearance, and timely DA settlement with your finance rules." },
+    ],
+    differentiators: [
+      "Practitioners who speak both bridge and charter-party language",
+      "Relationships with vetted suppliers and authorities—without shortcuts on compliance",
+      "Protective and full agency models under one roof when your risk profile changes",
+    ],
+    faqs: [
+      {
+        q: "Which Ghana ports do you cover?",
+        a: "Our core ship-agency work is structured around Tema and Takoradi. Passenger and principal movements through Accra are supported under our meet-and-greet and concierge line.",
+      },
+      {
+        q: "When should we appoint protective rather than full agency?",
+        a: "Protective agency fits when another party nominates the commercial agent but you want independent attendance, document checks, and verification of pro-forma DAs. We’ll recommend the model after a short call on your charter structure.",
+      },
+      {
+        q: "Can you work with our existing husbandry suppliers?",
+        a: "Yes—subject to your approval list and our minimum safety and invoicing standards. We integrate third parties when that is your policy.",
+      },
+    ],
+    relatedSlugs: ["freight-forwarding", "customs-clearance", "import-export-handling"],
   },
   "warehousing-distribution": {
     longLead:

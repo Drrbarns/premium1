@@ -8,7 +8,7 @@ import Link from "next/link";
 export const metadata = {
   title: "Logistics Services | Premium 1 Logistics LTD",
   description:
-    "Freight forwarding, customs clearance, warehousing, door-to-door delivery, and supply chain support across Ghana and West Africa.",
+    "Freight forwarding, ship agency, customs clearance, warehousing, door-to-door delivery, and supply chain support across Ghana and West Africa.",
 };
 
 const reasons = [
@@ -35,7 +35,7 @@ export default function ServicesPage() {
             <div className="max-w-2xl">
               <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[var(--accent)] mb-3">Full stack</p>
               <h2 className="font-display font-bold text-2xl md:text-3xl text-[var(--ink)]">
-                Seven service lines, infinite combinations
+                Eight service lines, infinite combinations
               </h2>
               <p className="mt-3 text-slate-600 text-lg">
                 Select a card for workflows, FAQs, and how we differentiate on that product.

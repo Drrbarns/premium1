@@ -181,6 +181,11 @@ export const SERVICE_CASE_SNIPPETS: Record<string, { title: string; body: string
     body: "Consolidated two regional hubs into one Tema-adjacent node with secondary cross-dock in Kumasi.",
     metric: "8% lower cost-to-serve modelled Y1",
   },
+  "ship-agency": {
+    title: "Case: Protective attendance",
+    body: "Owner’s rep on a tramp bulker—we verified charterer’s agent DA line items and SOF timings before signing, avoiding a disputed demurrage position.",
+    metric: "Aligned SOF before sailing — no post-fixture escalation",
+  },
 };
 
 export const INSIGHT_AUTHORS = {

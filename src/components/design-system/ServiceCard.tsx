@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { cn } from "@/lib/utils";
-import { Package, Ship, FileCheck, Warehouse, Truck, Home, Network, LucideIcon, ArrowRight } from "lucide-react";
+import { Package, Ship, FileCheck, Warehouse, Truck, Home, Network, Anchor, LucideIcon, ArrowRight } from "lucide-react";
 
 const ICON_MAP: Record<string, LucideIcon> = {
   Package,
@@ -10,6 +10,7 @@ const ICON_MAP: Record<string, LucideIcon> = {
   Truck,
   Home,
   Network,
+  Anchor,
 };
 
 interface ServiceCardProps {

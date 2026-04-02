@@ -93,6 +93,29 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
                 </h2>
               </AnimateOnScroll>
 
+              {deep.offerings && deep.offerings.length > 0 && (
+                <div className="mb-12">
+                  <AnimateOnScroll animation="fade-up">
+                    <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[var(--accent)] mb-4">
+                      Service scope
+                    </p>
+                    <h3 className="font-display font-bold text-xl md:text-2xl text-[var(--ink)] mb-8">
+                      How we support your call
+                    </h3>
+                  </AnimateOnScroll>
+                  <div className="grid sm:grid-cols-2 gap-5">
+                    {deep.offerings.map((o, i) => (
+                      <AnimateOnScroll key={o.title} animation="fade-up" delay={i * 60}>
+                        <div className="rounded-2xl border border-slate-200/80 bg-white p-6 md:p-7 shadow-sm hover:border-[var(--accent)]/25 hover:shadow-md transition-all duration-300 h-full">
+                          <p className="font-display font-bold text-[var(--ink)] text-lg mb-2">{o.title}</p>
+                          <p className="text-slate-600 leading-relaxed text-[15px] md:text-base">{o.description}</p>
+                        </div>
+                      </AnimateOnScroll>
+                    ))}
+                  </div>
+                </div>
+              )}
+
               <div className="space-y-4">
                 {deep.highlights.map((h, i) => (
                   <AnimateOnScroll key={h} animation="fade-up" delay={i * 80}>

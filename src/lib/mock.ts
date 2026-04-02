@@ -12,13 +12,23 @@ export const MOCK_SERVICES = [
     image: "/services-hero.webp",
   },
   {
+    id: "8",
+    name: "Ship Agency",
+    slug: "ship-agency",
+    description:
+      "Full, husbandry, and protective agency for vessels at Ghanaian ports, plus meet-and-greet support and structured port briefings.",
+    icon: "Anchor",
+    sort_order: 2,
+    image: "/services-hero.webp",
+  },
+  {
     id: "2",
     name: "Import & Export Handling",
     slug: "import-export-handling",
     description:
       "Streamlined import and export documentation and coordination for seamless cross-border trade.",
     icon: "Ship",
-    sort_order: 2,
+    sort_order: 3,
     image: "/services-hero.webp",
   },
   {
@@ -27,7 +37,7 @@ export const MOCK_SERVICES = [
     slug: "customs-clearance",
     description: "Expert customs brokerage ensuring compliant, timely clearance at Ghana and regional ports.",
     icon: "FileCheck",
-    sort_order: 3,
+    sort_order: 4,
     image: "/services-hero.webp",
   },
   {
@@ -36,7 +46,7 @@ export const MOCK_SERVICES = [
     slug: "warehousing-distribution",
     description: "Secure storage and efficient distribution across our network of facilities.",
     icon: "Warehouse",
-    sort_order: 4,
+    sort_order: 5,
     image: "/services-hero.webp",
   },
   {
@@ -45,7 +55,7 @@ export const MOCK_SERVICES = [
     slug: "inland-transportation-hauls",
     description: "Reliable inland haulage and last-mile delivery across Ghana and the West Africa corridor.",
     icon: "Truck",
-    sort_order: 5,
+    sort_order: 6,
     image: "/services-hero.webp",
   },
   {
@@ -54,7 +64,7 @@ export const MOCK_SERVICES = [
     slug: "door-to-door-delivery",
     description: "Complete door-to-door logistics from origin to final destination.",
     icon: "Home",
-    sort_order: 6,
+    sort_order: 7,
     image: "/services-hero.webp",
   },
   {
@@ -63,7 +73,7 @@ export const MOCK_SERVICES = [
     slug: "supply-chain-support-solutions",
     description: "Integrated supply chain consulting and support for complex logistics requirements.",
     icon: "Network",
-    sort_order: 7,
+    sort_order: 8,
     image: "/services-hero.webp",
   },
 ];

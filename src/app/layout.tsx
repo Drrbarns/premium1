@@ -66,7 +66,13 @@ const jsonLd = {
   sameAs: siteConfig.sameAs,
   address: { "@type": "PostalAddress", streetAddress: siteConfig.addressLine, addressLocality: "Accra", addressCountry: "GH" },
   areaServed: ["GH", "West Africa", "ECOWAS"],
-  serviceType: ["Freight Forwarding", "Customs Clearance", "Warehousing", "Door-to-Door Delivery"],
+  serviceType: [
+    "Freight Forwarding",
+    "Ship Agency",
+    "Customs Clearance",
+    "Warehousing",
+    "Door-to-Door Delivery",
+  ],
 };
 
 export default function RootLayout({

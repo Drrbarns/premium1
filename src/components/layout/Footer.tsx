@@ -21,6 +21,7 @@ const resourceLinks = [
 
 const serviceLinks = [
   { href: "/services/freight-forwarding", label: "Freight Forwarding" },
+  { href: "/services/ship-agency", label: "Ship Agency" },
   { href: "/services/customs-clearance", label: "Customs Clearance" },
   { href: "/services/warehousing-distribution", label: "Warehousing" },
   { href: "/services/door-to-door-delivery", label: "Door-to-Door" },
