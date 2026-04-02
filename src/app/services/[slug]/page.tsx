@@ -1,20 +1,46 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import Script from "next/script";
-import { Container, Section, CTAButton, StepTimeline } from "@/components/design-system";
+import { Container, CTAButton, StepTimeline } from "@/components/design-system";
 import { PageHero } from "@/components/page/PageHero";
 import { AnimateOnScroll } from "@/components/ui/AnimateOnScroll";
 import { MOCK_SERVICES } from "@/lib/mock";
 import { SERVICE_DEEP, DEFAULT_SERVICE_DEEP } from "@/lib/pageContent";
 import { SERVICE_CASE_SNIPPETS } from "@/lib/richContent";
 import {
+  Anchor,
   ArrowRight,
-  CheckCircle2,
-  ChevronRight,
+  ArrowUpRight,
+  FileCheck,
   HelpCircle,
+  Home,
+  Layers,
+  LucideIcon,
+  Network,
+  Package,
+  Ship,
+  Sparkles,
+  Truck,
   TrendingUp,
   Users,
+  Warehouse,
 } from "lucide-react";
+
+const SERVICE_RELATED_ICONS: Record<string, LucideIcon> = {
+  Package,
+  Ship,
+  FileCheck,
+  Warehouse,
+  Truck,
+  Home,
+  Network,
+  Anchor,
+};
+
+function ServiceIcon({ name }: { name?: string }) {
+  const Icon = (name && SERVICE_RELATED_ICONS[name]) || Layers;
+  return <Icon size={22} strokeWidth={1.75} className="text-[var(--accent)]" />;
+}
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
@@ -63,8 +89,7 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
           dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
         />
       )}
-      
-      {/* ── Hero ── */}
+
       <PageHero
         eyebrow="Service"
         title={service.name}
@@ -77,203 +102,232 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
         backgroundImage={service.image}
       />
 
-      {/* ── Overview & Highlights ── */}
-      <section className="relative py-24 md:py-32 bg-white overflow-hidden">
-        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[var(--surface-warm)] rounded-full blur-[100px] pointer-events-none opacity-60" aria-hidden />
-        
-        <Container className="relative">
-          <div className="grid lg:grid-cols-12 gap-16 items-start">
-            <div className="lg:col-span-7">
-              <AnimateOnScroll animation="fade-up">
-                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[var(--accent)] mb-4">
+      {/* ── Intro + insight row ── */}
+      <section className="relative overflow-hidden border-b border-slate-200/80">
+        <div className="absolute inset-0 mesh-hero-light opacity-90" aria-hidden />
+        <div className="absolute inset-0 hero-grid opacity-[0.35] mix-blend-multiply pointer-events-none" style={{ backgroundSize: "40px 40px" }} aria-hidden />
+
+        <Container className="relative py-14 md:py-20 lg:py-24">
+          <div className="max-w-4xl">
+            <AnimateOnScroll animation="fade-up">
+              <div className="inline-flex items-center gap-2 rounded-full border border-[var(--accent)]/25 bg-white/80 backdrop-blur-sm px-4 py-1.5 mb-8">
+                <Sparkles size={14} className="text-[var(--accent)]" />
+                <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-[var(--accent)]">
                   Overview
-                </p>
-                <h2 className="text-2xl md:text-3xl lg:text-4xl text-[var(--ink)] leading-tight font-display font-bold mb-8">
-                  {deep.longLead}
-                </h2>
-              </AnimateOnScroll>
-
-              {deep.offerings && deep.offerings.length > 0 && (
-                <div className="mb-12">
-                  <AnimateOnScroll animation="fade-up">
-                    <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[var(--accent)] mb-4">
-                      Service scope
-                    </p>
-                    <h3 className="font-display font-bold text-xl md:text-2xl text-[var(--ink)] mb-8">
-                      How we support your call
-                    </h3>
-                  </AnimateOnScroll>
-                  <div className="grid sm:grid-cols-2 gap-5">
-                    {deep.offerings.map((o, i) => (
-                      <AnimateOnScroll key={o.title} animation="fade-up" delay={i * 60}>
-                        <div className="rounded-2xl border border-slate-200/80 bg-white p-6 md:p-7 shadow-sm hover:border-[var(--accent)]/25 hover:shadow-md transition-all duration-300 h-full">
-                          <p className="font-display font-bold text-[var(--ink)] text-lg mb-2">{o.title}</p>
-                          <p className="text-slate-600 leading-relaxed text-[15px] md:text-base">{o.description}</p>
-                        </div>
-                      </AnimateOnScroll>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              <div className="space-y-4">
-                {deep.highlights.map((h, i) => (
-                  <AnimateOnScroll key={h} animation="fade-up" delay={i * 80}>
-                    <div className="flex gap-4 rounded-2xl bg-[var(--surface-warm)] border border-slate-200/60 p-6 hover:bg-white hover:shadow-lg hover:shadow-slate-900/5 hover:border-[var(--accent)]/20 transition-all duration-300">
-                      <div className="flex-shrink-0 w-8 h-8 rounded-full bg-white border border-slate-200/80 flex items-center justify-center shadow-sm">
-                        <CheckCircle2 size={16} className="text-[var(--accent)]" />
-                      </div>
-                      <span className="text-slate-700 leading-relaxed text-lg pt-1">{h}</span>
-                    </div>
-                  </AnimateOnScroll>
-                ))}
+                </span>
               </div>
+              <h2 className="sr-only">About {service.name}</h2>
+              <p className="text-xl sm:text-2xl md:text-[1.35rem] lg:text-[1.5rem] text-slate-700 font-normal leading-[1.55] tracking-tight max-w-3xl">
+                {deep.longLead}
+              </p>
+            </AnimateOnScroll>
+            <AnimateOnScroll animation="fade-up" delay={120}>
+              <div className="mt-10 flex flex-wrap gap-3">
+                <CTAButton href="/quote" variant="primary" size="lg">
+                  Request a quote
+                </CTAButton>
+                <CTAButton href="/contact" variant="outline" size="lg">
+                  Talk to our team
+                </CTAButton>
+              </div>
+            </AnimateOnScroll>
+          </div>
 
-              <AnimateOnScroll animation="fade-up" delay={300}>
-                <div className="mt-12 flex flex-wrap gap-4">
-                  <CTAButton href="/quote" variant="primary" size="lg">
-                    Request a quote
-                  </CTAButton>
-                  <CTAButton href="/contact" variant="outline" size="lg">
-                    Talk to our team
-                  </CTAButton>
-                </div>
-              </AnimateOnScroll>
-            </div>
-
-            {/* Right Column: Case Study & Target Audience */}
-            <div className="lg:col-span-5 space-y-8">
-              {caseSnip && (
-                <AnimateOnScroll animation="slide-left">
-                  <div className="relative rounded-3xl bg-[var(--navy)] text-white p-8 md:p-10 overflow-hidden shadow-2xl">
-                    <div className="absolute inset-0 hero-grid opacity-10" aria-hidden />
-                    <div className="absolute top-0 right-0 w-32 h-32 bg-[var(--accent)]/20 rounded-full blur-[40px] pointer-events-none" aria-hidden />
-                    
-                    <div className="relative">
-                      <div className="flex items-center gap-2 mb-6">
-                        <TrendingUp size={20} className="text-[var(--accent)]" />
-                        <p className="text-xs font-bold uppercase tracking-wider text-[var(--accent)]">
-                          Case Snapshot
-                        </p>
-                      </div>
-                      <h3 className="font-display font-bold text-2xl mb-4 leading-tight">
-                        {caseSnip.title}
-                      </h3>
-                      <p className="text-white/70 leading-relaxed mb-8">
-                        {caseSnip.body}
+          <div
+            className={
+              caseSnip
+                ? "mt-14 md:mt-16 grid md:grid-cols-2 gap-5 lg:gap-6"
+                : "mt-14 md:mt-16 max-w-2xl"
+            }
+          >
+            {caseSnip && (
+              <AnimateOnScroll animation="fade-up" delay={80}>
+                <div className="relative h-full rounded-3xl bg-[var(--navy)] text-white p-8 md:p-9 overflow-hidden shadow-xl shadow-[var(--navy)]/20 ring-1 ring-white/10">
+                  <div className="absolute inset-0 hero-grid opacity-[0.12]" aria-hidden />
+                  <div className="absolute -right-16 -top-16 w-48 h-48 rounded-full bg-[var(--accent)]/15 blur-3xl pointer-events-none" aria-hidden />
+                  <div className="relative flex items-start gap-3 mb-5">
+                    <div className="rounded-xl bg-[var(--accent)]/20 p-2.5 ring-1 ring-[var(--accent)]/25">
+                      <TrendingUp size={20} className="text-[var(--accent)]" />
+                    </div>
+                    <div>
+                      <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[var(--accent)] mb-1">
+                        Case snapshot
                       </p>
-                      <div className="pt-6 border-t border-white/10">
-                        <p className="text-sm text-white/50 uppercase tracking-wider mb-1">Business Impact</p>
-                        <p className="font-display font-bold text-xl text-[var(--accent)]">
-                          {caseSnip.metric}
-                        </p>
-                      </div>
+                      <h3 className="font-display font-bold text-xl md:text-2xl leading-snug pr-2">{caseSnip.title}</h3>
                     </div>
                   </div>
-                </AnimateOnScroll>
-              )}
-
-              <AnimateOnScroll animation="slide-left" delay={150}>
-                <div className="rounded-3xl border border-slate-200/80 bg-slate-50 p-8 md:p-10">
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="w-10 h-10 rounded-xl bg-white border border-slate-200 flex items-center justify-center shadow-sm">
-                      <Users size={18} className="text-[var(--accent)]" />
-                    </div>
-                    <p className="text-sm font-semibold uppercase tracking-wider text-[var(--ink)]">
-                      Who it serves
-                    </p>
+                  <p className="relative text-white/70 text-[15px] md:text-base leading-relaxed mb-8">{caseSnip.body}</p>
+                  <div className="relative pt-6 border-t border-white/10">
+                    <p className="text-[10px] font-bold uppercase tracking-widest text-white/40 mb-2">Business impact</p>
+                    <p className="font-display font-bold text-lg md:text-xl text-[var(--accent)] leading-snug">{caseSnip.metric}</p>
                   </div>
-                  <p className="text-lg text-slate-600 leading-relaxed">
-                    {deep.whoItServes}
-                  </p>
                 </div>
               </AnimateOnScroll>
-            </div>
+            )}
+
+            <AnimateOnScroll animation="fade-up" delay={caseSnip ? 160 : 80}>
+              <div className="h-full rounded-3xl border border-slate-200/90 bg-white/90 backdrop-blur-sm p-8 md:p-9 shadow-lg shadow-slate-900/[0.04] ring-1 ring-slate-100">
+                <div className="flex items-start gap-3 mb-5">
+                  <div className="rounded-xl bg-[var(--accent-soft)] p-2.5 ring-1 ring-[var(--accent)]/15">
+                    <Users size={20} className="text-[var(--accent)]" />
+                  </div>
+                  <div>
+                    <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[var(--accent)] mb-1">Who it serves</p>
+                    <h3 className="font-display font-bold text-xl text-[var(--ink)]">Built for your operating model</h3>
+                  </div>
+                </div>
+                <p className="text-slate-600 text-[15px] md:text-base leading-relaxed">{deep.whoItServes}</p>
+              </div>
+            </AnimateOnScroll>
           </div>
         </Container>
       </section>
 
-      {/* ── Workflow & Differentiators ── */}
-      <section className="relative py-24 md:py-32 bg-[var(--surface-warm)] overflow-hidden">
-        <Container>
-          <div className="grid lg:grid-cols-12 gap-16 lg:gap-20 items-start">
-            
+      {/* ── Offerings (optional) ── */}
+      {deep.offerings && deep.offerings.length > 0 && (
+        <section className="relative py-16 md:py-24 bg-white overflow-hidden">
+          <div className="absolute right-0 top-1/2 -translate-y-1/2 w-[min(520px,90vw)] h-[520px] rounded-full bg-[var(--accent)]/[0.06] blur-[100px] pointer-events-none" aria-hidden />
+          <Container className="relative">
+            <AnimateOnScroll animation="fade-up" className="mb-10 md:mb-12 max-w-2xl">
+              <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-[var(--accent)] mb-3">Service scope</p>
+              <h3 className="font-display font-bold text-3xl md:text-4xl text-[var(--ink)] tracking-tight">
+                How we support your call
+              </h3>
+            </AnimateOnScroll>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
+              {deep.offerings.map((o, i) => (
+                <AnimateOnScroll key={o.title} animation="fade-up" delay={i * 50}>
+                  <div className="group h-full rounded-2xl border border-slate-200/80 bg-[var(--surface-warm)]/50 p-6 md:p-7 transition-all duration-300 hover:bg-white hover:border-[var(--accent)]/30 hover:shadow-xl hover:shadow-slate-900/[0.06]">
+                    <div className="flex items-center gap-3 mb-3">
+                      <span className="flex h-2 w-2 shrink-0 rotate-45 bg-[var(--accent)] ring-4 ring-[var(--accent)]/15" aria-hidden />
+                      <p className="font-display font-bold text-lg text-[var(--ink)] leading-tight group-hover:text-[var(--accent)] transition-colors">
+                        {o.title}
+                      </p>
+                    </div>
+                    <p className="text-slate-600 text-sm md:text-[15px] leading-relaxed pl-5 border-l-2 border-[var(--accent)]/20 ml-1">
+                      {o.description}
+                    </p>
+                  </div>
+                </AnimateOnScroll>
+              ))}
+            </div>
+          </Container>
+        </section>
+      )}
+
+      {/* ── Highlights ── */}
+      <section
+        className={`relative py-16 md:py-24 overflow-hidden ${deep.offerings?.length ? "bg-[var(--surface-warm)]" : "bg-white"}`}
+      >
+        {!deep.offerings?.length && (
+          <div className="absolute left-0 top-24 w-72 h-72 rounded-full bg-[var(--navy)]/[0.04] blur-[80px] pointer-events-none" aria-hidden />
+        )}
+        <Container className="relative">
+          <AnimateOnScroll animation="fade-up" className="mb-10 md:mb-12 flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+            <div className="max-w-xl">
+              <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-[var(--accent)] mb-3">Capabilities</p>
+              <h3 className="font-display font-bold text-3xl md:text-4xl text-[var(--ink)] tracking-tight">What you can expect</h3>
+            </div>
+            <p className="text-slate-500 text-sm md:text-base max-w-md md:text-right leading-relaxed">
+              Concrete deliverables on every file—not generic promises.
+            </p>
+          </AnimateOnScroll>
+
+          <div className="grid sm:grid-cols-2 gap-4 md:gap-5">
+            {deep.highlights.map((h, i) => (
+              <AnimateOnScroll key={h} animation="fade-up" delay={i * 45}>
+                <div className="flex gap-4 rounded-2xl bg-white border border-slate-200/70 p-5 md:p-6 shadow-sm card-hover min-h-[100px]">
+                  <span
+                    className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[var(--navy)] text-sm font-display font-bold text-[var(--accent)]"
+                    aria-hidden
+                  >
+                    {i + 1}
+                  </span>
+                  <p className="text-slate-700 text-[15px] md:text-base leading-relaxed pt-1">{h}</p>
+                </div>
+              </AnimateOnScroll>
+            ))}
+          </div>
+        </Container>
+      </section>
+
+      {/* ── Workflow + differentiators (navy band) ── */}
+      <section className="relative py-20 md:py-28 bg-[var(--navy)] text-white overflow-hidden">
+        <div className="absolute inset-0 hero-grid opacity-[0.08]" aria-hidden />
+        <div
+          className="absolute top-0 left-1/2 -translate-x-1/2 w-[120%] h-px bg-gradient-to-r from-transparent via-[var(--accent)]/40 to-transparent"
+          aria-hidden
+        />
+        <div className="absolute top-20 right-0 w-[500px] h-[500px] rounded-full bg-[var(--accent)]/[0.07] blur-[120px] pointer-events-none" aria-hidden />
+
+        <Container className="relative">
+          <div className="grid lg:grid-cols-12 gap-12 lg:gap-16 items-start">
             <div className="lg:col-span-7">
               <AnimateOnScroll animation="fade-up">
-                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[var(--accent)] mb-4">
-                  The Process
-                </p>
-                <h2 className="font-display font-bold text-3xl md:text-4xl text-[var(--ink)] mb-4">
+                <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-[var(--accent)] mb-3">The process</p>
+                <h3 className="font-display font-bold text-3xl md:text-4xl text-white tracking-tight mb-4">
                   Typical workflow
-                </h2>
-                <p className="text-slate-500 text-lg leading-relaxed mb-12">
-                  Steps adapt to your Incoterms and commodity — this is the backbone most engagements follow.
+                </h3>
+                <p className="text-white/55 text-base md:text-lg leading-relaxed mb-10 max-w-xl">
+                  Steps flex with your Incoterms and commodity—this is the spine most engagements follow.
                 </p>
               </AnimateOnScroll>
               <AnimateOnScroll animation="fade-up" delay={100}>
-                <StepTimeline steps={deep.workflow} />
+                <StepTimeline steps={deep.workflow} variant="dark" />
               </AnimateOnScroll>
             </div>
-            
-            <div className="lg:col-span-5 lg:sticky lg:top-32">
-              <AnimateOnScroll animation="fade-up" delay={200}>
-                <div className="rounded-3xl bg-white border border-slate-200/80 p-8 md:p-10 shadow-xl shadow-slate-900/5 relative overflow-hidden">
-                  <div className="absolute top-0 inset-x-0 h-1.5 bg-gradient-to-r from-[var(--accent)] to-[var(--accent-hover)] rounded-t-3xl" />
-                  
-                  <h3 className="font-display font-bold text-2xl text-[var(--ink)] mb-8">
-                    Why clients pick us here
-                  </h3>
-                  
+
+            <div className="lg:col-span-5 lg:sticky lg:top-28">
+              <AnimateOnScroll animation="fade-up" delay={150}>
+                <div className="rounded-3xl bg-white/[0.06] backdrop-blur-sm border border-white/10 p-8 md:p-9 shadow-2xl">
+                  <div className="flex items-center gap-2 mb-2">
+                    <Layers className="text-[var(--accent)]" size={22} strokeWidth={1.5} />
+                    <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-[var(--accent)]">Why us</p>
+                  </div>
+                  <h4 className="font-display font-bold text-2xl text-white mb-8 leading-tight">Why clients pick us here</h4>
                   <ul className="space-y-5">
-                    {deep.differentiators.map((d, i) => (
-                      <li key={d} className="flex gap-4 group">
-                        <div className="w-8 h-8 rounded-full bg-[var(--surface-warm)] text-[var(--accent)] flex items-center justify-center flex-shrink-0 group-hover:bg-[var(--accent)] group-hover:text-white transition-colors duration-300">
-                          <ChevronRight size={16} strokeWidth={2.5} className="group-hover:translate-x-0.5 transition-transform" />
-                        </div>
-                        <span className="text-slate-700 font-medium pt-1">
-                          {d}
-                        </span>
+                    {deep.differentiators.map((d) => (
+                      <li key={d} className="flex gap-4 text-[15px] md:text-base leading-relaxed">
+                        <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--accent)] shadow-[0_0_12px_rgba(46,196,182,0.6)]" aria-hidden />
+                        <span className="text-white/80">{d}</span>
                       </li>
                     ))}
                   </ul>
-                  
-                  <div className="mt-10 pt-8 border-t border-slate-100">
-                    <CTAButton href="/quote" className="w-full justify-center" variant="secondary" size="lg">
+                  <div className="mt-10 pt-8 border-t border-white/10">
+                    <CTAButton href="/quote" className="w-full justify-center" variant="primary" size="lg">
                       Start your quote
                     </CTAButton>
                   </div>
                 </div>
               </AnimateOnScroll>
             </div>
-
           </div>
         </Container>
       </section>
 
       {/* ── FAQs ── */}
       {deep.faqs.length > 0 && (
-        <section className="relative py-24 md:py-32 bg-white">
+        <section className="relative py-20 md:py-28 bg-[var(--surface-warm)] overflow-hidden">
           <Container>
-            <div className="flex flex-col items-center text-center mb-16">
-              <div className="w-16 h-16 rounded-2xl bg-[var(--surface-warm)] border border-slate-200 flex items-center justify-center mb-6">
-                <HelpCircle className="text-[var(--accent)]" size={32} strokeWidth={1.5} />
+            <AnimateOnScroll animation="fade-up" className="mb-12 md:mb-14 max-w-2xl">
+              <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-white border border-slate-200/80 shadow-sm mb-6">
+                <HelpCircle className="text-[var(--accent)]" size={28} strokeWidth={1.5} />
               </div>
-              <h2 className="font-display font-bold text-3xl md:text-4xl text-[var(--ink)]">
-                Common questions
-              </h2>
-            </div>
-            
-            <div className="max-w-3xl mx-auto space-y-4">
+              <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-[var(--accent)] mb-3">FAQ</p>
+              <h3 className="font-display font-bold text-3xl md:text-4xl text-[var(--ink)] tracking-tight">Common questions</h3>
+            </AnimateOnScroll>
+
+            <div className="max-w-3xl space-y-3">
               {deep.faqs.map((faq, i) => (
-                <AnimateOnScroll key={faq.q} animation="fade-up" delay={i * 80}>
-                  <details className="faq-details group rounded-2xl bg-white border border-slate-200/80 overflow-hidden hover:border-[var(--accent)]/30 hover:shadow-md transition-all duration-300">
-                    <summary className="flex cursor-pointer items-center justify-between gap-6 p-6 font-display font-bold text-[var(--ink)] text-lg list-none">
-                      {faq.q}
-                      <span className="flex-shrink-0 w-8 h-8 rounded-full bg-[var(--surface-warm)] flex items-center justify-center text-[var(--accent)] text-xl leading-none group-open:rotate-45 transition-transform duration-300">
+                <AnimateOnScroll key={faq.q} animation="fade-up" delay={i * 60}>
+                  <details className="faq-details group rounded-2xl bg-white border border-slate-200/80 overflow-hidden shadow-sm hover:border-[var(--accent)]/25 hover:shadow-md transition-all duration-300">
+                    <summary className="flex cursor-pointer items-center justify-between gap-4 p-5 md:p-6 font-display font-bold text-[var(--ink)] text-base md:text-lg list-none">
+                      <span className="pr-4">{faq.q}</span>
+                      <span className="flex-shrink-0 w-9 h-9 rounded-xl bg-[var(--surface-warm)] flex items-center justify-center text-[var(--accent)] text-lg leading-none group-open:rotate-45 transition-transform duration-300 border border-slate-200/60">
                         +
                       </span>
                     </summary>
-                    <div className="px-6 pb-6 pt-0 text-slate-600 text-lg leading-relaxed border-t border-transparent group-open:border-slate-100 transition-colors">
+                    <div className="px-5 md:px-6 pb-5 md:pb-6 pt-0 text-slate-600 text-[15px] md:text-base leading-relaxed border-t border-slate-100">
                       <p className="pt-4">{faq.a}</p>
                     </div>
                   </details>
@@ -284,37 +338,40 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
         </section>
       )}
 
-      {/* ── Related Services ── */}
+      {/* ── Related services ── */}
       {related.length > 0 && (
-        <section className="relative py-24 md:py-32 bg-[var(--surface-warm)]">
+        <section className="relative py-20 md:py-28 bg-white border-t border-slate-200/60">
           <Container>
-            <AnimateOnScroll animation="fade-up" className="mb-12">
-              <h2 className="font-display font-bold text-3xl md:text-4xl text-[var(--ink)] text-center">
-                Explore related services
-              </h2>
+            <AnimateOnScroll animation="fade-up" className="mb-10 md:mb-12 text-center max-w-2xl mx-auto">
+              <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-[var(--accent)] mb-3">Bundle</p>
+              <h3 className="font-display font-bold text-3xl md:text-4xl text-[var(--ink)] tracking-tight">Related services</h3>
+              <p className="text-slate-500 mt-3 text-base">Often booked together with {service.name.toLowerCase()}.</p>
             </AnimateOnScroll>
-            
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 max-w-5xl mx-auto">
               {related.map((r, i) => (
-                <AnimateOnScroll key={r.slug} animation="fade-up" delay={i * 100}>
+                <AnimateOnScroll key={r.slug} animation="fade-up" delay={i * 80}>
                   <Link
                     href={`/services/${r.slug}`}
-                    className="group flex flex-col justify-between h-full rounded-3xl border border-slate-200/80 bg-white p-8 hover:shadow-xl hover:shadow-slate-900/5 hover:border-[var(--accent)]/30 transition-all duration-500"
+                    className="group flex flex-col h-full rounded-3xl border border-slate-200/80 bg-[var(--surface-warm)]/40 p-7 md:p-8 transition-all duration-500 hover:bg-white hover:border-[var(--accent)]/35 hover:shadow-2xl hover:shadow-slate-900/[0.07] card-hover"
                   >
-                    <div>
-                      <div className="w-12 h-12 rounded-2xl bg-[var(--surface-warm)] text-[var(--accent)] flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500">
-                        <ChevronRight size={24} />
+                    <div className="flex items-start justify-between gap-4 mb-5">
+                      <div className="w-12 h-12 rounded-2xl bg-white border border-slate-200/80 flex items-center justify-center shadow-sm group-hover:border-[var(--accent)]/25 transition-colors">
+                        <ServiceIcon name={r.icon} />
                       </div>
-                      <h3 className="font-display font-bold text-xl text-[var(--ink)] mb-3">
-                        {r.name}
-                      </h3>
-                      <p className="text-slate-500 text-sm leading-relaxed mb-8">
-                        {r.description}
-                      </p>
+                      <ArrowUpRight
+                        size={20}
+                        className="text-slate-300 group-hover:text-[var(--accent)] transition-colors shrink-0"
+                      />
                     </div>
-                    <div className="flex items-center gap-2 text-sm font-bold text-[var(--accent)] uppercase tracking-wider group-hover:translate-x-2 transition-transform duration-300">
-                      View service <ArrowRight size={16} />
-                    </div>
+                    <h4 className="font-display font-bold text-xl text-[var(--ink)] mb-2 group-hover:text-[var(--accent)] transition-colors">
+                      {r.name}
+                    </h4>
+                    <p className="text-slate-500 text-sm leading-relaxed mb-8 flex-grow">{r.description}</p>
+                    <span className="inline-flex items-center gap-2 text-sm font-bold text-[var(--accent)]">
+                      View service
+                      <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+                    </span>
                   </Link>
                 </AnimateOnScroll>
               ))}
