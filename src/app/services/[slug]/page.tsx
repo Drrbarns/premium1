@@ -281,7 +281,7 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
           style={{ backgroundImage: `url(${service.image})` }}
           aria-hidden
         />
-        <div className="absolute inset-0 bg-[var(--navy)]/30" aria-hidden />
+        <div className="absolute inset-0 bg-[var(--navy)]/40" aria-hidden />
         <div className="absolute inset-0 hero-grid opacity-[0.08]" aria-hidden />
         <div
           className="absolute top-0 left-1/2 -translate-x-1/2 w-[120%] h-px bg-gradient-to-r from-transparent via-[var(--accent)]/40 to-transparent"

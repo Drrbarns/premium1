@@ -67,8 +67,15 @@ export default function ServicesPage() {
         </Container>
       </Section>
 
-      <Section background="white">
-        <Container>
+      <Section background="white" className="relative overflow-hidden">
+        <div
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat bg-fixed"
+          style={{ backgroundImage: "url('/services-hero.webp')" }}
+          aria-hidden
+        />
+        <div className="absolute inset-0 bg-[var(--navy)]/30" aria-hidden />
+        <div className="absolute inset-0 hero-grid opacity-[0.08]" aria-hidden />
+        <Container className="relative">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div className="order-2 lg:order-1">
               <div className="relative rounded-3xl bg-[var(--navy)] text-white p-10 md:p-12 overflow-hidden shadow-2xl shadow-slate-900/10">
@@ -111,18 +118,18 @@ export default function ServicesPage() {
                   Why teams choose us
                 </span>
               </div>
-              <h2 className="font-display font-bold text-4xl md:text-5xl text-[var(--ink)] leading-[1.1] tracking-tight mb-8">
+              <h2 className="font-display font-bold text-4xl md:text-5xl text-white leading-[1.1] tracking-tight mb-8">
                 Execution you can brief your CFO on.
               </h2>
               <div className="space-y-8">
                 {reasons.map((r, i) => (
                   <div key={r} className="flex gap-5 group">
-                    <div className="flex-shrink-0 w-12 h-12 rounded-full bg-slate-50 border border-slate-100 flex items-center justify-center group-hover:bg-[var(--accent)] group-hover:border-[var(--accent)] transition-colors duration-300">
+                    <div className="flex-shrink-0 w-12 h-12 rounded-full bg-white/10 border border-white/15 flex items-center justify-center group-hover:bg-[var(--accent)] group-hover:border-[var(--accent)] transition-colors duration-300">
                       <CheckCircle2 className="text-[var(--accent)] group-hover:text-white transition-colors" size={20} />
                     </div>
                     <div>
-                      <p className="text-[var(--ink)] font-semibold text-lg mb-1 group-hover:text-[var(--accent)] transition-colors">{r}</p>
-                      <p className="text-slate-500 text-sm leading-relaxed">
+                      <p className="text-white font-semibold text-lg mb-1 group-hover:text-[var(--accent)] transition-colors">{r}</p>
+                      <p className="text-white/75 text-sm leading-relaxed">
                         {i === 0 && "No bouncing between departments. Your assigned expert knows your cargo, your compliance history, and your deadlines."}
                         {i === 1 && "We separate our margin from pass-through charges. You see exactly what we earn versus what the market bills."}
                         {i === 2 && "Deep familiarity with Tema, Takoradi, and the complex transit bonds required for landlocked neighbors."}
@@ -200,44 +207,60 @@ export default function ServicesPage() {
             </div>
           </div>
 
-          <div className="mt-24 max-w-5xl mx-auto rounded-3xl border border-slate-200 bg-white p-8 md:p-10 shadow-xl shadow-slate-900/5 relative overflow-hidden">
-            <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[var(--accent)] via-[var(--accent-hover)] to-[var(--accent)]" />
-            <div className="absolute -top-24 -right-20 w-72 h-72 bg-[var(--accent)]/10 rounded-full blur-[80px]" />
+          <div className="mt-24 max-w-6xl mx-auto relative">
+            <div className="absolute -top-10 left-10 right-10 h-24 bg-[var(--accent)]/10 blur-[70px] pointer-events-none" aria-hidden />
+            <div className="relative rounded-[2rem] border border-slate-200/80 bg-white shadow-[0_30px_80px_-40px_rgba(2,6,23,0.35)] overflow-hidden">
+              <div className="absolute inset-x-0 top-0 h-1.5 bg-gradient-to-r from-[var(--accent)] via-[var(--accent-hover)] to-[var(--accent)]" />
 
-            <div className="relative z-10 grid lg:grid-cols-12 gap-8 lg:gap-12 items-start">
-              <div className="lg:col-span-4">
-                <p className="text-xs font-bold uppercase tracking-[0.2em] text-[var(--accent)] mb-3">Pricing clarity</p>
-                <h3 className="font-display font-bold text-3xl text-[var(--ink)] leading-tight">How we price</h3>
-                <p className="mt-4 text-slate-600 leading-relaxed">
-                  You see exactly what is market cost and what is our service fee before you commit.
-                </p>
-                <div className="mt-6 flex flex-wrap gap-2">
-                  {["Transparent", "No hidden fees", "Lane-specific"].map((tag) => (
-                    <span key={tag} className="px-3 py-1.5 rounded-full bg-[var(--accent-soft)] text-[var(--accent)] text-xs font-semibold">
-                      {tag}
-                    </span>
-                  ))}
+              <div className="grid xl:grid-cols-12">
+                <div className="xl:col-span-4 bg-[var(--navy)] text-white p-8 md:p-10 xl:p-12 relative overflow-hidden">
+                  <div className="absolute inset-0 hero-grid opacity-[0.08]" aria-hidden />
+                  <div className="absolute -right-20 -top-20 w-52 h-52 rounded-full bg-[var(--accent)]/20 blur-[70px]" aria-hidden />
+                  <div className="relative">
+                    <p className="text-xs font-bold uppercase tracking-[0.2em] text-[var(--accent)] mb-3">Pricing clarity</p>
+                    <h3 className="font-display font-bold text-3xl leading-tight">How we price</h3>
+                    <p className="mt-4 text-white/75 leading-relaxed">
+                      We separate market costs from our operating fee so commercial decisions stay clear before booking.
+                    </p>
+                    <div className="mt-7 space-y-3">
+                      {["Transparent structure", "No hidden add-ons", "Lane-specific validity"].map((tag) => (
+                        <div key={tag} className="flex items-center gap-3 text-sm text-white/90">
+                          <span className="w-2 h-2 rounded-full bg-[var(--accent)] shadow-[0_0_0_4px_rgba(46,196,182,0.18)]" />
+                          <span>{tag}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
                 </div>
-              </div>
 
-              <div className="lg:col-span-8 grid md:grid-cols-2 gap-4">
-                <div className="rounded-2xl border border-slate-200 bg-slate-50/60 p-5">
-                  <p className="text-xs font-semibold uppercase tracking-wider text-slate-500">What you pay for</p>
-                  <p className="mt-2 text-[var(--ink)] font-medium leading-relaxed">
-                    Service fee + pass-through charges (THC, duties, storage, carrier surcharges), separated line by line.
-                  </p>
-                </div>
-                <div className="rounded-2xl border border-slate-200 bg-slate-50/60 p-5">
-                  <p className="text-xs font-semibold uppercase tracking-wider text-slate-500">How quotes are built</p>
-                  <p className="mt-2 text-[var(--ink)] font-medium leading-relaxed">
-                    Quotes are lane-specific and time-bound, so you are not locked into stale assumptions.
-                  </p>
-                </div>
-                <div className="rounded-2xl border border-slate-200 bg-slate-50/60 p-5 md:col-span-2">
-                  <p className="text-xs font-semibold uppercase tracking-wider text-slate-500">For repeat customers</p>
-                  <p className="mt-2 text-[var(--ink)] font-medium leading-relaxed">
-                    Volume shipments can move to predictable retainer-style pricing. If you share a past invoice, we can benchmark and explain where savings can come from.
-                  </p>
+                <div className="xl:col-span-8 p-6 md:p-8 xl:p-10 bg-[var(--surface-warm)]/35">
+                  <div className="grid md:grid-cols-2 gap-4 md:gap-5">
+                    <div className="rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm">
+                      <p className="text-xs font-bold uppercase tracking-[0.14em] text-slate-500 mb-2">What you pay for</p>
+                      <p className="text-[var(--ink)] leading-relaxed">
+                        Service fee plus pass-through charges (THC, duties, storage, line surcharges), itemized line by line.
+                      </p>
+                    </div>
+                    <div className="rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm">
+                      <p className="text-xs font-bold uppercase tracking-[0.14em] text-slate-500 mb-2">How quotes are built</p>
+                      <p className="text-[var(--ink)] leading-relaxed">
+                        Quotations are lane-specific and time-bound with assumptions called out, so there is no stale pricing ambiguity.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="mt-5 rounded-2xl border border-slate-200/80 bg-white p-6 md:p-7 shadow-sm">
+                    <div className="flex items-center justify-between gap-4 flex-wrap mb-3">
+                      <p className="text-xs font-bold uppercase tracking-[0.14em] text-slate-500">For repeat customers</p>
+                      <span className="text-xs font-semibold text-[var(--accent)] bg-[var(--accent-soft)] px-3 py-1.5 rounded-full">
+                        Volume-friendly
+                      </span>
+                    </div>
+                    <p className="text-[var(--ink)] leading-relaxed">
+                      Recurring volumes can move to predictable retainer-style pricing. Share a previous invoice and we will benchmark,
+                      flag savings opportunities, and show where service-level improvements drive value.
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>

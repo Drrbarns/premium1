@@ -234,7 +234,13 @@ export default function HowWeOperatePage() {
       </section>
 
       {/* ── Behind the Scenes (Dark) ── */}
-      <section className="relative py-24 md:py-32 bg-[var(--navy)] text-white overflow-hidden">
+      <section className="relative py-24 md:py-32 text-white overflow-hidden">
+        <div
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat bg-fixed"
+          style={{ backgroundImage: "url('/hero-slide-1.webp')" }}
+          aria-hidden
+        />
+        <div className="absolute inset-0 bg-[var(--navy)]/35" aria-hidden />
         <div className="absolute inset-0 hero-grid opacity-[0.06]" aria-hidden />
         <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[var(--accent)]/5 rounded-full blur-[120px] pointer-events-none" aria-hidden />
 
@@ -280,39 +286,66 @@ export default function HowWeOperatePage() {
 
       {/* ── Commitments ── */}
       <section className="relative py-24 md:py-32 bg-[var(--surface-warm)] overflow-hidden">
+        <div className="absolute inset-0 hero-grid opacity-[0.12]" aria-hidden />
+        <div className="absolute -left-28 top-16 w-80 h-80 bg-[var(--accent)]/10 rounded-full blur-[90px] pointer-events-none" aria-hidden />
+        <div className="absolute -right-24 bottom-10 w-96 h-96 bg-[var(--navy)]/8 rounded-full blur-[100px] pointer-events-none" aria-hidden />
         <Container>
-          <AnimateOnScroll animation="fade-up" className="text-center max-w-2xl mx-auto mb-16">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[var(--accent)] mb-4">
-              Our commitments
-            </p>
-            <h2 className="font-display font-bold text-3xl md:text-4xl text-[var(--ink)]">
-              What &ldquo;process you can trust&rdquo;
-              <br className="hidden md:block" />
-              <span className="text-slate-400">means in practice</span>
-            </h2>
-          </AnimateOnScroll>
-
-          <div className="grid sm:grid-cols-2 gap-6 max-w-4xl mx-auto">
-            {commitments.map(({ icon: Icon, title, body }, i) => (
-              <AnimateOnScroll
-                key={title}
-                animation="fade-up"
-                delay={i * 80}
-              >
-                <div className="group relative rounded-2xl border border-slate-200/80 bg-white p-8 hover:shadow-xl hover:shadow-slate-900/5 hover:border-[var(--accent)]/25 transition-all duration-500 h-full overflow-hidden">
-                  <div className="absolute bottom-0 left-0 right-0 h-1 bg-[var(--accent)] scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
-                  <div className="w-12 h-12 rounded-xl bg-[var(--accent-soft)] text-[var(--accent)] flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-500">
-                    <Icon size={24} strokeWidth={1.5} />
-                  </div>
-                  <h3 className="font-display font-bold text-lg text-[var(--ink)]">
-                    {title}
-                  </h3>
-                  <p className="mt-3 text-slate-500 text-sm leading-relaxed">
-                    {body}
-                  </p>
+          <div className="relative grid lg:grid-cols-5 gap-10 lg:gap-12 items-start">
+            <AnimateOnScroll animation="slide-right" className="lg:col-span-2">
+              <div className="lg:sticky lg:top-28">
+                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[var(--accent)] mb-4">
+                  Our commitments
+                </p>
+                <h2 className="font-display font-bold text-3xl md:text-4xl text-[var(--ink)] leading-tight">
+                  What &ldquo;process you can trust&rdquo;
+                  <span className="block text-slate-400">means in practice</span>
+                </h2>
+                <p className="mt-5 text-slate-500 leading-relaxed max-w-md">
+                  These are operating standards - not marketing lines. Each commitment ties to a control point in our day-to-day file execution.
+                </p>
+                <div className="mt-8 flex flex-wrap gap-2">
+                  {["Compliance-first", "Documented handoffs", "Escalation ready"].map((tag) => (
+                    <span
+                      key={tag}
+                      className="px-3 py-1.5 rounded-full bg-white border border-slate-200 text-xs font-semibold text-slate-600"
+                    >
+                      {tag}
+                    </span>
+                  ))}
                 </div>
-              </AnimateOnScroll>
-            ))}
+              </div>
+            </AnimateOnScroll>
+
+            <div className="lg:col-span-3 grid sm:grid-cols-2 gap-5">
+              {commitments.map(({ icon: Icon, title, body }, i) => (
+                <AnimateOnScroll
+                  key={title}
+                  animation="fade-up"
+                  delay={i * 90}
+                >
+                  <div className="group relative rounded-3xl border border-slate-200/80 bg-white p-7 md:p-8 shadow-lg shadow-slate-900/[0.04] hover:shadow-2xl hover:shadow-slate-900/[0.08] hover:border-[var(--accent)]/30 transition-all duration-500 h-full overflow-hidden">
+                    <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-transparent via-[var(--accent)]/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                    <div className="absolute -top-8 -right-8 w-24 h-24 rounded-full bg-[var(--accent)]/[0.08] blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+                    <div className="relative mb-6 flex items-start justify-between gap-4">
+                      <div className="w-12 h-12 rounded-xl bg-[var(--surface-warm)] border border-slate-200/70 text-[var(--accent)] flex items-center justify-center group-hover:bg-[var(--accent-soft)] group-hover:border-[var(--accent)]/25 transition-colors">
+                        <Icon size={22} strokeWidth={1.7} />
+                      </div>
+                      <span className="font-display font-bold text-4xl leading-none text-slate-100 group-hover:text-[var(--accent)]/20 transition-colors">
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+                    </div>
+
+                    <h3 className="font-display font-bold text-xl text-[var(--ink)] leading-tight">
+                      {title}
+                    </h3>
+                    <p className="mt-3 text-slate-500 text-sm md:text-[15px] leading-relaxed">
+                      {body}
+                    </p>
+                  </div>
+                </AnimateOnScroll>
+              ))}
+            </div>
           </div>
         </Container>
       </section>
@@ -413,7 +446,13 @@ export default function HowWeOperatePage() {
       </section>
 
       {/* ── Bottom CTA ── */}
-      <section className="relative py-24 md:py-28 bg-[var(--navy)] overflow-hidden">
+      <section className="relative py-24 md:py-28 overflow-hidden">
+        <div
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat bg-fixed"
+          style={{ backgroundImage: "url('/hero-slide-2.webp')" }}
+          aria-hidden
+        />
+        <div className="absolute inset-0 bg-[var(--navy)]/40" aria-hidden />
         <div className="absolute inset-0 hero-grid opacity-[0.06]" aria-hidden />
         <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-[var(--accent)]/8 rounded-full blur-[100px] pointer-events-none" aria-hidden />
 

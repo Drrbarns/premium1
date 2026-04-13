@@ -328,9 +328,9 @@ export default function AboutPage() {
       {/* ── Licences & Compliance ── */}
       <section className="relative py-24 md:py-32 bg-[var(--surface-warm)]">
         <Container>
-          <div className="grid lg:grid-cols-2 gap-16 items-start">
-            <AnimateOnScroll animation="slide-right">
-              <div className="rounded-3xl border border-slate-200/70 bg-white p-8 md:p-10 shadow-xl shadow-slate-900/5 relative overflow-hidden">
+          <div className="grid lg:grid-cols-2 gap-16 items-stretch">
+            <AnimateOnScroll animation="slide-right" className="h-full flex">
+              <div className="w-full flex-1 rounded-3xl border border-slate-200/70 bg-white p-8 md:p-10 shadow-xl shadow-slate-900/5 relative overflow-hidden">
                 <div className="absolute top-0 inset-x-0 h-1.5 bg-gradient-to-r from-[var(--accent)] to-[var(--accent-hover)]" />
                 <div className="flex items-center gap-4 mb-6">
                   <div className="w-14 h-14 rounded-2xl bg-[var(--accent-soft)] text-[var(--accent)] flex items-center justify-center shadow-sm">
@@ -381,8 +381,8 @@ export default function AboutPage() {
               </div>
             </AnimateOnScroll>
             
-            <AnimateOnScroll animation="slide-left">
-              <div className="rounded-3xl bg-[var(--navy)] text-white p-10 md:p-12 relative overflow-hidden shadow-2xl">
+            <AnimateOnScroll animation="slide-left" className="h-full flex">
+              <div className="w-full flex-1 rounded-3xl bg-[var(--navy)] text-white p-10 md:p-12 relative overflow-hidden shadow-2xl flex flex-col">
                 <div className="absolute top-0 right-0 w-64 h-64 bg-[var(--accent)]/10 rounded-full blur-[60px]" aria-hidden />
                 <Shield className="text-[var(--accent)] mb-6 relative z-10" size={36} strokeWidth={1.5} />
                 <h3 className="font-display font-bold text-2xl mb-6 relative z-10">Data, audit & insurance</h3>
