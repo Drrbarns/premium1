@@ -4,6 +4,8 @@ export type ServiceDeepContent = {
   longLead: string;
   /** Optional named sub-lines (e.g. ship agency pillars) rendered as a grid on the detail page */
   offerings?: { title: string; description: string }[];
+  /** Optional commercial value cards to make each page sell the service clearly */
+  salesPoints?: { title: string; body: string }[];
   highlights: string[];
   whoItServes: string;
   workflow: { title: string; description: string }[];
@@ -15,308 +17,626 @@ export type ServiceDeepContent = {
 export const SERVICE_DEEP: Record<string, ServiceDeepContent> = {
   "freight-forwarding": {
     longLead:
-      "Freight forwarding should feel like controlled execution, not shipping theatre. We build lane strategy around your commercial constraints first: stock-out risk, cash cycle, customer SLA, compliance exposure, and escalation tolerance. Then we run the file with discipline - carrier options, routing logic, document gates, and milestone governance - so your team is not firefighting in email chains three days before ETA.",
+      "Freight forwarding should protect commercial outcomes, not just move boxes. We design and execute lane strategy around your delivery promise, landed-cost limits, and compliance exposure. Every booking is handled with visible assumptions, controlled documentation, and escalation-ready milestone management so your team can plan with confidence rather than react to surprises.",
+    offerings: [
+      {
+        title: "Ocean freight programmes",
+        description:
+          "FCL, LCL, and special-equipment planning with carrier mix, rollover contingencies, and destination handoff governance.",
+      },
+      {
+        title: "Air freight execution",
+        description:
+          "Time-critical routing with cut-off control, uplift monitoring, and alternative options when capacity tightens.",
+      },
+      {
+        title: "Multimodal orchestration",
+        description:
+          "Sea-air and road bridge combinations for lanes where speed, cost, and reliability need a blended strategy.",
+      },
+      {
+        title: "Shipment control desk",
+        description:
+          "One operations thread managing booking, draft docs, pre-alerts, and exception response from origin to destination.",
+      },
+    ],
+    salesPoints: [
+      {
+        title: "Lower avoidable delay cost",
+        body: "Proactive route and carrier planning reduces rollovers, missed handoffs, and destination dwell penalties.",
+      },
+      {
+        title: "Better working-capital planning",
+        body: "Predictable milestone control gives procurement and finance cleaner ETAs for inventory and cash-cycle decisions.",
+      },
+      {
+        title: "Executive-ready transparency",
+        body: "Line-item assumptions and escalation trails make shipment decisions defendable at management level.",
+      },
+    ],
     highlights: [
-      "Mode architecture by lane and urgency: ocean, air, sea-air, or road bridge where it actually improves OTIF",
-      "Carrier mix strategy for peak periods - primary/secondary options, rollover contingencies, and booking windows",
-      "Document control from draft B/L through final set to reduce amend-at-destination costs",
-      "Exception command: delay signals, alternative routings, and decision-ready options for your operations lead",
+      "Carrier strategy by lane with primary and fallback options",
+      "Draft-to-final document governance before cargo lands",
+      "Milestone communication built for operations and finance",
+      "Exception playbooks with decision-ready alternatives",
     ],
     whoItServes:
-      "Procurement and supply teams managing recurring imports/exports, manufacturers balancing cost and service levels, and growth-stage businesses moving from ad-hoc bookings to governed lane management.",
+      "Import/export teams, manufacturers, traders, and growth-stage businesses that need forwarding discipline at enterprise standard.",
     workflow: [
       {
         title: "Commercial intake",
-        description: "We lock shipment objective: target ETA, service level, budget tolerance, and non-negotiable compliance points.",
+        description: "We lock ETA targets, cost boundaries, service tolerances, and non-negotiable compliance conditions.",
       },
       {
-        title: "Lane engineering",
-        description: "Carrier and route options are priced with assumptions, transit risk, and fallback plans before booking.",
+        title: "Lane strategy and booking",
+        description: "Routing options are compared with assumptions, then space is secured with cut-off and risk controls.",
       },
       {
-        title: "Execution control",
-        description: "Booking, draft documents, approvals, and pre-alerts are run through a single accountable operations thread.",
+        title: "Document and milestone control",
+        description: "Draft approvals, pre-alerts, and status gates are managed through one accountable operations thread.",
       },
       {
-        title: "Arrival governance",
-        description: "We coordinate handoff into clearance, delivery, or storage with exception updates before issues become delays.",
+        title: "Arrival and handoff",
+        description: "We coordinate transfer into clearance, delivery, or warehousing with exception escalation where needed.",
       },
     ],
     differentiators: [
-      "Forwarding logic designed for CFO visibility, not just freight rates",
-      "Named operator ownership per file with escalation accountability",
-      "Quote assumptions and re-rate triggers documented before commitment",
+      "Forwarding designed around business outcomes, not rate sheets alone",
+      "Named operator ownership for every active file",
+      "Assumption-driven quoting with explicit re-rate triggers",
     ],
     faqs: [
       {
         q: "How early should we book to avoid rollovers?",
-        a: "For most ocean lanes into Ghana, 2-3 weeks before cargo readiness is the practical baseline; peak periods may require longer lead. We give a lane-specific booking window with fallback options so your production schedule is protected.",
+        a: "For most ocean lanes into Ghana, 2-3 weeks before cargo readiness is a safe baseline; peak periods often need longer lead. We provide lane-specific booking windows and fallback options.",
       },
       {
         q: "Can you run regulated or sensitive commodities?",
-        a: "Yes, where documentation, packing standards, and carrier acceptance are met. Share MSDS, permits, and handling requirements early so we can validate feasibility before you incur avoidable cost.",
+        a: "Yes, where carrier acceptance and compliance conditions are met. Share permits, MSDS, and handling constraints early so feasibility is confirmed before spend is committed.",
+      },
+      {
+        q: "Do you support recurring-volume contracts?",
+        a: "Yes. We can structure lane programmes with review cadence, SLA definitions, and consolidated reporting for recurring flows.",
       },
     ],
     relatedSlugs: ["customs-clearance", "door-to-door-delivery", "import-export-handling", "ship-agency"],
   },
   "import-export-handling": {
     longLead:
-      "Most cross-border delays are not transport delays - they are document and coordination failures. Our import/export handling service is built as a control tower for paperwork, counterparties, and cut-offs. We align supplier docs, banking requirements, carrier rules, and customs expectations into one governed file so release, payment, and delivery stay synchronized.",
+      "Most international shipment failures happen in paperwork, not transport. Our import/export handling service works as a document and stakeholder control tower - aligning supplier files, bank requirements, carrier rules, and customs expectations before they collide. The result is fewer amendment loops, faster release readiness, and cleaner execution across every trade file.",
+    offerings: [
+      {
+        title: "Document QA and harmonization",
+        description:
+          "Invoice, packing list, certificates, and permit fields aligned before submission to reduce first-review rejection.",
+      },
+      {
+        title: "L/C and banking coordination",
+        description:
+          "Support for documentary consistency against bank checklists and deadlines to avoid costly post-sailing amendments.",
+      },
+      {
+        title: "Supplier pre-shipment controls",
+        description:
+          "Upstream guidance on labels, declarations, and supporting docs so destination clearance starts with cleaner inputs.",
+      },
+      {
+        title: "Counterparty synchronization",
+        description:
+          "Carrier, broker, bank, and client milestones aligned with visible ownership across each handoff point.",
+      },
+    ],
+    salesPoints: [
+      {
+        title: "Fewer amendment fees",
+        body: "Structured field matching before vessel departure helps prevent expensive bank and document correction cycles.",
+      },
+      {
+        title: "Faster release readiness",
+        body: "Pre-arrival completeness reduces avoidable delays once cargo reaches destination control points.",
+      },
+      {
+        title: "Lower internal workload",
+        body: "One governed file thread cuts the manual follow-up burden on procurement and logistics teams.",
+      },
+    ],
     highlights: [
-      "Document QA before shipment: invoice, packing list, certs, permit mapping, and mismatch flags",
-      "Bank-facing support for L/C-compliant sets and amendment risk reduction",
-      "Pre-arrival document readiness to reduce avoidable destination dwell",
-      "Supplier coaching on label, packing, and declaration standards for repeat flows",
+      "Document integrity checks before shipment milestones",
+      "Commodity-specific checklists with compliance traceability",
+      "Single communication thread across all parties",
+      "Archive-ready close-out packs per shipment",
     ],
     whoItServes:
-      "Import managers, export teams, distributors, and trading businesses that need predictable documentation outcomes across multiple parties and jurisdictions.",
+      "Import managers, export coordinators, distributors, and trading teams handling multi-party documentation risk.",
     workflow: [
       {
         title: "File onboarding",
-        description: "We collect commercial docs, trade terms, permit needs, and counterparties in a single control sheet.",
+        description: "Trade terms, counterparties, and document sets are captured into a single control workflow.",
       },
       {
-        title: "Risk screening",
-        description: "Gaps in classification, valuation, certificates, or banking fields are resolved before cargo moves.",
+        title: "Gap and risk screening",
+        description: "Classification, valuation, and certificate gaps are flagged and resolved before movement.",
       },
       {
-        title: "Counterparty alignment",
-        description: "Carrier, broker, bank, supplier, and client cut-offs are synchronized with explicit ownership.",
+        title: "Stakeholder alignment",
+        description: "Bank, supplier, broker, and carrier cut-offs are synchronized with explicit task ownership.",
       },
       {
-        title: "Release follow-through",
-        description: "Submission, response handling, and close-out records are managed until full document completion.",
+        title: "Execution close-out",
+        description: "Submission, response, and completion evidence are tracked until full document closure.",
       },
     ],
     differentiators: [
-      "Commodity-specific checklists that reduce first-review failures",
-      "Single communication thread across all external parties",
-      "Audit-friendly document pack retention per shipment file",
+      "Paperwork handled as an operational control discipline",
+      "L/C-aware execution with commercial deadline sensitivity",
+      "Audit-friendly document retention by file reference",
     ],
     faqs: [
       {
         q: "Do you assist with letters of credit?",
-        a: "Yes. We map shipping documents against L/C fields and timelines before issuance and again before final set release, reducing costly amendment loops.",
+        a: "Yes. We map shipping documents to L/C fields and timing windows before issuance and again before final release.",
+      },
+      {
+        q: "Can you review supplier documents before shipment?",
+        a: "Yes. Pre-shipment review is one of the fastest ways to reduce destination clearance friction and amendment risk.",
+      },
+      {
+        q: "Do you support both imports and exports?",
+        a: "Yes. We run full document governance on both sides, including permit mapping and stakeholder synchronization.",
       },
     ],
     relatedSlugs: ["customs-clearance", "freight-forwarding", "supply-chain-support-solutions", "ship-agency"],
   },
   "customs-clearance": {
     longLead:
-      "Customs clearance is where weak preparation becomes expensive. We run clearance as a compliance-first operation: correct classification, valuation logic, permit readiness, and disciplined query management. The objective is simple - lawful duty outcomes, fewer examination surprises, and release timelines your commercial team can actually plan around.",
+      "Customs is where weak assumptions become real cost. We run clearance as a compliance-first operation with broker-led control of classification, valuation, permit readiness, and assessment responses. You get lawful outcomes, stronger predictability on release timing, and cleaner evidence for internal governance and external audit.",
+    offerings: [
+      {
+        title: "Pre-clearance architecture",
+        description:
+          "HS review, permit checks, IDF readiness, and landed-duty forecasting before cargo arrival.",
+      },
+      {
+        title: "Declaration management",
+        description:
+          "Controlled submissions with complete supporting packs and immediate follow-up on authority responses.",
+      },
+      {
+        title: "Inspection coordination",
+        description:
+          "Examination planning, evidence handling, and rapid issue resolution to keep release moving.",
+      },
+      {
+        title: "Transit and post-clearance support",
+        description:
+          "Bond handling for inland corridors plus documentation support for internal or statutory audits.",
+      },
+    ],
+    salesPoints: [
+      {
+        title: "Lower compliance risk",
+        body: "Broker-led classification and document controls reduce exposure to penalties and avoidable disputes.",
+      },
+      {
+        title: "Better landed-cost accuracy",
+        body: "Duty and levy forecasts before arrival improve pricing decisions and budget reliability.",
+      },
+      {
+        title: "Faster exception handling",
+        body: "Structured responses during assessment and inspection reduce idle-time at critical clearance stages.",
+      },
+    ],
     highlights: [
-      "HS classification support with documented rationale on sensitive lines",
-      "Pre-arrival duty and levy estimates for landed-cost planning",
-      "Inspection and examination handling with rapid response protocol",
-      "Transit bond structuring for inland and ECOWAS-linked movements",
+      "Classification support with documented rationale",
+      "Pre-arrival duty/levy visibility for planning teams",
+      "Inspection response protocol with escalation ownership",
+      "Transit bond handling for ECOWAS-connected flows",
     ],
     whoItServes:
-      "Importers with recurring cargo, forwarders needing in-country brokerage strength, and enterprises that require auditable customs governance across high-value files.",
+      "Importers, enterprise procurement teams, and forwarders needing strong in-country brokerage and governance discipline.",
     workflow: [
-      { title: "Pre-clearance architecture", description: "Classification, IDF readiness, permit checks, and landed-duty forecast." },
-      { title: "Declaration submission", description: "Entry filing with controlled document packs and submission verification." },
-      { title: "Assessment management", description: "Query response, evidence preparation, and payment sequencing to avoid idle time." },
-      { title: "Release orchestration", description: "Gate-out, delivery order alignment, and handoff into transport or warehouse." },
+      { title: "Pre-arrival preparation", description: "We lock compliance prerequisites before vessel or flight milestones." },
+      { title: "Entry filing", description: "Declarations are submitted with controlled support packs and tracking checkpoints." },
+      { title: "Assessment and inspection", description: "Queries and examinations are handled with evidence-first response discipline." },
+      { title: "Release and handoff", description: "Gate-out and onward movement are coordinated with completion documentation." },
     ],
     differentiators: [
-      "Senior broker oversight on complex or high-risk declarations",
-      "Clear response SLAs during assessment and examination stages",
-      "Post-clearance support for internal audit and control evidence",
+      "Senior broker involvement on complex commodity files",
+      "SLA-oriented query and assessment response model",
+      "Post-clearance support for audit and control evidence",
     ],
     faqs: [
       {
         q: "What documents do I need for general cargo?",
-        a: "Typically invoice, packing list, transport document, IDF, and commodity-specific permits. We issue a tailored checklist by HS line so your team can submit once and submit right.",
+        a: "Usually invoice, packing list, transport document, IDF, and commodity-specific permits. We issue a tailored checklist by HS line before filing.",
+      },
+      {
+        q: "Can you support classification disputes or reviews?",
+        a: "Yes. We support evidence prep and classification review workflows where formal clarification is needed.",
+      },
+      {
+        q: "Do you handle transit movements after clearance?",
+        a: "Yes. We coordinate release into inland transport, including bond-related requirements for corridor routes.",
       },
     ],
     relatedSlugs: ["import-export-handling", "warehousing-distribution", "inland-transportation-hauls", "ship-agency"],
   },
   "ship-agency": {
     longLead:
-      "Ship agency performance is measured in hours saved, disputes prevented, and confidence retained between shore office and vessel. We act as your disciplined local command point at Ghana ports: authority interface, DA control, husbandry execution, protective oversight, and structured reporting that keeps owners, charterers, Masters, and technical managers aligned in real time.",
+      "Ship agency performance is measured in hours saved, disputes avoided, and confidence maintained between vessel and shore office. We act as a disciplined local command point at Ghana ports - controlling authority interface, DA quality, husbandry execution, and protective oversight so owners and charterers stay informed and in control throughout the call.",
     offerings: [
       {
         title: "Full ship agency",
         description:
-          "Complete call management from inward clearance to outward sailing: pilotage, berth interface, authority coordination, DA preparation, cash-to-master, and event reporting to your operations desk.",
+          "End-to-end call handling from inward clearance through sailing, with coordinated reporting to your operations centre.",
       },
       {
         title: "Husbandry agency",
         description:
-          "Crew changes, spares, stores, bunkers, freshwater, waste, launch services, and repair support timed to berth windows to protect turnaround.",
+          "Crew, spares, bunkers, stores, launches, and support services sequenced to protect berth-time efficiency.",
       },
       {
         title: "Protective agency",
         description:
-          "Independent owner/charterer representation where another commercial agent is nominated. We verify SOF/timesheets, monitor DA accuracy, and escalate discrepancies before they become claims.",
+          "Independent oversight where another commercial agent is nominated, including SOF and DA scrutiny.",
       },
       {
-        title: "Meet & greet / concierge",
+        title: "Meet-and-greet concierge",
         description:
-          "Arrival and transit management for superintendents and principals through Accra - meet-and-greet, secure transfer, and schedule-aligned handoff.",
+          "Controlled transit support for principals and superintendents through Accra with schedule-aligned handoff.",
       },
       {
         title: "Information packs",
         description:
-          "Call-specific pre-arrival intelligence: local rules, expected documents, indicative costs, and contact matrix for office and vessel alignment.",
+          "Pre-arrival call intelligence on local requirements, process expectations, and indicative cost structures.",
       },
       {
-        title: "Port & terminal liaison",
+        title: "Port and terminal liaison",
         description:
-          "Daily interface with port, terminal, immigration, health, and related authorities translated into milestone updates your shore team can act on.",
+          "Real-time authority and terminal interface translated into practical status updates for shore decision-making.",
+      },
+    ],
+    salesPoints: [
+      {
+        title: "Fewer call-time surprises",
+        body: "Structured pre-arrival planning reduces unplanned delays and fragmented communication during active calls.",
+      },
+      {
+        title: "Stronger DA confidence",
+        body: "Line-item discipline and verification improve financial transparency and reduce post-fixture disputes.",
+      },
+      {
+        title: "Single operating thread",
+        body: "Owners, charterers, and technical teams stay aligned through one accountable local coordination point.",
       },
     ],
     highlights: [
-      "Vessel-type coverage across tanker, bulk, ro/ro, project, and general cargo calls",
-      "Charter-party aware coordination with owners, charterers, receivers, and nominated reps",
-      "DA governance with line-item transparency and approval traceability",
-      "Real-time call communication through one accountable operations channel",
+      "Coverage across tanker, bulk, ro/ro, project, and general cargo calls",
+      "Charter-party aware communication and execution discipline",
+      "DA control model built for approval traceability",
+      "Protective and full agency options under one team",
     ],
     whoItServes:
-      "Owners, operators, charterers, technical managers, and traders requiring reliable local representation at Tema and Takoradi with professional call governance.",
+      "Owners, operators, charterers, and technical managers requiring high-confidence local representation at Tema and Takoradi.",
     workflow: [
-      { title: "Pre-arrival control", description: "Appointment, ETA/draft/cargo confirmation, authority prep, and DA baseline issued." },
-      { title: "Berth execution", description: "Clearance, attendance, husbandry, and survey coordination against call priorities." },
-      { title: "Live call reporting", description: "Structured updates, stakeholder synchronization, and issue escalation while alongside." },
-      { title: "Departure close-out", description: "SOF/DA reconciliation, sailing clearance, and final finance-ready documentation." },
+      { title: "Pre-arrival control", description: "Appointment, authority prep, ETA alignment, and DA baseline are established." },
+      { title: "Alongside execution", description: "Clearance, attendance, husbandry, and surveys run to agreed operational priorities." },
+      { title: "Live call governance", description: "Structured update cadence, issue escalation, and stakeholder alignment are maintained." },
+      { title: "Departure close-out", description: "SOF/DA reconciliation and final documentation are delivered for finance and records." },
     ],
     differentiators: [
-      "Operators fluent in both vessel realities and charter-party implications",
-      "Vetted supplier ecosystem with compliance discipline, not shortcuts",
-      "Full and protective agency capabilities under one accountability model",
+      "Bridge-level and charter-party-level fluency in one operations team",
+      "Vetted supplier ecosystem with compliance-first operating standards",
+      "Protective depth for risk-sensitive fixtures and call structures",
     ],
     faqs: [
       {
         q: "Which Ghana ports do you cover?",
-        a: "Core ship-agency coverage is centred on Tema and Takoradi. Principal and superintendent transit support is coordinated through Accra as needed.",
+        a: "Primary coverage is Tema and Takoradi, with related principal/superintendent transit support through Accra when required.",
       },
       {
         q: "When should we appoint protective rather than full agency?",
-        a: "Use protective agency when another party nominates the commercial agent but you still need independent attendance, SOF scrutiny, and DA validation. We advise model selection after a short review of charter structure and risk posture.",
+        a: "Protective agency is best where another agent is commercially nominated but you need independent local oversight of call events, SOF, and DA quality.",
       },
       {
         q: "Can you work with our existing husbandry suppliers?",
-        a: "Yes. We can integrate your approved suppliers provided they meet safety, response, and invoicing standards required for controlled call execution.",
+        a: "Yes, provided they meet operational, safety, and invoicing standards required for controlled call execution.",
       },
     ],
     relatedSlugs: ["freight-forwarding", "customs-clearance", "import-export-handling"],
   },
   "warehousing-distribution": {
     longLead:
-      "Warehousing should be an operating advantage, not a cost sink. We design storage and distribution around throughput, dwell profile, and service commitments - then run it with inventory discipline, dispatch control, and reporting that plugs cleanly into your planning cycle. From buffer stock near Tema to multi-point outbound across Ghana, the objective is predictable movement with fewer surprises.",
+      "Warehousing should improve service reliability and cash efficiency, not add blind cost. We design and operate storage and distribution around SKU behavior, throughput rhythm, and delivery commitments. From buffer stock near gateways to multi-point outbound, we focus on accurate inventory, disciplined dispatch, and reporting you can actually use to make decisions.",
+    offerings: [
+      {
+        title: "Inbound and put-away control",
+        description:
+          "Receiving, quality checks, location assignment, and discrepancy logging with accountability at every handoff.",
+      },
+      {
+        title: "Inventory governance",
+        description:
+          "Cycle counts, FIFO/FEFO controls, and batch-level visibility tailored to your commodity and compliance profile.",
+      },
+      {
+        title: "Pick-pack-dispatch operations",
+        description:
+          "Order fulfilment run against route cut-offs, carrier schedules, and customer service expectations.",
+      },
+      {
+        title: "Performance reporting",
+        description:
+          "Operational exports and KPI summaries structured for ERP ingestion or management-sheet decision workflows.",
+      },
+    ],
+    salesPoints: [
+      {
+        title: "Higher inventory accuracy",
+        body: "Structured control points reduce stock variances and improve confidence in available-to-promise numbers.",
+      },
+      {
+        title: "Lower cost-to-serve",
+        body: "Optimized storage and dispatch logic reduce unnecessary handling and emergency transport spend.",
+      },
+      {
+        title: "More reliable fulfilment",
+        body: "Cut-off aligned outbound planning improves OTIF performance across distribution routes.",
+      },
+    ],
     highlights: [
-      "Structured receiving, put-away, and cycle-count routines with accountability checkpoints",
-      "FIFO/FEFO controls, batch visibility, and traceability readiness for regulated lines",
-      "Pick-pack-dispatch workflows calibrated to cut-off and route commitments",
-      "Operational reporting exports aligned to ERP or management-sheet workflows",
+      "Warehouse operations designed around real throughput behavior",
+      "Traceability readiness for regulated and sensitive product lines",
+      "Dispatch discipline linked to lane and customer cut-offs",
+      "KPI reporting tied to business decisions, not vanity metrics",
     ],
     whoItServes:
-      "FMCG and retail teams with velocity pressure, industrial suppliers needing buffer reliability, and e-commerce or distribution operations scaling controlled fulfilment.",
+      "Retail, FMCG, industrial, and e-commerce teams that need dependable inventory and outbound performance in Ghana.",
     workflow: [
-      { title: "Footprint design", description: "Space, SKU profile, throughput rhythm, and service-level targets are defined." },
-      { title: "Control setup", description: "SOPs, labelling, stock logic, and reporting templates are configured for your operation." },
-      { title: "Daily execution", description: "Inbound, storage, and outbound run against agreed cut-offs and exception rules." },
-      { title: "Performance review", description: "KPI review and process tuning to improve accuracy, speed, and cost-to-serve." },
+      { title: "Network fit and setup", description: "We align facility model, SKU profile, and service targets before launch." },
+      { title: "Control framework", description: "SOPs, stock logic, and reporting standards are configured for daily execution." },
+      { title: "Operational cadence", description: "Inbound, storage, and outbound activities run to defined cut-offs and controls." },
+      { title: "Continuous optimization", description: "KPI reviews drive process refinements for speed, accuracy, and margin impact." },
     ],
     differentiators: [
-      "Operational flexibility without sacrificing control standards",
-      "Reporting designed for decision-making, not vanity dashboards",
-      "Scalable model from overflow support to dedicated programmes",
+      "Flexibility in commercial model without lowering control quality",
+      "Clear operational ownership from receiving to dispatch",
+      "Scalable structure for growth from overflow to dedicated models",
     ],
     faqs: [
       {
         q: "Do we need a long-term contract to start?",
-        a: "Not necessarily. We support short-term overflow, seasonal programmes, and longer dedicated models - structured around your throughput certainty.",
+        a: "No. We support short-term overflow, seasonal volumes, and dedicated longer-term programmes depending on throughput confidence.",
+      },
+      {
+        q: "Can you support batch and expiry controls?",
+        a: "Yes. FIFO/FEFO and batch-level rules are configured based on your product and compliance requirements.",
+      },
+      {
+        q: "Do you integrate with client systems?",
+        a: "Yes. Reporting can be structured for ERP import or dashboard workflows, depending on your operating setup.",
       },
     ],
     relatedSlugs: ["inland-transportation-hauls", "door-to-door-delivery", "supply-chain-support-solutions"],
   },
   "inland-transportation-hauls": {
     longLead:
-      "Inland transport performance is won in planning, not dispatch-day improvisation. We run haulage with route intelligence, equipment-fit discipline, permit readiness, and checkpoint visibility so your cargo moves across Ghana and corridor routes with fewer surprises. Whether drayage, project cargo, or long-haul regional transport, we treat each run as a governed operation.",
+      "Inland transport success is determined before wheels move. We treat haulage as a controlled operation with route intelligence, equipment-fit planning, permit readiness, and checkpoint governance. Whether port drayage, oversize project cargo, or corridor runs into landlocked markets, we execute for predictability and defensible performance.",
+    offerings: [
+      {
+        title: "Port and inland drayage",
+        description:
+          "Container and loose-cargo movement from port and ICD nodes into warehouse or project destinations.",
+      },
+      {
+        title: "Project and heavy-haul moves",
+        description:
+          "Lowbed and special-configuration transport with route survey and handling controls for oversized cargo.",
+      },
+      {
+        title: "Cross-border corridor execution",
+        description:
+          "Permit, escort, and border-process support for ECOWAS-linked transit requirements.",
+      },
+      {
+        title: "Active movement control desk",
+        description:
+          "Checkpoint updates and exception escalation for live visibility throughout the journey.",
+      },
+    ],
+    salesPoints: [
+      {
+        title: "Reduced route-risk exposure",
+        body: "Pre-dispatch route and permit validation reduces preventable stoppages and compliance complications.",
+      },
+      {
+        title: "Better delivery predictability",
+        body: "Checkpoint governance and escalation paths improve confidence in promised delivery windows.",
+      },
+      {
+        title: "Transparent movement economics",
+        body: "Fuel, toll, permit, and handling components are clearly separated for commercial clarity.",
+      },
+    ],
     highlights: [
-      "Fleet matching by cargo profile: container, flatbed, lowbed, tautliner, and project configurations",
-      "Route surveys and risk controls for oversize, sensitive, or high-value movements",
-      "Transit checkpoint reporting and exception escalation protocol",
-      "Permit and escort coordination for cross-border and controlled routes",
+      "Equipment assignment matched to cargo and road constraints",
+      "Structured route risk and compliance preparation",
+      "Corridor partner coordination with border-process awareness",
+      "Documented delivery and exception close-out discipline",
     ],
     whoItServes:
-      "Project operators, construction and mining supply chains, and enterprise logistics teams requiring dependable inland and corridor execution.",
+      "Project teams, industrial operators, and enterprise supply chains needing dependable inland and corridor movement execution.",
     workflow: [
-      { title: "Route intelligence", description: "Bridge limits, permit windows, curfews, and risk points are validated pre-dispatch." },
-      { title: "Equipment assignment", description: "Vehicle and securing configuration matched to cargo characteristics and compliance needs." },
-      { title: "Transit execution", description: "Dispatch, checkpoint updates, and response playbooks run through a monitored ops desk." },
-      { title: "Delivery close-out", description: "POD, exceptions, and commercial close are documented for client and audit reference." },
+      { title: "Route and risk planning", description: "Road, bridge, permit, and curfew constraints are validated before dispatch." },
+      { title: "Equipment and load strategy", description: "Vehicle type and securing method are engineered for cargo profile and safety." },
+      { title: "Transit monitoring", description: "Active updates and escalation playbooks keep stakeholders informed during movement." },
+      { title: "Delivery and closure", description: "POD, exception records, and commercial completion are captured and confirmed." },
     ],
     differentiators: [
-      "Dispatch governance with escalation paths for active moves",
-      "Corridor-ready partner network with proven border execution",
-      "Transparent pass-through visibility on fuel, toll, and permit components",
+      "Planning-led haulage model rather than dispatch-only execution",
+      "Operational oversight throughout live transit windows",
+      "Commercial transparency on pass-through route cost components",
     ],
     faqs: [
       {
         q: "Can you handle oversize or heavy-lift movements?",
-        a: "Yes. We coordinate route survey, permit application, escort requirements, and movement windows. Lead times vary by corridor and cargo envelope.",
+        a: "Yes. We coordinate route survey, permit pathway, escort requirements, and movement windows based on cargo envelope and corridor rules.",
+      },
+      {
+        q: "Do you provide transit tracking updates?",
+        a: "Yes. Active movements are monitored through checkpoint updates with clear escalation triggers for exceptions.",
+      },
+      {
+        q: "Can you run cross-border corridor deliveries?",
+        a: "Yes. We support corridor execution into regional destinations subject to route, permit, and border-process requirements.",
       },
     ],
     relatedSlugs: ["door-to-door-delivery", "warehousing-distribution", "freight-forwarding"],
   },
   "door-to-door-delivery": {
     longLead:
-      "Door-to-door should remove complexity, not hide it. We integrate pickup, international leg, clearance, and final delivery under one accountable operations lead, with commercial transparency at every stage. You get one governed service chain, one decision path, and one accountable partner from origin handover to proof-of-delivery.",
+      "Door-to-door is valuable only when accountability is real. We integrate pickup, main carriage, clearance, and final-mile delivery under one operations owner and one governed communication thread. You get simpler vendor management without sacrificing transparency on timing, cost, or compliance responsibilities.",
+    offerings: [
+      {
+        title: "Origin pickup and export prep",
+        description:
+          "Supplier-side collection and export-document coordination with readiness checks before movement.",
+      },
+      {
+        title: "International carriage control",
+        description:
+          "Ocean or air main-leg management selected against service-level and landed-cost objectives.",
+      },
+      {
+        title: "Destination clearance and release",
+        description:
+          "Import-side compliance handling with issue-response support through release completion.",
+      },
+      {
+        title: "Final-mile delivery completion",
+        description:
+          "Appointment-managed delivery with POD capture, exception reporting, and commercial close-out.",
+      },
+    ],
+    salesPoints: [
+      {
+        title: "Lower coordination overhead",
+        body: "One service chain removes vendor handoff friction and reduces internal follow-up workload.",
+      },
+      {
+        title: "Cleaner accountability model",
+        body: "A single operations owner means problems are solved, not passed between disconnected providers.",
+      },
+      {
+        title: "Clearer end-to-end visibility",
+        body: "Milestones across all legs are tracked in one thread for operations, finance, and compliance stakeholders.",
+      },
+    ],
     highlights: [
-      "Origin pickup coordination and export-document readiness",
-      "Main carriage optimization by timeline and landed-cost objective",
-      "Destination customs and release management with proactive issue handling",
-      "Final-mile appointment delivery with POD capture and close-out reporting",
+      "Integrated planning from supplier dock to final destination",
+      "Main-leg optimization by urgency, cost, and reliability",
+      "Destination issue handling under one accountable team",
+      "Final delivery governance with proof and close-out records",
     ],
     whoItServes:
-      "Businesses that want fewer vendors and clearer accountability - including SME importers, project teams, and corporates standardising logistics under one operating model.",
+      "Teams that want fewer vendor interfaces and stronger execution ownership across end-to-end logistics.",
     workflow: [
-      { title: "Scope definition", description: "Incoterms, cargo profile, origin/destination constraints, and delivery windows are confirmed." },
-      { title: "Origin execution", description: "Collection and export formalities are completed with pre-alert and document controls." },
-      { title: "Transit management", description: "Main-leg movement is monitored with milestone and exception communication." },
-      { title: "Destination completion", description: "Clearance, final delivery, and POD are closed under one accountable file owner." },
+      { title: "Scope lock", description: "Incoterms, addresses, cargo limits, and timeline expectations are confirmed upfront." },
+      { title: "Origin and transit control", description: "Pickup and main carriage are executed with milestone visibility and proactive updates." },
+      { title: "Import-side completion", description: "Clearance and release are coordinated with exception handling where required." },
+      { title: "Final-mile close-out", description: "Delivery and POD are completed with full file traceability and handover proof." },
     ],
     differentiators: [
-      "Single-party accountability across the entire delivery chain",
-      "Milestone visibility built for operations and finance stakeholders",
-      "Consolidated commercial structure with controlled pass-through clarity",
+      "Single-chain accountability across all transport legs",
+      "Commercial transparency despite multi-leg complexity",
+      "Escalation-ready support for urgent or sensitive files",
     ],
     faqs: [
       {
         q: "Do you support non-standard deliveries (sites, projects, timed drops)?",
-        a: "Yes, subject to access constraints and handling needs. We scope delivery requirements up front so route, equipment, and timing are properly engineered.",
+        a: "Yes. We scope access constraints, equipment needs, and delivery windows upfront so execution is engineered rather than improvised.",
+      },
+      {
+        q: "Can we use this for recurring imports?",
+        a: "Absolutely. We can structure recurring door-to-door programmes with cadence, SLA definitions, and reporting standards.",
+      },
+      {
+        q: "How is pricing structured across multiple legs?",
+        a: "Pricing is broken into service fee and pass-through components by leg, with assumptions clearly stated before booking.",
       },
     ],
     relatedSlugs: ["freight-forwarding", "customs-clearance", "inland-transportation-hauls"],
   },
   "supply-chain-support-solutions": {
     longLead:
-      "When logistics complexity grows, costs rise quietly before service visibly fails. Our supply-chain support service helps leadership teams redesign flows around measurable outcomes: lower cost-to-serve, stronger service reliability, and cleaner operating governance. We combine advisory thinking with execution reality so recommendations survive contact with daily operations.",
+      "When supply chains scale, hidden inefficiencies compound quickly. Our support solutions combine strategic diagnosis with practical implementation so improvements survive daily operating reality. We help leadership teams redesign flows for measurable gains in service reliability, cost-to-serve, and governance discipline - then support execution until the model is stable.",
+    offerings: [
+      {
+        title: "Network diagnostics",
+        description:
+          "Current-state mapping of lane cost, service breaks, inventory posture, and control gaps.",
+      },
+      {
+        title: "Design and optimization",
+        description:
+          "Future-state operating model including lane strategy, stocking logic, and handoff governance.",
+      },
+      {
+        title: "Pilot and transition",
+        description:
+          "Controlled rollouts with KPI baselines to validate improvements before full deployment.",
+      },
+      {
+        title: "Governance and cadence",
+        description:
+          "Review frameworks for OTIF, dwell, cost-to-serve, and exception quality across active programmes.",
+      },
+    ],
+    salesPoints: [
+      {
+        title: "Cost-to-serve visibility",
+        body: "Decisions move from intuition to evidence through lane-level and node-level economics.",
+      },
+      {
+        title: "Service-level reliability",
+        body: "Control redesign improves OTIF by reducing process breaks and handoff ambiguity.",
+      },
+      {
+        title: "Sustainable operating discipline",
+        body: "Cadence and ownership frameworks keep improvements active after project launch.",
+      },
+    ],
     highlights: [
-      "Network diagnostics and cost-to-serve modelling by lane, node, and product family",
-      "Inventory and replenishment strategy to balance service level and working capital",
-      "KPI architecture: OTIF, dwell time, landed cost variance, and exception frequency",
-      "Scenario planning for disruption, supplier shifts, and capacity constraints",
+      "Diagnostic depth tied to implementation realism",
+      "Inventory and routing decisions balanced against working capital",
+      "KPI architecture built for leadership actionability",
+      "Scenario planning for disruption and growth inflection points",
     ],
     whoItServes:
-      "COOs, supply-chain directors, and transformation teams who need practical redesign support tied to execution capability in Ghana and West Africa.",
+      "COOs, supply-chain leaders, and transformation teams seeking practical, measurable operational improvement.",
     workflow: [
-      { title: "Diagnostic baseline", description: "We map current flows, costs, service breaks, and control gaps with hard evidence." },
-      { title: "Future-state design", description: "Target lane strategy, inventory policy, and governance model are defined with trade-offs." },
-      { title: "Pilot execution", description: "Selected recommendations are trialed in live operations with measurable KPI targets." },
-      { title: "Scale and embed", description: "Winning patterns are rolled out with process ownership, cadence, and review governance." },
+      { title: "Evidence baseline", description: "We quantify current performance, cost drivers, and failure points by flow." },
+      { title: "Target model definition", description: "Trade-offs are modeled into a pragmatic future-state design." },
+      { title: "Pilot execution", description: "Selected improvements are tested in live operations with tracked KPI outcomes." },
+      { title: "Scale and governance", description: "Successful patterns are embedded with cadence, ownership, and review controls." },
     ],
     differentiators: [
-      "Practitioner-led delivery with implementation realism",
-      "Direct linkage between strategic recommendations and operating teams",
-      "Measured business outcomes with explicit ROI checkpoints",
+      "Strategy work tied directly to field execution realities",
+      "Cross-functional alignment between commercial and operations teams",
+      "Outcome measurement built into implementation, not added later",
     ],
     faqs: [
       {
         q: "Is this separate from freight execution?",
-        a: "It can be either. Some clients use advisory-only support; others combine design and execution under one roadmap so operational adoption is faster.",
+        a: "It can be advisory-only or integrated with operational delivery. We tailor the model to your internal capability and timeline.",
+      },
+      {
+        q: "How long does a typical engagement run?",
+        a: "Most diagnostics begin within weeks, with pilot windows defined by data availability, lane complexity, and change scope.",
+      },
+      {
+        q: "What outputs do leadership teams receive?",
+        a: "You receive quantified baselines, design recommendations, pilot results, and governance cadence for ongoing performance control.",
       },
     ],
     relatedSlugs: ["freight-forwarding", "warehousing-distribution", "import-export-handling"],

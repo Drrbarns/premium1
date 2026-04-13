@@ -274,6 +274,35 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
         </Container>
       </section>
 
+      {/* ── Commercial Impact ── */}
+      {deep.salesPoints && deep.salesPoints.length > 0 && (
+        <section className="relative py-16 md:py-24 bg-white overflow-hidden">
+          <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-slate-200 to-transparent" aria-hidden />
+          <Container className="relative">
+            <AnimateOnScroll animation="fade-up" className="mb-10 md:mb-12 max-w-2xl">
+              <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-[var(--accent)] mb-3">Commercial impact</p>
+              <h3 className="font-display font-bold text-3xl md:text-4xl text-[var(--ink)] tracking-tight">
+                Why this service pays for itself
+              </h3>
+            </AnimateOnScroll>
+
+            <div className="grid md:grid-cols-3 gap-4 md:gap-5">
+              {deep.salesPoints.map((p, i) => (
+                <AnimateOnScroll key={p.title} animation="fade-up" delay={i * 70}>
+                  <div className="h-full rounded-2xl border border-slate-200/80 bg-[var(--surface-warm)]/50 p-6 md:p-7 hover:bg-white hover:border-[var(--accent)]/30 hover:shadow-xl hover:shadow-slate-900/[0.06] transition-all duration-300">
+                    <div className="w-9 h-9 rounded-lg bg-white border border-slate-200/70 text-[var(--accent)] font-display font-bold flex items-center justify-center mb-4">
+                      {String(i + 1).padStart(2, "0")}
+                    </div>
+                    <h4 className="font-display font-bold text-lg text-[var(--ink)] mb-2 leading-tight">{p.title}</h4>
+                    <p className="text-slate-600 text-sm md:text-[15px] leading-relaxed">{p.body}</p>
+                  </div>
+                </AnimateOnScroll>
+              ))}
+            </div>
+          </Container>
+        </section>
+      )}
+
       {/* ── Workflow + differentiators (navy band) ── */}
       <section className="relative py-16 md:py-[5.6rem] text-white overflow-hidden">
         <div
@@ -295,10 +324,10 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
               <AnimateOnScroll animation="fade-up">
                 <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-[var(--accent)] mb-3">The process</p>
                 <h3 className="font-display font-bold text-3xl md:text-4xl text-white tracking-tight mb-4">
-                  Typical workflow
+                  {service.name} workflow
                 </h3>
                 <p className="text-white/55 text-base md:text-lg leading-relaxed mb-10 max-w-xl">
-                  Steps flex with your Incoterms and commodity—this is the spine most engagements follow.
+                  We run {service.name.toLowerCase()} with defined control points, ownership, and escalation from kickoff to close-out.
                 </p>
               </AnimateOnScroll>
               <AnimateOnScroll animation="fade-up" delay={100}>
