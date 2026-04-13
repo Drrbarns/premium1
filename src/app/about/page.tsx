@@ -150,7 +150,13 @@ export default function AboutPage() {
       </section>
 
       {/* ── Capabilities & Stats (Dark) ── */}
-      <section className="relative py-24 md:py-32 bg-[var(--navy)] text-white overflow-hidden">
+      <section className="relative py-24 md:py-32 text-white overflow-hidden">
+        <div
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat bg-fixed"
+          style={{ backgroundImage: "url('/hero-slide-1.webp')" }}
+          aria-hidden
+        />
+        <div className="absolute inset-0 bg-[var(--navy)]/30" aria-hidden />
         <div className="absolute inset-0 hero-grid opacity-[0.06]" aria-hidden />
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[var(--accent)]/10 rounded-full blur-[120px] pointer-events-none" aria-hidden />
         
@@ -180,19 +186,46 @@ export default function AboutPage() {
             </AnimateOnScroll>
             
             <AnimateOnScroll animation="slide-left">
-              <div className="grid grid-cols-2 gap-4">
-                {MOCK_STATS.map((s, i) => (
-                  <div key={s.label} className="rounded-2xl bg-white/5 border border-white/10 p-8 backdrop-blur-sm hover:bg-white/10 transition-colors">
-                    <div className="font-display text-4xl md:text-5xl font-bold text-[var(--accent)] tabular-nums mb-2">
-                      {s.prefix}{s.end}{s.suffix}
-                    </div>
-                    <div className="text-sm font-medium uppercase tracking-wider text-white/60">{s.label}</div>
+              <div className="rounded-3xl bg-[var(--navy)]/45 border border-white/15 backdrop-blur-md p-8 md:p-10 shadow-2xl shadow-slate-900/30">
+                <div className="flex items-center justify-between gap-4 mb-8">
+                  <div>
+                    <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[var(--accent)] mb-1">Performance cockpit</p>
+                    <h3 className="font-display font-bold text-2xl md:text-3xl text-white">Operational scorecards</h3>
                   </div>
-                ))}
-                <div className="col-span-2 rounded-2xl bg-white/5 border border-white/10 p-6 backdrop-blur-sm text-center">
-                  <p className="text-sm text-white/50 leading-relaxed">
-                    Figures represent illustrative operational scale. References available under NDA for qualified RFPs.
-                  </p>
+                  <div className="w-12 h-12 rounded-xl bg-white/10 border border-white/15 flex items-center justify-center text-[var(--accent)]">
+                    <BadgeCheck size={22} strokeWidth={1.7} />
+                  </div>
+                </div>
+
+                <div className="space-y-5">
+                  {MOCK_STATS.map((s, i) => (
+                    <div key={s.label} className="rounded-2xl bg-white/[0.06] border border-white/10 p-5">
+                      <div className="flex items-baseline justify-between gap-4 mb-2">
+                        <p className="text-sm uppercase tracking-wider text-white/65 font-medium">{s.label}</p>
+                        <p className="font-display text-3xl font-bold text-[var(--accent)] tabular-nums">
+                          {s.prefix}{s.end}{s.suffix}
+                        </p>
+                      </div>
+                      <div className="h-1.5 rounded-full bg-white/10 overflow-hidden">
+                        <div
+                          className="h-full rounded-full bg-gradient-to-r from-[var(--accent)]/80 to-[var(--accent)]"
+                          style={{ width: `${[62, 78, 54, 86][i % 4]}%` }}
+                        />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="mt-7 pt-6 border-t border-white/10 flex flex-wrap gap-2">
+                  <span className="px-3 py-1.5 rounded-full bg-white/10 border border-white/15 text-xs font-semibold tracking-wide text-white/80">
+                    SLA-focused execution
+                  </span>
+                  <span className="px-3 py-1.5 rounded-full bg-white/10 border border-white/15 text-xs font-semibold tracking-wide text-white/80">
+                    Named file ownership
+                  </span>
+                  <span className="px-3 py-1.5 rounded-full bg-white/10 border border-white/15 text-xs font-semibold tracking-wide text-white/80">
+                    Audit-ready documentation
+                  </span>
                 </div>
               </div>
             </AnimateOnScroll>
