@@ -290,7 +290,13 @@ export default function CoveragePage() {
       </section>
 
       {/* ── Bottom CTA ── */}
-      <section className="relative py-24 md:py-28 bg-[var(--navy)] overflow-hidden">
+      <section className="relative py-24 md:py-28 overflow-hidden">
+        <div
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{ backgroundImage: "url('/hero-slide-2.webp')" }}
+          aria-hidden
+        />
+        <div className="absolute inset-0 bg-[var(--navy)]/30" aria-hidden />
         <div className="absolute inset-0 hero-grid opacity-[0.06]" aria-hidden />
         <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-[var(--accent)]/8 rounded-full blur-[100px] pointer-events-none" aria-hidden />
 
