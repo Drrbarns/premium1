@@ -10,12 +10,16 @@ const ROLE_ROUTE_MAP: Record<string, string[]> = {
 
 export async function middleware(request: NextRequest) {
   const path = request.nextUrl.pathname;
-  if (!path.startsWith("/admin")) {
-    return NextResponse.next();
+
+  const requestHeaders = new Headers(request.headers);
+  requestHeaders.set("x-next-pathname", path);
+
+  if (!path.startsWith("/admin") && !path.startsWith("/auth/admin")) {
+    return NextResponse.next({ request: { headers: requestHeaders } });
   }
 
   if (process.env.ADMIN_AUTH_DISABLED === "true") {
-    return NextResponse.next();
+    return NextResponse.next({ request: { headers: requestHeaders } });
   }
 
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -24,7 +28,7 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL("/auth/admin?setup=1", request.url));
   }
 
-  let response = NextResponse.next({ request });
+  let response = NextResponse.next({ request: { headers: requestHeaders } });
 
   const supabase = createServerClient(url, key, {
     cookies: {
@@ -33,7 +37,7 @@ export async function middleware(request: NextRequest) {
       },
       setAll(cookiesToSet) {
         cookiesToSet.forEach(({ name, value }) => request.cookies.set(name, value));
-        response = NextResponse.next({ request });
+        response = NextResponse.next({ request: { headers: requestHeaders } });
         cookiesToSet.forEach(({ name, value, options }) => response.cookies.set(name, value, options));
       },
     },
@@ -70,5 +74,7 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/admin", "/admin/:path*"],
+  matcher: [
+    "/((?!_next/static|_next/image|favicon\\.ico|.*\\.(?:png|jpg|jpeg|gif|webp|svg|ico|css|js|woff2?|ttf|eot)).*)",
+  ],
 };

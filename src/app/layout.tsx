@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { DM_Sans, Syne } from "next/font/google";
+import { headers } from "next/headers";
 import "./globals.css";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
@@ -80,22 +81,28 @@ const jsonLd = {
   ],
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const headersList = await headers();
+  const pathname = headersList.get("x-next-pathname") ?? headersList.get("x-invoke-path") ?? "";
+  const isAdmin = pathname.startsWith("/admin") || pathname.startsWith("/auth/admin");
+
   return (
     <html lang="en" className="overflow-x-hidden">
       <head>
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+        {!isAdmin && (
+          <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+        )}
       </head>
       <body className={`${dmSans.variable} ${syne.variable} font-sans antialiased overflow-x-hidden`}>
-        <Header />
-        <main className="min-h-screen">{children}</main>
-        <Footer />
-        <FloatingWhatsApp />
-        <CookieConsent />
+        {!isAdmin && <Header />}
+        <main className={isAdmin ? "" : "min-h-screen"}>{children}</main>
+        {!isAdmin && <Footer />}
+        {!isAdmin && <FloatingWhatsApp />}
+        {!isAdmin && <CookieConsent />}
       </body>
     </html>
   );

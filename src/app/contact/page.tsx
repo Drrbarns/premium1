@@ -212,9 +212,17 @@ export default function ContactPage() {
       </section>
 
       {/* ── First Message Guide (Dark) ── */}
-      <section className="relative py-24 md:py-32 bg-[var(--navy)] text-white overflow-hidden">
+      <section className="relative py-24 md:py-32 text-white overflow-hidden">
+        <Image
+          src="/hero-slide-2.webp"
+          alt=""
+          fill
+          className="object-cover"
+          sizes="100vw"
+          quality={75}
+        />
+        <div className="absolute inset-0 bg-[var(--navy)]/70" aria-hidden />
         <div className="absolute inset-0 hero-grid opacity-10" aria-hidden />
-        <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-[var(--accent)]/10 rounded-full blur-[100px] pointer-events-none" aria-hidden />
         
         <Container className="relative">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
