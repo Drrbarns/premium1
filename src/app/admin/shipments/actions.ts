@@ -2,6 +2,7 @@
 
 import { createServiceRoleClient } from "@/lib/supabase/server";
 import { revalidatePath } from "next/cache";
+import { logActivity } from "@/lib/activity";
 
 const SHIP_STATUSES = ["draft", "booked", "in_transit", "arrived", "clearing", "out_for_delivery", "delivered"];
 
@@ -70,6 +71,7 @@ export async function updateShipmentStatus(formData: FormData) {
     // Notifications are optional
   }
 
+  await logActivity({ entityType: "shipment", entityId: id, action: `changed status to ${status}` });
   revalidatePath(`/admin/shipments/${id}`);
   revalidatePath("/admin/shipments");
 }
@@ -84,6 +86,7 @@ export async function assignShipment(formData: FormData) {
     .from("shipments")
     .update({ assigned_to: assigned_to || null, updated_at: new Date().toISOString() })
     .eq("id", id);
+  await logActivity({ entityType: "shipment", entityId: id, action: "assigned shipment" });
   revalidatePath(`/admin/shipments/${id}`);
 }
 
@@ -161,6 +164,7 @@ export async function createShipment(formData: FormData) {
       event_type: "created",
       message: "Shipment created manually",
     });
+    await logActivity({ entityType: "shipment", entityId: shipment.id, action: "created shipment" });
   }
 
   revalidatePath("/admin/shipments");

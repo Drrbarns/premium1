@@ -4,22 +4,19 @@ import { NextResponse, type NextRequest } from "next/server";
 const ROLE_ROUTE_MAP: Record<string, string[]> = {
   admin: [],
   operations: ["/admin/staff", "/admin/settings"],
-  documentation: ["/admin/staff", "/admin/settings", "/admin/inquiries"],
-  customer_service: ["/admin/staff", "/admin/settings", "/admin/shipments"],
+  documentation: ["/admin/staff", "/admin/settings", "/admin/inquiries", "/admin/finance"],
+  customer_service: ["/admin/staff", "/admin/settings", "/admin/shipments", "/admin/customs", "/admin/finance"],
 };
 
 export async function middleware(request: NextRequest) {
   const path = request.nextUrl.pathname;
 
-  const requestHeaders = new Headers(request.headers);
-  requestHeaders.set("x-next-pathname", path);
-
   if (!path.startsWith("/admin") && !path.startsWith("/auth/admin")) {
-    return NextResponse.next({ request: { headers: requestHeaders } });
+    return NextResponse.next();
   }
 
   if (process.env.ADMIN_AUTH_DISABLED === "true") {
-    return NextResponse.next({ request: { headers: requestHeaders } });
+    return NextResponse.next();
   }
 
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -28,7 +25,7 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL("/auth/admin?setup=1", request.url));
   }
 
-  let response = NextResponse.next({ request: { headers: requestHeaders } });
+  let response = NextResponse.next({ request });
 
   const supabase = createServerClient(url, key, {
     cookies: {
@@ -37,7 +34,7 @@ export async function middleware(request: NextRequest) {
       },
       setAll(cookiesToSet) {
         cookiesToSet.forEach(({ name, value }) => request.cookies.set(name, value));
-        response = NextResponse.next({ request: { headers: requestHeaders } });
+        response = NextResponse.next({ request });
         cookiesToSet.forEach(({ name, value, options }) => response.cookies.set(name, value, options));
       },
     },
@@ -74,7 +71,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: [
-    "/((?!_next/static|_next/image|favicon\\.ico|.*\\.(?:png|jpg|jpeg|gif|webp|svg|ico|css|js|woff2?|ttf|eot)).*)",
-  ],
+  matcher: ["/admin", "/admin/:path*", "/auth/admin"],
 };

@@ -1,214 +1,465 @@
 import { createServiceRoleClient } from "@/lib/supabase/server";
 import Link from "next/link";
-import { Inbox, Truck, Users, Plus, ArrowRight } from "lucide-react";
+import {
+  AlertTriangle,
+  ArrowRight,
+  ArrowUpRight,
+  Box,
+  CircleDollarSign,
+  Clock,
+  FileText,
+  Inbox,
+  Plus,
+  TrendingUp,
+  Truck,
+  Users,
+} from "lucide-react";
+import { DashboardCharts } from "@/components/admin/DashboardCharts";
 
-export default async function AdminDashboardPage() {
+const STATUS_COLORS: Record<string, string> = {
+  new: "bg-blue-100 text-blue-700",
+  contacted: "bg-amber-100 text-amber-700",
+  quoted: "bg-purple-100 text-purple-700",
+  won: "bg-emerald-100 text-emerald-700",
+  lost: "bg-slate-100 text-slate-500",
+  draft: "bg-slate-100 text-slate-600",
+  booked: "bg-blue-100 text-blue-700",
+  in_transit: "bg-amber-100 text-amber-700",
+  arrived: "bg-cyan-100 text-cyan-700",
+  clearing: "bg-purple-100 text-purple-700",
+  out_for_delivery: "bg-orange-100 text-orange-700",
+  delivered: "bg-emerald-100 text-emerald-700",
+  sent: "bg-blue-100 text-blue-700",
+  paid: "bg-emerald-100 text-emerald-700",
+  overdue: "bg-red-100 text-red-700",
+  void: "bg-slate-100 text-slate-400",
+  urgent: "bg-red-100 text-red-700",
+  high: "bg-orange-100 text-orange-700",
+};
+
+export default async function AdminDashboard() {
   const supabase = createServiceRoleClient();
-  let stats = { inquiries: 0, shipments: 0, clients: 0 };
-  let pipeline: Record<string, number> = {};
-  let recentInquiries: { id: string; inquiry_no: string; full_name: string; status: string; created_at: string }[] = [];
-  let recentShipments: { id: string; shipment_no: string; origin: string; destination: string; status: string; created_at: string }[] = [];
-
-  if (supabase) {
-    const [i, s, c] = await Promise.all([
-      supabase.from("inquiries").select("id", { count: "exact", head: true }),
-      supabase.from("shipments").select("id", { count: "exact", head: true }),
-      supabase.from("clients").select("id", { count: "exact", head: true }),
-    ]);
-    stats = {
-      inquiries: i.count ?? 0,
-      shipments: s.count ?? 0,
-      clients: c.count ?? 0,
-    };
-
-    // Pipeline counts
-    const { data: pipeData } = await supabase
-      .from("inquiries")
-      .select("status");
-    if (pipeData) {
-      pipeData.forEach((r) => {
-        pipeline[r.status] = (pipeline[r.status] || 0) + 1;
-      });
-    }
-
-    // Recent items
-    const { data: ri } = await supabase
-      .from("inquiries")
-      .select("id, inquiry_no, full_name, status, created_at")
-      .order("created_at", { ascending: false })
-      .limit(5);
-    recentInquiries = ri || [];
-
-    const { data: rs } = await supabase
-      .from("shipments")
-      .select("id, shipment_no, origin, destination, status, created_at")
-      .order("created_at", { ascending: false })
-      .limit(5);
-    recentShipments = rs || [];
+  if (!supabase) {
+    return <div className="p-8 text-slate-500">Connect Supabase to view dashboard.</div>;
   }
 
-  const STAT_CARDS = [
-    { label: "Inquiries", value: stats.inquiries, href: "/admin/inquiries", icon: Inbox, color: "bg-blue-50 text-blue-600" },
-    { label: "Shipments", value: stats.shipments, href: "/admin/shipments", icon: Truck, color: "bg-amber-50 text-amber-600" },
-    { label: "Clients", value: stats.clients, href: "/admin/clients", icon: Users, color: "bg-green-50 text-green-600" },
+  const now = new Date();
+  const thisMonthStart = new Date(now.getFullYear(), now.getMonth(), 1).toISOString();
+
+  const [
+    { count: inquiryCount },
+    { count: shipmentCount },
+    { count: clientCount },
+    { data: invoiceStats },
+    { data: allInquiries },
+    { data: recentInquiries },
+    { data: recentShipments },
+    { data: recentActivity },
+    { data: shipmentsByStatus },
+    { data: overdueFollowUps },
+    { data: customsQueries },
+    { data: overdueInvoices },
+  ] = await Promise.all([
+    supabase.from("inquiries").select("*", { count: "exact", head: true }),
+    supabase.from("shipments").select("*", { count: "exact", head: true }),
+    supabase.from("clients").select("*", { count: "exact", head: true }),
+    supabase.from("invoices").select("status, total"),
+    supabase.from("inquiries").select("status, estimated_value, created_at"),
+    supabase
+      .from("inquiries")
+      .select("id, inquiry_no, full_name, company_name, status, priority, created_at")
+      .order("created_at", { ascending: false })
+      .limit(6),
+    supabase
+      .from("shipments")
+      .select("id, shipment_no, origin, destination, status, method, created_at")
+      .order("created_at", { ascending: false })
+      .limit(6),
+    supabase
+      .from("activity_log")
+      .select("id, entity_type, action, actor_email, metadata, created_at")
+      .order("created_at", { ascending: false })
+      .limit(15),
+    supabase.from("shipments").select("status"),
+    supabase
+      .from("inquiries")
+      .select("id, inquiry_no, full_name, follow_up_at")
+      .lt("follow_up_at", now.toISOString())
+      .not("follow_up_at", "is", null)
+      .not("status", "in", "(won,lost)")
+      .limit(5),
+    supabase
+      .from("customs_declarations")
+      .select("id, declaration_no, query_deadline")
+      .eq("status", "query")
+      .limit(5),
+    supabase
+      .from("invoices")
+      .select("id, invoice_no, total, due_date, client_id")
+      .eq("status", "overdue")
+      .limit(5),
+  ]);
+
+  // Pipeline counts
+  const pipelineCounts: Record<string, number> = {};
+  (allInquiries || []).forEach((i: { status: string }) => {
+    pipelineCounts[i.status] = (pipelineCounts[i.status] || 0) + 1;
+  });
+
+  // Shipment pipeline counts
+  const shipmentPipeline: Record<string, number> = {};
+  (shipmentsByStatus || []).forEach((s: { status: string }) => {
+    shipmentPipeline[s.status] = (shipmentPipeline[s.status] || 0) + 1;
+  });
+
+  // Invoice aggregates
+  let totalRevenue = 0;
+  let totalOutstanding = 0;
+  let totalOverdue = 0;
+  (invoiceStats || []).forEach((inv: { status: string; total: number }) => {
+    if (inv.status === "paid") totalRevenue += Number(inv.total || 0);
+    if (inv.status === "sent") totalOutstanding += Number(inv.total || 0);
+    if (inv.status === "overdue") {
+      totalOutstanding += Number(inv.total || 0);
+      totalOverdue += Number(inv.total || 0);
+    }
+  });
+
+  // Monthly inquiry data for chart
+  const monthlyInquiries: Record<string, number> = {};
+  (allInquiries || []).forEach((i: { created_at: string }) => {
+    const m = i.created_at?.slice(0, 7);
+    if (m) monthlyInquiries[m] = (monthlyInquiries[m] || 0) + 1;
+  });
+
+  const exceptions = [
+    ...(overdueFollowUps || []).map((f: { id: string; inquiry_no: string; full_name: string }) => ({
+      type: "follow_up",
+      label: `Overdue follow-up: ${f.inquiry_no}`,
+      sub: f.full_name,
+      href: `/admin/inquiries/${f.id}`,
+    })),
+    ...(customsQueries || []).map((c: { id: string; declaration_no: string }) => ({
+      type: "customs",
+      label: `Customs query: ${c.declaration_no || "Pending"}`,
+      sub: "Needs response",
+      href: `/admin/customs`,
+    })),
+    ...(overdueInvoices || []).map((inv: { id: string; invoice_no: string; total: number }) => ({
+      type: "invoice",
+      label: `Overdue: ${inv.invoice_no}`,
+      sub: `$${Number(inv.total).toLocaleString()}`,
+      href: `/admin/finance/${inv.id}`,
+    })),
   ];
 
-  const PIPELINE_STAGES = [
-    { key: "new", label: "New", color: "bg-blue-500" },
-    { key: "contacted", label: "Contacted", color: "bg-amber-500" },
-    { key: "quoted", label: "Quoted", color: "bg-purple-500" },
-    { key: "won", label: "Won", color: "bg-green-500" },
-    { key: "lost", label: "Lost", color: "bg-slate-400" },
-  ];
+  const activeShipments = (shipmentsByStatus || []).filter(
+    (s: { status: string }) => !["draft", "delivered"].includes(s.status)
+  ).length;
 
-  const STATUS_COLORS: Record<string, string> = {
-    new: "bg-blue-50 text-blue-700",
-    contacted: "bg-amber-50 text-amber-700",
-    quoted: "bg-purple-50 text-purple-700",
-    won: "bg-green-50 text-green-700",
-    lost: "bg-slate-100 text-slate-600",
-    draft: "bg-slate-100 text-slate-600",
-    booked: "bg-blue-50 text-blue-700",
-    in_transit: "bg-amber-50 text-amber-700",
-    arrived: "bg-cyan-50 text-cyan-700",
-    clearing: "bg-purple-50 text-purple-700",
-    out_for_delivery: "bg-orange-50 text-orange-700",
-    delivered: "bg-green-50 text-green-700",
-  };
+  const pendingInquiries = (pipelineCounts["new"] || 0) + (pipelineCounts["contacted"] || 0);
+
+  const shipmentStages = ["draft", "booked", "in_transit", "arrived", "clearing", "out_for_delivery", "delivered"];
+  const pipelineStages = ["new", "contacted", "quoted", "won", "lost"];
+
+  const chartData = pipelineStages.slice(0, 4).map((s) => ({
+    name: s.charAt(0).toUpperCase() + s.slice(1),
+    value: pipelineCounts[s] || 0,
+  }));
 
   return (
-    <div>
-      <div className="flex items-center justify-between mb-8">
-        <h1 className="text-2xl font-semibold text-slate-900">Dashboard</h1>
+    <div className="space-y-6">
+      {/* Header */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <h1 className="text-2xl font-bold text-slate-900 tracking-tight">Command Center</h1>
+          <p className="text-sm text-slate-500 mt-0.5">
+            {now.toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric", year: "numeric" })}
+          </p>
+        </div>
         <div className="flex gap-2">
           <Link
             href="/admin/shipments/new"
-            className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg bg-slate-900 text-white text-sm font-medium hover:bg-slate-800"
+            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[var(--accent)] text-white text-sm font-semibold hover:bg-[var(--accent-hover)] transition-colors shadow-sm"
           >
-            <Plus size={16} />
-            New Shipment
+            <Plus size={16} /> New Shipment
           </Link>
           <Link
             href="/admin/clients/new"
-            className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg bg-white border border-slate-200 text-slate-700 text-sm font-medium hover:bg-slate-50"
+            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white border border-slate-200 text-slate-700 text-sm font-semibold hover:bg-slate-50 transition-colors"
           >
-            <Plus size={16} />
-            New Client
+            <Plus size={16} /> New Client
           </Link>
         </div>
       </div>
 
-      {/* Stat Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
-        {STAT_CARDS.map((c) => {
-          const Icon = c.icon;
-          return (
-            <Link
-              key={c.label}
-              href={c.href}
-              className="p-5 bg-white rounded-xl border border-slate-200 hover:border-slate-300 transition-colors flex items-center gap-4"
-            >
-              <div className={`w-12 h-12 rounded-xl ${c.color} flex items-center justify-center`}>
-                <Icon size={22} />
-              </div>
-              <div>
-                <div className="text-2xl font-bold text-slate-900">{c.value}</div>
-                <div className="text-sm text-slate-500">{c.label}</div>
-              </div>
-            </Link>
-          );
-        })}
+      {/* KPI Cards */}
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+        <KPICard
+          icon={<Truck size={20} />}
+          label="Active Shipments"
+          value={activeShipments}
+          href="/admin/shipments"
+          accent="bg-blue-50 text-blue-600"
+        />
+        <KPICard
+          icon={<Inbox size={20} />}
+          label="Pending Inquiries"
+          value={pendingInquiries}
+          href="/admin/inquiries"
+          accent="bg-amber-50 text-amber-600"
+        />
+        <KPICard
+          icon={<CircleDollarSign size={20} />}
+          label="Revenue (Paid)"
+          value={`$${totalRevenue.toLocaleString()}`}
+          href="/admin/finance"
+          accent="bg-emerald-50 text-emerald-600"
+        />
+        <KPICard
+          icon={<FileText size={20} />}
+          label="Outstanding"
+          value={`$${totalOutstanding.toLocaleString()}`}
+          href="/admin/finance"
+          accent="bg-purple-50 text-purple-600"
+          alert={totalOverdue > 0 ? `$${totalOverdue.toLocaleString()} overdue` : undefined}
+        />
       </div>
 
-      {/* Pipeline */}
-      {Object.keys(pipeline).length > 0 && (
-        <div className="bg-white rounded-xl border border-slate-200 p-6 mb-8">
-          <h2 className="text-sm font-semibold text-slate-900 uppercase tracking-wider mb-4">Inquiry Pipeline</h2>
-          <div className="flex gap-3">
-            {PIPELINE_STAGES.map((stage) => {
-              const count = pipeline[stage.key] || 0;
-              return (
-                <div key={stage.key} className="flex-1 text-center">
-                  <div className={`h-2 rounded-full ${stage.color} mb-2`} style={{ opacity: count > 0 ? 1 : 0.2 }} />
-                  <div className="text-xl font-bold text-slate-900">{count}</div>
-                  <div className="text-xs text-slate-500 capitalize">{stage.label}</div>
+      {/* Exception Alerts */}
+      {exceptions.length > 0 && (
+        <div className="rounded-2xl border border-red-200/80 bg-red-50/50 p-4">
+          <div className="flex items-center gap-2 mb-3">
+            <AlertTriangle size={16} className="text-red-500" />
+            <span className="text-sm font-semibold text-red-700">Needs Attention ({exceptions.length})</span>
+          </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-2">
+            {exceptions.slice(0, 6).map((e, i) => (
+              <Link
+                key={i}
+                href={e.href}
+                className="flex items-center justify-between gap-2 px-3 py-2.5 rounded-xl bg-white border border-red-100 hover:border-red-300 transition-colors group"
+              >
+                <div className="min-w-0">
+                  <p className="text-xs font-semibold text-slate-800 truncate">{e.label}</p>
+                  <p className="text-[11px] text-slate-500 truncate">{e.sub}</p>
                 </div>
-              );
-            })}
+                <ArrowRight size={14} className="text-slate-400 group-hover:text-red-500 shrink-0" />
+              </Link>
+            ))}
           </div>
         </div>
       )}
 
-      {/* Recent Activity */}
-      <div className="grid lg:grid-cols-2 gap-6">
-        {/* Recent Inquiries */}
-        <div className="bg-white rounded-xl border border-slate-200 p-6">
+      {/* Shipment Pipeline */}
+      <div className="rounded-2xl border border-slate-200 bg-white p-5">
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="text-sm font-semibold text-slate-800">Shipment Pipeline</h2>
+          <Link href="/admin/shipments" className="text-xs text-[var(--accent)] font-semibold hover:underline flex items-center gap-1">
+            View all <ArrowUpRight size={12} />
+          </Link>
+        </div>
+        <div className="flex gap-1 overflow-x-auto pb-1">
+          {shipmentStages.map((stage) => {
+            const count = shipmentPipeline[stage] || 0;
+            const label = stage.replace(/_/g, " ");
+            return (
+              <Link
+                key={stage}
+                href={`/admin/shipments?status=${stage}`}
+                className="flex-1 min-w-[100px] rounded-xl border border-slate-100 bg-slate-50/50 p-3 text-center hover:border-[var(--accent)]/30 hover:bg-[var(--accent)]/5 transition-colors group"
+              >
+                <p className="text-2xl font-bold text-slate-800 group-hover:text-[var(--accent)] transition-colors">{count}</p>
+                <p className="text-[10px] font-semibold uppercase tracking-wider text-slate-400 mt-1 capitalize">{label}</p>
+              </Link>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Charts + Pipeline Row */}
+      <div className="grid lg:grid-cols-2 gap-4">
+        {/* Inquiry Pipeline */}
+        <div className="rounded-2xl border border-slate-200 bg-white p-5">
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-sm font-semibold text-slate-900 uppercase tracking-wider">Recent Inquiries</h2>
-            <Link href="/admin/inquiries" className="text-xs text-blue-600 hover:underline flex items-center gap-1">
-              View all <ArrowRight size={12} />
+            <h2 className="text-sm font-semibold text-slate-800">Inquiry Pipeline</h2>
+            <Link href="/admin/inquiries" className="text-xs text-[var(--accent)] font-semibold hover:underline flex items-center gap-1">
+              View all <ArrowUpRight size={12} />
             </Link>
           </div>
-          {recentInquiries.length > 0 ? (
-            <div className="space-y-2">
-              {recentInquiries.map((inq) => (
-                <Link
-                  key={inq.id}
-                  href={`/admin/inquiries/${inq.id}`}
-                  className="flex items-center justify-between p-3 rounded-lg hover:bg-slate-50 transition-colors"
-                >
-                  <div>
-                    <p className="text-sm font-medium text-slate-900">{inq.inquiry_no}</p>
-                    <p className="text-xs text-slate-500">{inq.full_name}</p>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <span className={`px-2 py-0.5 rounded text-xs font-medium ${STATUS_COLORS[inq.status] || "bg-slate-100"}`}>
-                      {inq.status}
-                    </span>
-                    <span className="text-xs text-slate-400">{new Date(inq.created_at).toLocaleDateString()}</span>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          ) : (
-            <p className="text-sm text-slate-400">No inquiries yet.</p>
-          )}
+          <DashboardCharts data={chartData} />
+        </div>
+
+        {/* Quick Stats */}
+        <div className="rounded-2xl border border-slate-200 bg-white p-5">
+          <h2 className="text-sm font-semibold text-slate-800 mb-4">Overview</h2>
+          <div className="grid grid-cols-2 gap-3">
+            <StatBlock label="Total Inquiries" value={inquiryCount || 0} icon={<Inbox size={16} />} />
+            <StatBlock label="Total Shipments" value={shipmentCount || 0} icon={<Box size={16} />} />
+            <StatBlock label="Total Clients" value={clientCount || 0} icon={<Users size={16} />} />
+            <StatBlock
+              label="Win Rate"
+              value={
+                (pipelineCounts["won"] || 0) + (pipelineCounts["lost"] || 0) > 0
+                  ? `${Math.round(((pipelineCounts["won"] || 0) / ((pipelineCounts["won"] || 0) + (pipelineCounts["lost"] || 0))) * 100)}%`
+                  : "—"
+              }
+              icon={<TrendingUp size={16} />}
+            />
+          </div>
+        </div>
+      </div>
+
+      {/* Recent Tables */}
+      <div className="grid lg:grid-cols-2 gap-4">
+        {/* Recent Inquiries */}
+        <div className="rounded-2xl border border-slate-200 bg-white">
+          <div className="flex items-center justify-between p-5 pb-3">
+            <h2 className="text-sm font-semibold text-slate-800">Recent Inquiries</h2>
+            <Link href="/admin/inquiries" className="text-xs text-[var(--accent)] font-semibold hover:underline">
+              View all →
+            </Link>
+          </div>
+          <div className="px-5 pb-5">
+            {recentInquiries && recentInquiries.length > 0 ? (
+              <div className="space-y-2">
+                {recentInquiries.map((inq: any) => (
+                  <Link
+                    key={inq.id}
+                    href={`/admin/inquiries/${inq.id}`}
+                    className="flex items-center gap-3 p-3 rounded-xl hover:bg-slate-50 transition-colors group"
+                  >
+                    <div className="w-9 h-9 rounded-lg bg-slate-100 flex items-center justify-center text-slate-500 shrink-0">
+                      <Inbox size={16} />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-sm font-semibold text-slate-800 truncate group-hover:text-[var(--accent)]">{inq.full_name}</p>
+                      <p className="text-[11px] text-slate-500 truncate">
+                        {inq.inquiry_no} · {inq.company_name || "—"}
+                      </p>
+                    </div>
+                    <div className="flex items-center gap-2 shrink-0">
+                      {inq.priority && inq.priority !== "medium" && (
+                        <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full uppercase ${STATUS_COLORS[inq.priority] || ""}`}>
+                          {inq.priority}
+                        </span>
+                      )}
+                      <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full uppercase ${STATUS_COLORS[inq.status] || "bg-slate-100 text-slate-600"}`}>
+                        {inq.status}
+                      </span>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            ) : (
+              <p className="text-sm text-slate-400 py-4 text-center">No inquiries yet.</p>
+            )}
+          </div>
         </div>
 
         {/* Recent Shipments */}
-        <div className="bg-white rounded-xl border border-slate-200 p-6">
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-sm font-semibold text-slate-900 uppercase tracking-wider">Recent Shipments</h2>
-            <Link href="/admin/shipments" className="text-xs text-blue-600 hover:underline flex items-center gap-1">
-              View all <ArrowRight size={12} />
+        <div className="rounded-2xl border border-slate-200 bg-white">
+          <div className="flex items-center justify-between p-5 pb-3">
+            <h2 className="text-sm font-semibold text-slate-800">Recent Shipments</h2>
+            <Link href="/admin/shipments" className="text-xs text-[var(--accent)] font-semibold hover:underline">
+              View all →
             </Link>
           </div>
-          {recentShipments.length > 0 ? (
-            <div className="space-y-2">
-              {recentShipments.map((s) => (
-                <Link
-                  key={s.id}
-                  href={`/admin/shipments/${s.id}`}
-                  className="flex items-center justify-between p-3 rounded-lg hover:bg-slate-50 transition-colors"
-                >
-                  <div>
-                    <p className="text-sm font-medium text-slate-900">{s.shipment_no}</p>
-                    <p className="text-xs text-slate-500">{s.origin} → {s.destination}</p>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <span className={`px-2 py-0.5 rounded text-xs font-medium ${STATUS_COLORS[s.status] || "bg-slate-100"}`}>
-                      {s.status.replace(/_/g, " ")}
+          <div className="px-5 pb-5">
+            {recentShipments && recentShipments.length > 0 ? (
+              <div className="space-y-2">
+                {recentShipments.map((s: any) => (
+                  <Link
+                    key={s.id}
+                    href={`/admin/shipments/${s.id}`}
+                    className="flex items-center gap-3 p-3 rounded-xl hover:bg-slate-50 transition-colors group"
+                  >
+                    <div className="w-9 h-9 rounded-lg bg-slate-100 flex items-center justify-center text-slate-500 shrink-0">
+                      <Truck size={16} />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-sm font-semibold text-slate-800 truncate group-hover:text-[var(--accent)]">{s.shipment_no}</p>
+                      <p className="text-[11px] text-slate-500 truncate">
+                        {s.origin} → {s.destination}
+                      </p>
+                    </div>
+                    <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full uppercase shrink-0 ${STATUS_COLORS[s.status] || "bg-slate-100 text-slate-600"}`}>
+                      {s.status?.replace(/_/g, " ")}
                     </span>
-                    <span className="text-xs text-slate-400">{new Date(s.created_at).toLocaleDateString()}</span>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          ) : (
-            <p className="text-sm text-slate-400">No shipments yet.</p>
-          )}
+                  </Link>
+                ))}
+              </div>
+            ) : (
+              <p className="text-sm text-slate-400 py-4 text-center">No shipments yet.</p>
+            )}
+          </div>
         </div>
       </div>
+
+      {/* Activity Feed */}
+      <div className="rounded-2xl border border-slate-200 bg-white p-5">
+        <h2 className="text-sm font-semibold text-slate-800 mb-4">Recent Activity</h2>
+        {recentActivity && recentActivity.length > 0 ? (
+          <div className="space-y-3">
+            {recentActivity.map((a: any) => (
+              <div key={a.id} className="flex items-start gap-3">
+                <div className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-400 shrink-0 mt-0.5">
+                  <Clock size={14} />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm text-slate-700">
+                    <span className="font-semibold">{a.actor_email?.split("@")[0] || "System"}</span>
+                    {" "}{a.action}{" "}
+                    <span className="text-slate-500">{a.entity_type}</span>
+                  </p>
+                  <p className="text-[11px] text-slate-400 mt-0.5">
+                    {new Date(a.created_at).toLocaleString("en-US", { month: "short", day: "numeric", hour: "numeric", minute: "2-digit" })}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <p className="text-sm text-slate-400 text-center py-4">No activity recorded yet.</p>
+        )}
+      </div>
+    </div>
+  );
+}
+
+function KPICard({
+  icon,
+  label,
+  value,
+  href,
+  accent,
+  alert,
+}: {
+  icon: React.ReactNode;
+  label: string;
+  value: string | number;
+  href: string;
+  accent: string;
+  alert?: string;
+}) {
+  return (
+    <Link href={href} className="group rounded-2xl border border-slate-200 bg-white p-4 hover:border-[var(--accent)]/30 hover:shadow-lg hover:shadow-slate-900/5 transition-all duration-200">
+      <div className="flex items-center justify-between mb-3">
+        <div className={`w-10 h-10 rounded-xl ${accent} flex items-center justify-center`}>{icon}</div>
+        <ArrowUpRight size={14} className="text-slate-300 group-hover:text-[var(--accent)] transition-colors" />
+      </div>
+      <p className="text-2xl font-bold text-slate-900 tracking-tight">{value}</p>
+      <p className="text-xs text-slate-500 font-medium mt-0.5">{label}</p>
+      {alert && <p className="text-[10px] font-semibold text-red-500 mt-1">{alert}</p>}
+    </Link>
+  );
+}
+
+function StatBlock({ label, value, icon }: { label: string; value: string | number; icon: React.ReactNode }) {
+  return (
+    <div className="rounded-xl bg-slate-50 border border-slate-100 p-3">
+      <div className="flex items-center gap-2 mb-1.5 text-slate-400">{icon}<span className="text-[11px] font-medium">{label}</span></div>
+      <p className="text-xl font-bold text-slate-800">{value}</p>
     </div>
   );
 }

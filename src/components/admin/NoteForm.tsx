@@ -2,6 +2,7 @@
 
 import { useRef, useTransition } from "react";
 import { Send } from "lucide-react";
+import { toast } from "sonner";
 
 interface NoteFormProps {
   action: (formData: FormData) => Promise<void>;
@@ -17,6 +18,7 @@ export function NoteForm({ action, entityId, fieldName = "inquiry_id" }: NoteFor
     startTransition(async () => {
       await action(fd);
       ref.current?.reset();
+      toast.success("Note added");
     });
   };
 
@@ -27,12 +29,12 @@ export function NoteForm({ action, entityId, fieldName = "inquiry_id" }: NoteFor
         name="body"
         required
         placeholder="Add a note..."
-        className="flex-1 text-sm px-3 py-2 rounded-lg border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-300"
+        className="flex-1 text-sm px-3 py-2.5 rounded-xl border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-[var(--accent)]/20 focus:border-[var(--accent)]"
       />
       <button
         type="submit"
         disabled={pending}
-        className="px-3 py-2 rounded-lg bg-slate-900 text-white text-sm font-medium hover:bg-slate-800 disabled:opacity-50 flex items-center gap-1.5"
+        className="px-4 py-2.5 rounded-xl bg-[var(--accent)] text-white text-sm font-semibold hover:bg-[var(--accent-hover)] disabled:opacity-50 flex items-center gap-1.5 transition-colors"
       >
         <Send size={14} />
         {pending ? "..." : "Add"}

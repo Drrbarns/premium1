@@ -1,9 +1,9 @@
 export type StaffRole = "admin" | "operations" | "documentation" | "customer_service";
 
 const ROLE_PERMISSIONS: Record<StaffRole, string[]> = {
-  admin: ["inquiries", "shipments", "documents", "clients", "staff", "settings"],
-  operations: ["inquiries", "shipments", "documents", "clients"],
-  documentation: ["documents", "shipments:read", "clients:read"],
+  admin: ["inquiries", "shipments", "customs", "documents", "clients", "finance", "staff", "settings"],
+  operations: ["inquiries", "shipments", "customs", "documents", "clients", "finance"],
+  documentation: ["documents", "customs", "shipments:read", "clients:read"],
   customer_service: ["inquiries", "clients"],
 };
 
@@ -22,8 +22,10 @@ export function getNavItems(role: StaffRole) {
     { href: "/admin", label: "Dashboard", icon: "LayoutDashboard", resource: "" },
     { href: "/admin/inquiries", label: "Inquiries", icon: "Inbox", resource: "inquiries" },
     { href: "/admin/shipments", label: "Shipments", icon: "Truck", resource: "shipments" },
+    { href: "/admin/customs", label: "Customs", icon: "ClipboardCheck", resource: "customs" },
     { href: "/admin/documents", label: "Documents", icon: "FileText", resource: "documents" },
     { href: "/admin/clients", label: "Clients", icon: "Users", resource: "clients" },
+    { href: "/admin/finance", label: "Finance", icon: "DollarSign", resource: "finance" },
     { href: "/admin/staff", label: "Staff", icon: "Shield", resource: "staff" },
     { href: "/admin/settings", label: "Settings", icon: "Settings", resource: "settings" },
   ];

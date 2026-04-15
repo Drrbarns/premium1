@@ -1,6 +1,7 @@
 "use client";
 
 import { useTransition } from "react";
+import { toast } from "sonner";
 
 interface StatusSelectProps {
   currentStatus: string;
@@ -33,8 +34,9 @@ export function StatusSelect({ currentStatus, statuses, action, entityId, colors
     const fd = new FormData();
     fd.set("id", entityId);
     fd.set("status", e.target.value);
-    startTransition(() => {
-      action(fd);
+    startTransition(async () => {
+      await action(fd);
+      toast.success(`Status updated to ${e.target.value.replace(/_/g, " ")}`);
     });
   };
 

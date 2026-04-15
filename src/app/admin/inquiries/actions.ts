@@ -2,6 +2,7 @@
 
 import { createServiceRoleClient } from "@/lib/supabase/server";
 import { revalidatePath } from "next/cache";
+import { logActivity } from "@/lib/activity";
 
 export async function updateInquiryStatus(formData: FormData) {
   const id = formData.get("id") as string;
@@ -10,6 +11,8 @@ export async function updateInquiryStatus(formData: FormData) {
   if (!supabase) return;
 
   await supabase.from("inquiries").update({ status, updated_at: new Date().toISOString() }).eq("id", id);
+
+  await logActivity({ entityType: "inquiry", entityId: id, action: `changed status to ${status}` });
 
   // Trigger notifications on key status changes
   if (status === "quoted") {
@@ -44,6 +47,7 @@ export async function assignInquiry(formData: FormData) {
     .from("inquiries")
     .update({ assigned_to: assigned_to || null, updated_at: new Date().toISOString() })
     .eq("id", id);
+  await logActivity({ entityType: "inquiry", entityId: id, action: "assigned inquiry" });
   revalidatePath(`/admin/inquiries/${id}`);
 }
 
@@ -54,6 +58,7 @@ export async function addInquiryNote(formData: FormData) {
   if (!supabase || !body?.trim()) return;
 
   await supabase.from("inquiry_notes").insert({ inquiry_id, body: body.trim() });
+  await logActivity({ entityType: "inquiry", entityId: inquiry_id, action: "added note" });
   revalidatePath(`/admin/inquiries/${inquiry_id}`);
 }
 
@@ -135,6 +140,8 @@ export async function convertToShipment(formData: FormData) {
       event_type: "created",
       message: `Shipment created from inquiry ${inq.inquiry_no}`,
     });
+    await logActivity({ entityType: "inquiry", entityId: id, action: "converted to shipment", metadata: { shipment_id: shipment.id } });
+    await logActivity({ entityType: "shipment", entityId: shipment.id, action: "created from inquiry", metadata: { inquiry_id: id } });
   }
 
   revalidatePath(`/admin/inquiries/${id}`);
