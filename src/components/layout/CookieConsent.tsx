@@ -28,7 +28,7 @@ export function CookieConsent() {
   if (!visible) return null;
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-[100] p-4 md:p-6 md:flex md:items-end md:justify-center pointer-events-none">
+    <div className="pointer-events-none fixed bottom-0 left-0 right-0 z-[100] p-4 pb-[max(1rem,env(safe-area-inset-bottom))] md:flex md:items-end md:justify-center md:p-6">
       <div className="pointer-events-auto max-w-3xl w-full rounded-2xl border border-slate-200 bg-white shadow-2xl p-6 md:flex md:items-center md:gap-8">
         <p className="text-sm text-slate-600 leading-relaxed flex-1">
           We use essential cookies to run this site and optional analytics to improve it. See our{" "}

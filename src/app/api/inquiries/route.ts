@@ -78,9 +78,9 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: error.message }, { status: 500 });
     }
 
-    // Optional: trigger notification (requires notify + templates)
+    // Trigger notifications: email to staff + SMS alert + confirmation to client
     try {
-      const { sendNotification } = await import("@/lib/notify");
+      const { sendNotification, sendTemplateNotification } = await import("@/lib/notify");
       const staffEmail = process.env.NOTIFY_STAFF_EMAIL || process.env.EMAIL_FROM;
       if (staffEmail) {
         await sendNotification({
@@ -88,6 +88,27 @@ export async function POST(request: Request) {
           recipient: staffEmail,
           subject: "New Inquiry - Premium 1 Logistics",
           body: `New inquiry ${data.inquiry_no} from ${full_name} (${email}). Origin: ${origin} → ${destination}. Check admin dashboard.`,
+        });
+      }
+      // SMS alert to staff
+      const staffPhone = process.env.NOTIFY_STAFF_PHONE;
+      if (staffPhone) {
+        await sendTemplateNotification({
+          templateKey: "new_inquiry_alert",
+          channel: "sms",
+          recipient: staffPhone,
+          payload: { inquiry_no: data.inquiry_no, client_name: full_name },
+          supabase,
+        });
+      }
+      // Confirmation email to client
+      if (email) {
+        await sendTemplateNotification({
+          templateKey: "inquiry_confirmation",
+          channel: "email",
+          recipient: email,
+          payload: { inquiry_no: data.inquiry_no, client_name: full_name },
+          supabase,
         });
       }
     } catch (_) {

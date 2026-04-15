@@ -13,11 +13,12 @@ const steps = [
 export function ProcessPreview() {
   return (
     <section 
-      className="relative py-24 md:py-32 overflow-hidden bg-fixed bg-center bg-cover text-white"
-      style={{ backgroundImage: "url('/process-bg.webp')" }}
+      className="relative overflow-hidden bg-cover bg-center bg-scroll py-20 text-white md:bg-fixed md:py-28 lg:py-32"
+      style={{ backgroundImage: "url('/hero-slide-2.webp')" }}
     >
-      <div className="absolute inset-0 bg-[#0B1F3A]/18" aria-hidden />
-      <div className="absolute inset-0 hero-grid opacity-10" aria-hidden />
+      <div className="absolute inset-0 bg-[#0B1F3A]/60" aria-hidden />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(11,31,58,0.8)_100%)]" aria-hidden />
+      <div className="absolute inset-0 hero-grid opacity-[0.08]" aria-hidden />
       
       <Container className="relative z-10">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16 md:mb-24">
@@ -28,14 +29,14 @@ export function ProcessPreview() {
                 Our process
               </span>
             </div>
-            <h2 className="font-display font-bold text-4xl sm:text-5xl text-white tracking-tight leading-[1.1]">
+            <h2 className="font-display text-3xl font-bold leading-[1.12] tracking-tight text-white sm:text-4xl md:text-5xl">
               A transparent approach <br className="hidden md:block" />
               <span className="text-white/60">from quote to delivery.</span>
             </h2>
           </AnimateOnScroll>
           
           <AnimateOnScroll animation="fade-up" delay={100} className="flex-shrink-0 pb-2">
-            <CTAButton href="/how-we-operate" variant="primary" className="!rounded-full px-8 border border-white/20">
+            <CTAButton href="/how-we-operate" variant="primary" className="!rounded-full px-8 border border-[var(--accent)]/20">
               See full process
             </CTAButton>
           </AnimateOnScroll>
@@ -51,15 +52,15 @@ export function ProcessPreview() {
             const Icon = step.icon;
             return (
               <AnimateOnScroll key={i} animation="fade-up" delay={i * 150} className="relative group z-10">
-                <div className="flex flex-col h-full rounded-3xl bg-white/5 backdrop-blur-md border border-white/10 p-8 transition-all duration-500 hover:bg-white/10 hover:border-white/20 hover:-translate-y-1">
+                <div className="flex h-full flex-col rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-md transition-all duration-500 hover:-translate-y-1 hover:border-[var(--accent)]/40 hover:bg-white/10 hover:shadow-2xl hover:shadow-[var(--accent)]/10 sm:rounded-3xl sm:p-8 md:hover:-translate-y-2">
                   
                   {/* Step Number Background */}
-                  <div className="absolute top-4 right-6 text-[6rem] font-display font-black leading-none text-white/[0.03] group-hover:text-[var(--accent)]/[0.1] transition-colors duration-500 pointer-events-none select-none">
-                    0{i + 1}
+                  <div className="pointer-events-none absolute right-4 top-3 select-none font-display text-[3.5rem] font-black leading-none text-white/[0.04] transition-colors duration-500 group-hover:text-[var(--accent)]/[0.1] sm:right-6 sm:top-4 sm:text-[5rem] lg:text-[6rem]">
+                    {String(i + 1).padStart(2, "0")}
                   </div>
 
                   <div className="relative z-10">
-                    <div className="w-14 h-14 rounded-2xl bg-white/10 flex items-center justify-center text-[var(--accent)] mb-8 transition-transform duration-500 group-hover:scale-110 group-hover:bg-[var(--accent)] group-hover:text-white">
+                    <div className="w-14 h-14 rounded-2xl bg-white/10 flex items-center justify-center text-[var(--accent)] mb-8 transition-transform duration-500 group-hover:scale-110 group-hover:bg-[var(--accent)] group-hover:text-white shadow-lg">
                       <Icon size={24} strokeWidth={1.5} />
                     </div>
                     

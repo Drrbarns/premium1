@@ -1,110 +1,161 @@
 "use client";
 
 import Image from "next/image";
-import { useMemo, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Container } from "@/components/design-system/Container";
-import { AnimateOnScroll } from "@/components/ui/AnimateOnScroll";
 import { MOCK_TESTIMONIALS } from "@/lib/mock";
-import { Star, Quote, ArrowUpRight } from "lucide-react";
+import { Star } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export function TestimonialsPreview() {
-  const [activeId, setActiveId] = useState<string>(MOCK_TESTIMONIALS[0]?.id ?? "1");
-  const active = useMemo(
-    () => MOCK_TESTIMONIALS.find((t) => t.id === activeId) ?? MOCK_TESTIMONIALS[0],
-    [activeId]
-  );
+  const [active, setActive] = useState(0);
+  const total = MOCK_TESTIMONIALS.length;
+
+  const next = useCallback(() => setActive((p) => (p + 1) % total), [total]);
+
+  useEffect(() => {
+    const id = setInterval(next, 8000);
+    return () => clearInterval(id);
+  }, [next]);
+
+  const t = MOCK_TESTIMONIALS[active];
 
   return (
-    <section className="relative py-24 md:py-32 bg-[var(--surface-warm)] overflow-hidden">
-      <div className="absolute -top-16 right-0 w-[420px] h-[320px] bg-[var(--accent)]/10 rounded-full blur-[90px]" />
-      <Container className="relative">
-        <AnimateOnScroll animation="fade-up" className="text-center max-w-2xl mx-auto">
-          <span className="inline-block px-4 py-1.5 text-xs font-semibold tracking-[0.15em] text-[var(--accent)] uppercase bg-[var(--accent-soft)] rounded-full mb-4">
-            Testimonials
-          </span>
-          <h2 className="font-display font-bold text-3xl sm:text-4xl lg:text-5xl text-[var(--ink)] tracking-tight">
-            What our clients say
-          </h2>
-          <p className="mt-6 text-slate-600 text-lg">
-            Trusted by corporate teams across Ghana and West Africa.
-          </p>
-        </AnimateOnScroll>
+    <section className="relative overflow-hidden bg-[var(--surface-warm)] py-16 md:py-24">
+      <div className="absolute inset-0 hero-grid opacity-[0.06]" aria-hidden />
+      <div
+        className="pointer-events-none absolute -right-24 top-1/2 h-[420px] w-[420px] -translate-y-1/2 rounded-full bg-[var(--accent)]/[0.07] blur-[100px]"
+        aria-hidden
+      />
 
-        <div className="mt-16 grid lg:grid-cols-5 gap-8 xl:gap-10 items-start">
-          <AnimateOnScroll animation="slide-right" className="lg:col-span-3">
-            <div className="rounded-3xl bg-white border border-slate-200/80 shadow-xl shadow-slate-900/5 p-8 md:p-10 relative overflow-hidden min-h-[340px]">
-              <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[var(--accent)] to-[var(--accent-hover)]" />
-              <Quote className="absolute -right-4 -top-4 w-28 h-28 text-[var(--accent)]/10" />
-              <div className="flex items-center gap-1 mb-7">
-                {Array.from({ length: active.rating }).map((_, j) => (
-                  <Star key={j} size={18} className="fill-[var(--accent)] text-[var(--accent)]" />
-                ))}
-              </div>
-              <blockquote className="text-[var(--ink)] text-xl md:text-2xl leading-relaxed font-display italic max-w-2xl">
-                &ldquo;{active.quote}&rdquo;
-              </blockquote>
-              <div className="mt-10 flex items-center justify-between flex-wrap gap-4">
-                <div className="flex items-center gap-4">
-                  {active.avatar ? (
-                    <div className="relative w-14 h-14 rounded-full overflow-hidden flex-shrink-0 ring-2 ring-slate-100">
-                      <Image src={active.avatar} alt="" fill className="object-cover" sizes="56px" />
+      <Container className="relative">
+        <div className="grid min-w-0 items-stretch gap-8 sm:gap-10 lg:grid-cols-12 lg:gap-14">
+          {/* Left: editorial intro + pickers */}
+          <div className="flex min-w-0 flex-col justify-center lg:col-span-5">
+            <p className="mb-2 text-[10px] font-bold uppercase tracking-[0.28em] text-[var(--accent)]">
+              Field notes
+            </p>
+            <h2 className="font-display text-2xl font-bold tracking-tight text-[var(--ink)] sm:text-3xl md:text-4xl">
+              What operators say
+              <span className="mt-1 block text-lg font-normal text-slate-500 md:text-xl">
+                after the cargo clears.
+              </span>
+            </h2>
+            <p className="mt-4 max-w-sm text-sm leading-relaxed text-slate-600">
+              Short reads from teams we support in Ghana and across the corridor—no stock photos, no filler.
+            </p>
+
+            <div className="mt-8 space-y-2">
+              {MOCK_TESTIMONIALS.map((item, i) => {
+                const isOn = i === active;
+                return (
+                  <button
+                    key={item.id}
+                    type="button"
+                    onClick={() => setActive(i)}
+                    className={cn(
+                      "flex min-h-[3.25rem] w-full items-center gap-3 rounded-2xl border px-3 py-3 text-left transition-all duration-300 sm:min-h-0 sm:gap-4 sm:px-4 sm:py-3.5",
+                      isOn
+                        ? "border-[var(--accent)]/40 bg-white shadow-lg shadow-slate-900/[0.06]"
+                        : "border-transparent bg-white/40 hover:bg-white/80",
+                    )}
+                    aria-pressed={isOn}
+                    aria-label={`Show testimonial from ${item.client_name}`}
+                  >
+                    {item.avatar ? (
+                      <div className="relative h-11 w-11 shrink-0 overflow-hidden rounded-full ring-2 ring-white">
+                        <Image src={item.avatar} alt="" fill className="object-cover" sizes="44px" />
+                      </div>
+                    ) : (
+                      <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[var(--navy)]/8 font-display text-sm font-bold text-[var(--accent)]">
+                        {item.client_name
+                          .split(" ")
+                          .map((n) => n[0])
+                          .join("")}
+                      </div>
+                    )}
+                    <div className="min-w-0 flex-1">
+                      <p
+                        className={cn(
+                          "truncate font-display text-sm font-bold",
+                          isOn ? "text-[var(--ink)]" : "text-slate-700",
+                        )}
+                      >
+                        {item.client_name}
+                      </p>
+                      <p className="truncate text-xs font-semibold uppercase tracking-wider text-[var(--accent)]">
+                        {item.company}
+                      </p>
                     </div>
-                  ) : (
-                    <div className="w-14 h-14 rounded-full bg-[var(--navy)]/10 text-[var(--accent)] font-display font-bold flex items-center justify-center flex-shrink-0">
-                      {active.client_name.split(" ").map((n) => n[0]).join("")}
-                    </div>
-                  )}
-                  <div>
-                    <p className="font-display font-bold text-xl text-[var(--ink)]">{active.client_name}</p>
-                    <p className="text-sm text-[var(--accent)] font-semibold">{active.company}</p>
-                    {active.role ? <p className="text-xs text-slate-500 mt-0.5">{active.role}</p> : null}
+                    <span
+                      className={cn(
+                        "font-mono text-[10px] font-bold tabular-nums text-slate-400",
+                        isOn && "text-[var(--accent)]",
+                      )}
+                    >
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Right: quote panel */}
+          <div className="relative min-w-0 lg:col-span-7">
+            <div className="relative flex h-full min-h-[260px] flex-col justify-between overflow-hidden rounded-2xl border border-slate-200/80 bg-[var(--navy)] p-5 text-white shadow-xl shadow-slate-900/15 sm:min-h-[300px] sm:p-7 md:p-9 lg:min-h-[360px]">
+              <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_100%_0%,rgba(46,196,182,0.12),transparent_55%)]" />
+              <div className="pointer-events-none absolute inset-0 hero-grid opacity-[0.07]" />
+
+              <div className="relative">
+                <div className="mb-5 flex flex-wrap items-center gap-3">
+                  <div className="flex gap-0.5">
+                    {Array.from({ length: t.rating }).map((_, j) => (
+                      <Star key={j} size={14} className="fill-[var(--accent)] text-[var(--accent)]" />
+                    ))}
                   </div>
+                  <span className="rounded-full border border-white/15 bg-white/5 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-white/70">
+                    Verified client
+                  </span>
                 </div>
-                <span className="inline-flex items-center gap-2 text-sm font-semibold text-[var(--accent)]">
-                  Verified client
-                  <ArrowUpRight size={16} />
-                </span>
+
+                <blockquote
+                  key={t.id}
+                  className="animate-fade-up font-display text-base font-medium leading-relaxed tracking-tight text-white/95 sm:text-lg md:text-xl"
+                >
+                  &ldquo;{t.quote}&rdquo;
+                </blockquote>
+              </div>
+
+              <div className="relative mt-8 flex flex-wrap items-end justify-between gap-4 border-t border-white/10 pt-6">
+                <div>
+                  <p className="font-display text-base font-bold text-white">{t.client_name}</p>
+                  <p className="mt-0.5 text-sm text-white/55">
+                    {t.role ? `${t.role} · ` : null}
+                    <span className="font-semibold text-[var(--accent)]">{t.company}</span>
+                  </p>
+                </div>
+                <div className="flex items-center gap-1 sm:gap-1.5" role="tablist" aria-label="Testimonial">
+                  {MOCK_TESTIMONIALS.map((_, i) => (
+                    <button
+                      key={i}
+                      type="button"
+                      onClick={() => setActive(i)}
+                      className="flex h-11 min-w-11 items-center justify-center rounded-lg sm:h-auto sm:min-w-0 sm:rounded-none sm:p-0"
+                      aria-label={`Testimonial ${i + 1}`}
+                      aria-current={i === active}
+                    >
+                      <span
+                        className={cn(
+                          "block h-1.5 rounded-full transition-all duration-300",
+                          i === active ? "w-8 bg-[var(--accent)]" : "w-2 bg-white/25 sm:w-1.5",
+                        )}
+                      />
+                    </button>
+                  ))}
+                </div>
               </div>
             </div>
-          </AnimateOnScroll>
-
-          <div className="lg:col-span-2 space-y-3">
-            {MOCK_TESTIMONIALS.map((t, i) => {
-              const isActive = t.id === activeId;
-              return (
-                <AnimateOnScroll key={t.id} animation="slide-left" delay={i * 80}>
-                  <button
-                    type="button"
-                    onClick={() => setActiveId(t.id)}
-                    className={cn(
-                      "w-full text-left rounded-2xl border p-4 transition-all duration-300",
-                      isActive
-                        ? "bg-white border-[var(--accent)]/35 shadow-lg shadow-[var(--accent)]/10"
-                        : "bg-white/60 border-slate-200 hover:bg-white hover:border-slate-300"
-                    )}
-                  >
-                    <div className="flex items-center gap-3">
-                      {t.avatar ? (
-                        <div className="relative w-10 h-10 rounded-full overflow-hidden flex-shrink-0">
-                          <Image src={t.avatar} alt="" fill className="object-cover" sizes="40px" />
-                        </div>
-                      ) : (
-                        <div className="w-10 h-10 rounded-full bg-[var(--navy)]/10 text-[var(--accent)] font-display font-bold text-sm flex items-center justify-center flex-shrink-0">
-                          {t.client_name.split(" ").map((n) => n[0]).join("")}
-                        </div>
-                      )}
-                      <div className="min-w-0">
-                        <p className={cn("font-display font-bold truncate", isActive ? "text-[var(--ink)]" : "text-slate-700")}>
-                          {t.client_name}
-                        </p>
-                        <p className="text-xs text-[var(--accent)] font-semibold truncate">{t.company}</p>
-                      </div>
-                    </div>
-                  </button>
-                </AnimateOnScroll>
-              );
-            })}
           </div>
         </div>
       </Container>

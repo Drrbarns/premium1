@@ -26,7 +26,12 @@ export default async function ShipmentsPage() {
 
   return (
     <div>
-      <h1 className="text-2xl font-semibold text-slate-900 mb-8">Shipment Management</h1>
+      <div className="flex items-center justify-between mb-8">
+        <h1 className="text-2xl font-semibold text-slate-900">Shipment Management</h1>
+        <Link href="/admin/shipments/new" className="px-4 py-2 rounded-lg bg-slate-900 text-white text-sm font-medium hover:bg-slate-800">
+          + New Shipment
+        </Link>
+      </div>
       <div className="bg-white rounded-lg border border-slate-200 overflow-hidden">
         <table className="w-full text-sm">
           <thead className="bg-slate-50 border-b border-slate-200">

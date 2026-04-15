@@ -27,6 +27,17 @@ export function Header() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    if (open) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [open]);
+
   return (
     <header 
       className={cn(
@@ -36,7 +47,7 @@ export function Header() {
           : "bg-[var(--navy)]/40 backdrop-blur-sm border-b border-transparent py-3 md:py-6"
       )}
     >
-      <div className="w-full max-w-7xl mx-auto px-3 sm:px-4 md:px-6 xl:px-8">
+      <div className="mx-auto w-full max-w-7xl px-3 pt-[env(safe-area-inset-top,0px)] sm:px-4 md:px-6 xl:px-8">
         <div className="flex items-center justify-between">
           <Link
             href="/"
@@ -77,22 +88,24 @@ export function Header() {
           </div>
 
           <button
-            className="lg:hidden p-2.5 rounded-full text-white hover:bg-white/10 transition-colors"
+            type="button"
+            className="min-h-11 min-w-11 rounded-full p-2.5 text-white transition-colors hover:bg-white/10 lg:hidden"
             onClick={() => setOpen(!open)}
-            aria-label="Menu"
+            aria-expanded={open}
+            aria-label={open ? "Close menu" : "Open menu"}
           >
             {open ? <X size={26} /> : <Menu size={26} />}
           </button>
         </div>
 
         {open && (
-          <div className="absolute top-full left-3 right-3 mt-2 bg-[var(--navy)]/95 backdrop-blur-xl border border-white/10 rounded-2xl p-4 sm:p-5 shadow-2xl lg:hidden animate-fade-down">
-            <nav className="flex flex-col gap-2">
+          <div className="animate-fade-down absolute left-3 right-3 top-full z-50 mt-2 max-h-[min(75vh,calc(100dvh-5.5rem))] overflow-y-auto overscroll-contain rounded-2xl border border-white/10 bg-[var(--navy)]/95 p-4 shadow-2xl backdrop-blur-xl sm:left-4 sm:right-4 sm:p-5 lg:hidden">
+            <nav className="flex flex-col gap-1">
               {navLinks.map((l) => (
                 <Link
                   key={l.href}
                   href={l.href}
-                  className="py-2.5 px-3.5 rounded-xl text-white/90 hover:bg-white/10 font-medium transition-colors"
+                  className="min-h-11 rounded-xl px-3.5 py-3 text-base font-medium text-white/90 transition-colors hover:bg-white/10 active:bg-white/15"
                   onClick={() => setOpen(false)}
                 >
                   {l.label}
@@ -100,7 +113,7 @@ export function Header() {
               ))}
               <Link
                 href="/contact"
-                className="py-2.5 px-3.5 rounded-xl text-white/90 hover:bg-white/10 font-medium transition-colors"
+                className="min-h-11 rounded-xl px-3.5 py-3 text-base font-medium text-white/90 transition-colors hover:bg-white/10 active:bg-white/15"
                 onClick={() => setOpen(false)}
               >
                 Contact

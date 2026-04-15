@@ -24,7 +24,7 @@ export function PageHero({ eyebrow, title, description, crumbs, variant = "dark"
   return (
     <div
       className={cn(
-        "relative overflow-hidden pt-20 pb-14 md:pt-32 md:pb-28",
+        "relative overflow-hidden pb-14 pt-[calc(5rem+env(safe-area-inset-top,0px))] md:pb-28 md:pt-32",
         !backgroundImage && isDark && "bg-[var(--navy)] mesh-hero",
         !backgroundImage && !isDark && "bg-white mesh-hero-light",
         isDark ? "text-white" : "text-[var(--ink)]",
@@ -86,7 +86,7 @@ export function PageHero({ eyebrow, title, description, crumbs, variant = "dark"
             {eyebrow}
           </p>
         )}
-        <h1 className="font-display font-bold text-3xl sm:text-5xl md:text-6xl lg:text-[3.5rem] leading-[1.08] tracking-tight max-w-4xl">
+        <h1 className="max-w-4xl font-display text-[1.75rem] font-bold leading-[1.1] tracking-tight sm:text-4xl md:text-5xl md:leading-[1.08] lg:text-[3.25rem]">
           {title}
         </h1>
         <p

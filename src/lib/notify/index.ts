@@ -26,5 +26,63 @@ export async function sendNotification(params: SendNotificationParams): Promise<
   return { success: false, error: "Unknown channel" };
 }
 
+/**
+ * Template-based notification that logs to the notifications table.
+ * Interpolates {{key}} placeholders in subject/body with payload values.
+ */
+export async function sendTemplateNotification(opts: {
+  templateKey: string;
+  channel: NotificationChannel;
+  recipient: string;
+  payload: Record<string, string>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  supabase?: any;
+}): Promise<{ success: boolean; error?: string }> {
+  const { templateKey, channel, recipient, payload, supabase } = opts;
+
+  let subject = "";
+  let body = "";
+
+  if (supabase) {
+    const { data: tpl } = await supabase
+      .from("notification_templates")
+      .select("subject, body")
+      .eq("key", templateKey)
+      .eq("channel", channel)
+      .eq("is_active", true)
+      .single();
+
+    if (tpl) {
+      subject = tpl.subject || "";
+      body = tpl.body || "";
+    }
+  }
+
+  if (!body) {
+    subject = payload.subject || `Premium 1 Logistics - ${templateKey.replace(/_/g, " ")}`;
+    body = payload.body || `Notification: ${templateKey}`;
+  }
+
+  const interpolate = (str: string) =>
+    str.replace(/\{\{(\w+)\}\}/g, (_, k) => payload[k] || "");
+
+  subject = interpolate(subject);
+  body = interpolate(body);
+
+  const result = await sendNotification({ channel, recipient, subject, body });
+
+  if (supabase) {
+    await supabase.from("notifications").insert({
+      channel,
+      recipient,
+      template_key: templateKey,
+      payload,
+      status: result.success ? "sent" : "failed",
+    }).catch(() => {});
+  }
+
+  return result;
+}
+
 export { sendEmail } from "./emailProvider";
 export { sendSMS } from "./smsProvider";

@@ -1,133 +1,102 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Image from "next/image";
-import { useRef, useEffect, useState } from "react";
+import { ArrowRight } from "lucide-react";
 import { CTAButton } from "@/components/design-system/CTAButton";
-import { ChevronLeft, ChevronRight } from "lucide-react";
-import { HERO_SLIDES } from "@/lib/heroSlides";
+import { cn } from "@/lib/utils";
 
-const AUTO_ADVANCE_MS = 5000;
+const HERO_IMAGES = [
+  "/hero-logistics.webp",
+  "/hero-slide-2.webp",
+  "/hero-slide-1.webp",
+];
 
 export function ParallaxHero() {
-  const imageRef = useRef<HTMLDivElement>(null);
-  const [offset, setOffset] = useState(0);
-  const [slide, setSlide] = useState(0);
+  const [currentIdx, setCurrentIdx] = useState(0);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setOffset(window.scrollY * 0.4);
-    };
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll();
-    return () => window.removeEventListener("scroll", handleScroll);
+    const interval = setInterval(() => {
+      setCurrentIdx((prev) => (prev + 1) % HERO_IMAGES.length);
+    }, 6000);
+    return () => clearInterval(interval);
   }, []);
-
-  useEffect(() => {
-    const t = setInterval(() => {
-      setSlide((s) => (s + 1) % HERO_SLIDES.length);
-    }, AUTO_ADVANCE_MS);
-    return () => clearInterval(t);
-  }, []);
-
-  const goTo = (index: number) => setSlide(index);
-  const prev = () => setSlide((s) => (s - 1 + HERO_SLIDES.length) % HERO_SLIDES.length);
-  const next = () => setSlide((s) => (s + 1) % HERO_SLIDES.length);
 
   return (
-    <section className="relative min-h-[74vh] md:min-h-[90vh] flex items-center justify-center overflow-hidden">
-      <div
-        ref={imageRef}
-        className="absolute inset-0 -top-24 -bottom-24"
-        style={{ transform: `translateY(${offset * 0.4}px)` }}
-      >
-        {HERO_SLIDES.map((item, i) => (
+    <section className="relative flex min-h-[85vh] items-center justify-center overflow-hidden bg-[var(--navy)] sm:min-h-[90vh] md:min-h-[100vh]">
+      {/* Background Images with Crossfade */}
+      {HERO_IMAGES.map((src, idx) => {
+        const isCurrent = idx === currentIdx;
+        const isPrev = idx === (currentIdx - 1 + HERO_IMAGES.length) % HERO_IMAGES.length;
+        
+        return (
           <div
-            key={i}
-            className={`absolute inset-0 transition-opacity duration-700 ease-out ${
-              i === slide ? "opacity-100 z-[1]" : "opacity-0 z-0 pointer-events-none"
-            }`}
-            aria-hidden={i !== slide}
+            key={src}
+            className={cn(
+              "absolute inset-0 transition-opacity duration-[1500ms] ease-in-out",
+              isCurrent ? "opacity-100 z-10" : isPrev ? "opacity-100 z-0" : "opacity-0 -z-10"
+            )}
           >
             <Image
-              src={item.image}
-              alt={item.imageAlt}
+              src={src}
+              alt={`Logistics hero background ${idx + 1}`}
               fill
-              priority={i === 0}
+              priority={idx === 0}
               sizes="100vw"
-              className="object-cover scale-105"
+              className="object-cover"
             />
           </div>
-        ))}
-      </div>
-      <div className="absolute inset-0 bg-gradient-to-b from-[var(--navy)]/18 via-[var(--navy)]/18 to-[var(--navy)]/18" />
+        );
+      })}
 
-      {/* Content: two separate regions so text never sits behind buttons */}
-      <div className="relative z-10 w-full max-w-4xl mx-auto px-4 flex flex-col items-center flex-1 justify-center pt-20 md:pt-16 pb-10 md:pb-8">
-        {/* Slide content only – centered in this block */}
-        <div className="relative w-full text-center flex-shrink-0 min-h-[220px] sm:min-h-[240px] flex flex-col items-center justify-center">
-          {HERO_SLIDES.map((item, i) => (
-            <div
-              key={i}
-              className={`absolute inset-0 flex flex-col items-center justify-center transition-opacity duration-500 ${
-                i === slide
-                  ? "opacity-100 visible z-10"
-                  : "opacity-0 invisible z-0 pointer-events-none"
-              }`}
-              aria-hidden={i !== slide}
-            >
-              <h1 className="font-display font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-white tracking-tight leading-[1.15] max-w-3xl mx-auto drop-shadow-lg px-2">
-                {item.headline}
-              </h1>
-              {item.subtext && (
-                <p className="mt-4 sm:mt-5 text-sm sm:text-base md:text-lg text-slate-200 max-w-2xl mx-auto leading-relaxed drop-shadow-[0_1px_2px_rgba(0,0,0,0.5)] px-3 sm:px-0">
-                  {item.subtext}
-                </p>
-              )}
-            </div>
-          ))}
+      {/* Uniform 20% Overlay */}
+      <div className="absolute inset-0 bg-[var(--navy)]/20 z-10" />
+
+      {/* Main Content */}
+      <div className="relative z-20 mx-auto flex w-full max-w-7xl min-w-0 flex-col items-center px-4 pb-14 pt-[calc(5.5rem+env(safe-area-inset-top,0px))] text-center sm:px-6 md:pb-24 md:pt-32 lg:px-8">
+        
+        {/* Floating Accent Badge */}
+        <div className="animate-fade-up mb-6 inline-flex max-w-[min(100%,22rem)] flex-wrap items-center justify-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 backdrop-blur-md sm:mb-8 sm:max-w-none sm:gap-3 sm:px-5 sm:py-2.5">
+          <span className="flex h-2 w-2 shrink-0 rounded-full bg-[var(--accent)] animate-pulse" />
+          <span className="text-center text-[10px] font-semibold uppercase tracking-wider text-white/80 sm:text-xs sm:tracking-widest md:text-sm">
+            Global Supply Chain Excellence
+          </span>
         </div>
 
-        {/* CTAs – below slide text */}
-        <div className="w-full flex-shrink-0 pt-8 sm:pt-10 pb-4 text-center">
-          <div className="flex flex-wrap justify-center gap-3 sm:gap-4">
-            <CTAButton href="/quote" variant="primary" size="md" className="btn-hover-lift text-sm sm:text-base">
-              Request a Quote
-            </CTAButton>
-            <CTAButton href="/quote" variant="light" size="md" className="btn-hover-lift text-sm sm:text-base">
-              Book Shipment
-            </CTAButton>
-          </div>
+        {/* Hero Typography */}
+        <h1 className="animate-fade-up mx-auto max-w-5xl font-display text-[1.65rem] font-bold leading-[1.12] tracking-tight text-white sm:text-4xl sm:leading-[1.1] md:text-5xl md:leading-[1.08] lg:text-6xl xl:text-[5.25rem] xl:leading-[1.05]" style={{ animationDelay: "100ms" }}>
+          Where <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--accent)] to-[#60E0D4]">Your Freight</span>
+          <br className="hidden sm:block" /> Moves With Confidence.
+        </h1>
+
+        <p className="mx-auto mt-6 max-w-2xl animate-fade-up text-base font-light leading-relaxed text-white/70 sm:mt-8 sm:text-lg md:text-xl" style={{ animationDelay: "200ms" }}>
+          Freight forwarding, customs clearance, door-to-door delivery, and ship agency — executed transparently, compliantly, and precisely on schedule.
+        </p>
+
+        {/* Action Buttons */}
+        <div className="mt-10 flex w-full max-w-md flex-col items-stretch justify-center gap-3 animate-fade-up sm:mt-12 sm:max-w-none sm:w-auto sm:flex-row sm:items-center sm:gap-5 md:gap-6" style={{ animationDelay: "300ms" }}>
+          <CTAButton href="/quote" variant="primary" size="lg" className="btn-hover-lift w-full justify-center space-x-2 px-6 py-3.5 text-sm sm:w-auto sm:px-8 sm:py-4 sm:text-base">
+            <span>Request a Quote</span>
+            <ArrowRight size={18} />
+          </CTAButton>
+          <CTAButton href="/contact" variant="outline" size="lg" className="btn-hover-lift w-full justify-center bg-white/5 px-6 py-3.5 text-sm backdrop-blur-sm sm:w-auto sm:px-8 sm:py-4 sm:text-base border-white/20 text-white hover:bg-white/10">
+            Speak to a Specialist
+          </CTAButton>
         </div>
+
+        {/* Key Stats / Trust Indicators below hero */}
       </div>
-
-      {/* Arrows */}
-      <button
-        type="button"
-        onClick={prev}
-        className="hidden sm:flex absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-white/20 hover:bg-white/30 text-white items-center justify-center transition-colors"
-        aria-label="Previous slide"
-      >
-        <ChevronLeft size={24} />
-      </button>
-      <button
-        type="button"
-        onClick={next}
-        className="hidden sm:flex absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-white/20 hover:bg-white/30 text-white items-center justify-center transition-colors"
-        aria-label="Next slide"
-      >
-        <ChevronRight size={24} />
-      </button>
-
-      {/* Dots */}
-      <div className="absolute bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 z-20 flex gap-2">
-        {HERO_SLIDES.map((_, i) => (
-          <button
-            key={i}
-            type="button"
-            onClick={() => goTo(i)}
-            className={`w-2.5 h-2.5 rounded-full transition-all ${
-              i === slide ? "bg-white scale-125" : "bg-white/50 hover:bg-white/70"
-            }`}
+      
+      {/* Decorative Slide Indicators */}
+      <div className="absolute left-8 md:left-12 bottom-1/2 -translate-y-1/2 z-20 flex flex-col gap-3 hidden lg:flex">
+        {HERO_IMAGES.map((_, i) => (
+          <button 
+            key={i} 
+            onClick={() => setCurrentIdx(i)}
+            className={cn(
+              "w-1.5 rounded-full transition-all duration-300",
+              i === currentIdx ? "h-8 bg-[var(--accent)]" : "h-2 bg-white/20 hover:bg-white/40"
+            )}
             aria-label={`Go to slide ${i + 1}`}
           />
         ))}

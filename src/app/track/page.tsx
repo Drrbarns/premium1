@@ -2,6 +2,7 @@ import Image from "next/image";
 import { Container, Section, CTAButton } from "@/components/design-system";
 import { PageHero } from "@/components/page/PageHero";
 import { AnimateOnScroll } from "@/components/ui/AnimateOnScroll";
+import { TrackLookup } from "@/components/track/TrackLookup";
 import {
   BarChart3,
   Bell,
@@ -96,6 +97,23 @@ export default function TrackPage() {
         crumbs={[{ label: "Home", href: "/" }, { label: "Track" }]}
         backgroundImage="/hero-logistics.webp"
       />
+
+      {/* ── Live Tracking Lookup ── */}
+      <section className="relative py-16 md:py-20 bg-[var(--surface-warm)]">
+        <Container>
+          <div className="max-w-3xl mx-auto">
+            <AnimateOnScroll animation="fade-up">
+              <h2 className="font-display font-bold text-2xl md:text-3xl text-[var(--ink)] text-center mb-2">
+                Track Your Shipment
+              </h2>
+              <p className="text-center text-slate-500 mb-8">
+                Enter your shipment or inquiry reference number to see real-time status and milestones.
+              </p>
+              <TrackLookup />
+            </AnimateOnScroll>
+          </div>
+        </Container>
+      </section>
 
       {/* ── Active Tracking Experience ── */}
       <section className="relative py-24 md:py-32 bg-white overflow-hidden">

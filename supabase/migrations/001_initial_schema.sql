@@ -139,13 +139,14 @@ CREATE TABLE IF NOT EXISTS notifications (
 -- notification_templates
 CREATE TABLE IF NOT EXISTS notification_templates (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  key TEXT UNIQUE NOT NULL,
+  key TEXT NOT NULL,
   channel TEXT NOT NULL CHECK (channel IN ('email', 'sms')),
   subject TEXT,
   body TEXT NOT NULL,
   is_active BOOLEAN DEFAULT true,
   created_at TIMESTAMPTZ DEFAULT NOW(),
-  updated_at TIMESTAMPTZ DEFAULT NOW()
+  updated_at TIMESTAMPTZ DEFAULT NOW(),
+  UNIQUE(key, channel)
 );
 
 -- testimonials

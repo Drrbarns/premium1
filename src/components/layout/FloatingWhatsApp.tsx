@@ -9,7 +9,7 @@ export function FloatingWhatsApp() {
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Chat on WhatsApp"
-      className="fixed bottom-24 md:bottom-6 right-4 md:right-6 z-50 inline-flex items-center gap-2 rounded-full bg-[var(--accent)] text-white px-4 py-3 shadow-xl shadow-black/20 hover:bg-[var(--accent-hover)] transition-all"
+      className="fixed bottom-[max(1.25rem,env(safe-area-inset-bottom,0px))] right-[max(1rem,env(safe-area-inset-right,0px))] z-50 inline-flex items-center gap-2 rounded-full bg-[var(--accent)] px-4 py-3 text-white shadow-xl shadow-black/20 transition-all hover:bg-[var(--accent-hover)] md:bottom-6 md:right-6"
     >
       <svg
         viewBox="0 0 32 32"

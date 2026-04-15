@@ -1,9 +1,8 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { DM_Sans, Syne } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
-import { StickyQuoteCTA } from "@/components/sections/StickyQuoteCTA";
 import { CookieConsent } from "@/components/layout/CookieConsent";
 import { FloatingWhatsApp } from "@/components/layout/FloatingWhatsApp";
 import { siteConfig } from "@/lib/siteConfig";
@@ -19,6 +18,12 @@ const syne = Syne({
   subsets: ["latin"],
   weight: ["500", "600", "700", "800"],
 });
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
@@ -81,7 +86,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="overflow-x-hidden">
       <head>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       </head>
@@ -90,7 +95,6 @@ export default function RootLayout({
         <main className="min-h-screen">{children}</main>
         <Footer />
         <FloatingWhatsApp />
-        <StickyQuoteCTA />
         <CookieConsent />
       </body>
     </html>
